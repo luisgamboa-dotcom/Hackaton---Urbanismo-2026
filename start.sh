@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+# Start script for Trama Urbana Verde
+# Creates venv, installs deps, initializes DB, syncs design tokens, starts server
+
+set -euo pipefail
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+log_info() {
+    echo -e "${BLUE}[INFO]${NC} $1"
+}
+
+log_success() {
+    echo -e "${GREEN}[OK]${NC} $1"
+}
+
+log_warn() {
+    echo -e "${YELLOW}[WARN]${NC} $1"
+}
+
+log_error() {
+    echo -e "${RED}[ERROR]${NC} $1"
+}
+
+# Get project root directory
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$PROJECT_ROOT"
+
+log_info "Starting Trama Urbana Verde..."
+log_info "Project root: $PROJECT_ROOT"
+
+# 1. Create virtual environment if it doesn't exist
+if [ ! -d ".venv" ]; then
+    log_info "Creating virtual environment..."
+    python3 -m venv .venv
+    log_success "Virtual environment created"
+else
+    log_info "Virtual environment already exists"
+fi
+
+# 2. Activate virtual environment
+log_info "Activating virtual environment..."
+source .venv/bin/activate
+
+# 3. Upgrade pip and install dependencies
+log_info "Upgrading pip and installing dependencies..."
+pip install --upgrade pip > /dev/null 2>&1
+pip install -r requirements.txt > /dev/null 2>&1
+log_success "Dependencies installed"
+
+# 4. Load environment variables
+if [ -f ".env" ]; then
+    log_info "Loading environment variables from .env..."
+    set -a
+    source .env
+    set +a
+    log_success "Environment variables loaded"
+else
+    log_warn "No .env file found. Copy .env.example to .env and configure DATABASE_URL"
+    log_warn "Continuing without database initialization..."
+fi
+
+# 5. Initialize database (if DATABASE_URL is set)
+if [ -n "${DATABASE_URL:-}" ]; then
+    log_info "Initializing database..."
+    python -c "
+import asyncio
+from config.database import init_db
+asyncio.run(init_db())
+" && log_success "Database initialized" || {
+        log_error "Database initialization failed"
+        exit 1
+    }
+else
+    log_warn "DATABASE_URL not set, skipping database initialization"
+fi
+
+# 6. Sync design tokens from Stitch to CSS
+log_info "Syncing design tokens..."
+python -m utils.stitch_sync > /dev/null 2>&1 && log_success "Design tokens synced" || {
+    log_warn "Design token sync failed (utils/stitch_sync.py not yet implemented)"
+}
+
+# 7. Start server with uvicorn
+log_info "Starting Uvicorn server on http://localhost:8000"
+log_info "Press Ctrl+C to stop"
+echo ""
+
+exec uvicorn main:app --host 0.0.0.0 --port 8000 --reload

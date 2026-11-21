@@ -1,0 +1,97 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trama-urbana-verde"
+version = "0.1.0"
+description = "Landing page para Trama Urbana Verde - Recuperación de espacios urbanos en Santiago"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "Luis Gamboa", email = "luisgamboaretamal@gmail.com"}]
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi==0.115.0",
+    "uvicorn[standard]==0.32.0",
+    "jinja2==3.1.4",
+    "pydantic==2.9.0",
+    "pydantic-settings==2.5.0",
+    "python-dotenv==1.0.1",
+    "sqlalchemy==2.0.34",
+    "asyncpg==0.29.0",
+    "alembic==1.13.1",
+    "httpx==0.27.2",
+    "python-multipart==0.0.12",
+    "email-validator==2.2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==8.3.0",
+    "pytest-asyncio==0.23.0",
+    "pytest-cov==5.0.0",
+    "ruff==0.6.0",
+    "mypy==1.11.0",
+    "pre-commit==3.8.0",
+]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "SIM", # flake8-simplify
+]
+ignore = [
+    "E501",  # line too long (handled by formatter)
+    "B008",  # function calls in default arguments
+]
+per-file-ignores = {
+    "tests/*": ["S101", "S106"],  # allow assert and hardcoded secrets in tests
+}
+format = {quote-style = "double", indent-style = "space"}
+
+[tool.ruff.isort]
+known-first-party = ["controllers", "models", "views", "config", "utils", "public", "sql", "tests"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+strict_optional = true
+enable_error_code = ["unused-ignore"]
+exclude = [
+    ".venv",
+    "migrations",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --cov=controllers --cov=models --cov=utils --cov=config --cov-report=term-missing"
+
+[tool.coverage.run]
+source = ["controllers", "models", "utils", "config"]
+omit = ["tests/*", "migrations/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]
