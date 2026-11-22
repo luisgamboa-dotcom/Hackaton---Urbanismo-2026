@@ -146,8 +146,8 @@ Transforma tu barrio: postula un espacio baldío para que lo recuperemos como pl
                             </div>
 
                             {# Hidden coordinate fields - filled by both modes #}
-                            <input type="hidden" id="space-lat" name="latitude" step="any" min="-90" max="90">
-                            <input type="hidden" id="space-lng" name="longitude" step="any" min="-180" max="180">
+                            <input type="hidden" id="space-lat" name="latitude" step="any" min="-90" max="90" required>
+                            <input type="hidden" id="space-lng" name="longitude" step="any" min="-180" max="180" required>
                         </div>
 
                         {# Map Panel #}
@@ -410,16 +410,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function validateStep(step) {
         const currentStepEl = form.querySelector(`.form-step[data-step="${step}"]`);
-        const requiredFields = currentStepEl.querySelectorAll('[required]');
         let valid = true;
-        requiredFields.forEach(field => {
-            if (!field.value.trim()) {
-                field.style.borderColor = 'var(--color-error)';
-                valid = false;
+
+        if (step === 1) {
+            // Step 1: Check based on active mode
+            const isMapMode = document.querySelector('.mode-btn[data-mode="map"]').getAttribute('aria-selected') === 'true';
+
+            if (isMapMode) {
+                // Map mode: require lat/lng to be filled (user must click on map)
+                const latField = document.getElementById('space-lat');
+                const lngField = document.getElementById('space-lng');
+
+                if (!latField.value || !lngField.value) {
+                    // Show error on map wrapper
+                    const mapWrapper = document.querySelector('.map-wrapper');
+                    if (mapWrapper) {
+                        mapWrapper.style.borderColor = 'var(--color-error)';
+                        mapWrapper.style.boxShadow = '0 0 0 3px rgba(186, 26, 26, 0.2)';
+                    }
+                    valid = false;
+                } else {
+                    const mapWrapper = document.querySelector('.map-wrapper');
+                    if (mapWrapper) {
+                        mapWrapper.style.borderColor = '';
+                        mapWrapper.style.boxShadow = '';
+                    }
+                }
             } else {
-                field.style.borderColor = '';
+                // Manual mode: require commune and address
+                const communeField = document.getElementById('space-commune');
+                const addressField = document.getElementById('space-address');
+
+                if (!communeField.value.trim()) {
+                    communeField.style.borderColor = 'var(--color-error)';
+                    valid = false;
+                } else {
+                    communeField.style.borderColor = '';
+                }
+
+                if (!addressField.value.trim()) {
+                    addressField.style.borderColor = 'var(--color-error)';
+                    valid = false;
+                } else {
+                    addressField.style.borderColor = '';
+                }
             }
-        });
+        } else {
+            // Other steps: validate all visible required fields
+            const requiredFields = currentStepEl.querySelectorAll('[required]:not([hidden])');
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = 'var(--color-error)';
+                    valid = false;
+                } else {
+                    field.style.borderColor = '';
+                }
+            });
+        }
         return valid;
     }
 
@@ -427,6 +474,12 @@ document.addEventListener('DOMContentLoaded', () => {
         form.querySelectorAll('[required]').forEach(field => {
             field.style.borderColor = '';
         });
+        // Clear map wrapper error styles
+        const mapWrapper = document.querySelector('.map-wrapper');
+        if (mapWrapper) {
+            mapWrapper.style.borderColor = '';
+            mapWrapper.style.boxShadow = '';
+        }
     }
 
     nextBtn.addEventListener('click', () => {
