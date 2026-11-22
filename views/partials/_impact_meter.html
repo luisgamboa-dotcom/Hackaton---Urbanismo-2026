@@ -1,0 +1,48 @@
+{# Impact Meter Section #}
+<section id="impact" class="impact-section section-sm" aria-labelledby="impact-title">
+    <div class="container">
+        <div class="impact-meter" data-scroll-reveal>
+            <header class="impact-meter-header">
+                <span class="section-badge" style="background: var(--color-tertiary); color: var(--color-on-tertiary);">Medidor de impacto</span>
+                <h2 id="impact-title" class="impact-meter-title">Metros cuadrados de suelo vivo recuperados</h2>
+                <p class="impact-meter-subtitle">
+                    Cada metro cuadrado cuenta: vegetación nativa, suelo permeable, biodiversidad y bienestar comunitario.
+                </p>
+            </header>
+
+            {# Progress Bar #}
+            <div class="impact-meter-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso de m² recuperados">
+                <div class="impact-meter-fill" data-impact-fill style="width: 0%;"></div>
+                <div class="impact-meter-marker" data-impact-marker aria-hidden="true"></div>
+            </div>
+
+            {# Get the m2_recovered metric for the target label #}
+            {% set m2_metric = stats|selectattr('metric_key', 'equalto', 'total_m2_recovered')|first %}
+            {% if not m2_metric %}{% set m2_metric = {'value': 2450} %}{% endif %}
+
+            <div class="impact-meter-labels">
+                <span>0 m²</span>
+                <span data-impact-value class="font-semibold">0 m²</span>
+                <span id="impact-target-label">{{ m2_metric.value|format_number }} m²</span>
+            </div>
+
+            {# Key Stats Grid #}
+            <div class="impact-meter-stats">
+                {% for stat in stats %}
+                <div class="impact-stat" data-scroll-reveal>
+                    <div class="impact-stat-value" data-count="{{ stat.value }}">{{ stat.formatted_value }}</div>
+                    <div class="impact-stat-label">{{ stat.label }}</div>
+                </div>
+                {% endfor %}
+            </div>
+
+            {# Hidden data for JS component #}
+            <div data-impact-meter
+                 data-impact-target="{{ m2_metric.value|default(10000) }}"
+                 data-impact-value="{{ m2_metric.value|default(2450) }}"
+                 data-impact-unit="m²"
+                 data-impact-duration="2000"
+                 style="display: none;"></div>
+        </div>
+    </div>
+</section>

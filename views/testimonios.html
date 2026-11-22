@@ -1,0 +1,499 @@
+{# Testimonios Page #}
+{% extends "base.html" %}
+
+{% block title %}Testimonios - Green Tech{% endblock %}
+
+{% block description %}
+Voces de la comunidad: vecinos, voluntarios, niños, adultos mayores y organizaciones cuentan su experiencia transformando espacios urbanos con Green Tech.
+{% endblock %}
+
+{% block canonical_url %}https://tramaurbanaverde.cl/testimonios{% endblock %}
+
+{% block content %}
+<section class="page-hero section-lg">
+    <div class="container">
+        <div class="page-hero-content" data-scroll-reveal>
+            <span class="section-badge">Voces</span>
+            <h1 class="page-hero-title">Testimonios</h1>
+            <p class="page-hero-description">Quienes lo viven lo cuentan mejor. Vecinos, voluntarios, niños, adultos mayores y organizaciones comparten cómo Green Tech transformó su barrio y su vida.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section section-lg">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal style="text-align: center; max-width: 700px; margin: 0 auto var(--space-space-xl);">
+            <span class="section-badge">Destacados</span>
+            <h2 class="section-title">Historias de transformación</h2>
+        </header>
+        
+        <div class="testimonials-featured" data-scroll-reveal>
+            <article class="testimonial-card featured">
+                <div class="testimonial-content">
+                    <div class="testimonial-quote">
+                        <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-quote"></use></svg>
+                        <p>"Antes esto era un microbasural donde nadie se detenía. Hoy mis nietos juegan en la Plaza Pocket Yungay, las abuelas tejen en las bancas y los vecinos nos saludamos por nombre. Green Tech no solo plantó árboles, plantó comunidad."</p>
+                    </div>
+                    <footer class="testimonial-footer">
+                        <div class="testimonial-avatar" style="background: var(--color-primary-container);">
+                            <span>MR</span>
+                        </div>
+                        <div class="testimonial-author">
+                            <cite>María Rojas</cite>
+                            <span>Presidenta JJ.VV. Yungay · 68 años · Vecina hace 40 años</span>
+                        </div>
+                    </footer>
+                    <div class="testimonial-tags">
+                        <span class="tag tag-space">Plaza Pocket Yungay</span>
+                        <span class="tag tag-role">Líder vecinal</span>
+                    </div>
+                </div>
+                <aside class="testimonial-image" style="background: var(--color-primary-container);" aria-label="Plaza Pocket Yungay con niños jugando">
+                    <svg class="icon icon-3xl" aria-hidden="true"><use href="#icon-tree"></use></svg>
+                </aside>
+            </article>
+
+            <article class="testimonial-card featured reverse">
+                <div class="testimonial-content">
+                    <div class="testimonial-quote">
+                        <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-quote"></use></svg>
+                        <p>"Participé en la plantación del Corredor Verde Matucana con mi curso de 4° básico. Ver crecer los quillays que plantamos con mis propias manos me hace sentir que puedo cambiar mi ciudad. Ahora quiero ser arquitecto paisajista."</p>
+                    </div>
+                    <footer class="testimonial-footer">
+                        <div class="testimonial-avatar" style="background: var(--color-secondary-container);">
+                            <span>TV</span>
+                        </div>
+                        <div class="testimonial-author">
+                            <cite>Tomás Vidal</cite>
+                            <span>Estudiante · 10 años · Escuela República de México</span>
+                        </div>
+                    </footer>
+                    <div class="testimonial-tags">
+                        <span class="tag tag-space">Corredor Verde Matucana</span>
+                        <span class="tag tag-role">Voluntario junior</span>
+                    </div>
+                </div>
+                <aside class="testimonial-image" style="background: var(--color-secondary-container);" aria-label="Niños plantando árboles">
+                    <svg class="icon icon-3xl" aria-hidden="true"><use href="#icon-seedling"></use></svg>
+                </aside>
+            </article>
+
+            <article class="testimonial-card featured">
+                <div class="testimonial-content">
+                    <div class="testimonial-quote">
+                        <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-quote"></use></svg>
+                        <p>"Como empresa, buscábamos impacto real, no solo foto. Financiamos el Huerto Escolar República de México y el retorno es medible: 120 niños con educación ambiental, 450 m² recuperados, y nuestros empleados voluntarios los fines de semana. Es RSE con métricas."</p>
+                    </div>
+                    <footer class="testimonial-footer">
+                        <div class="testimonial-avatar" style="background: var(--color-tertiary-container);">
+                            <span>CA</span>
+                        </div>
+                        <div class="testimonial-author">
+                            <cite>Carolina Araya</cite>
+                            <span>Gerenta Sostenibilidad · Constructora Andina S.A.</span>
+                        </div>
+                    </footer>
+                    <div class="testimonial-tags">
+                        <span class="tag tag-space">Huerto Escolar República de México</span>
+                        <span class="tag tag-role">Socio estratégico</span>
+                    </div>
+                </div>
+                <aside class="testimonial-image" style="background: var(--color-tertiary-container);" aria-label="Huerto escolar con niños">
+                    <svg class="icon icon-3xl" aria-hidden="true"><use href="#icon-sprout"></use></svg>
+                </aside>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section section-lg" style="background: var(--color-surface-container);">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal style="text-align: center; max-width: 700px; margin: 0 auto var(--space-space-xl);">
+            <span class="section-badge">Más voces</span>
+            <h2 class="section-title">Testimonios por categoría</h2>
+        </header>
+        
+        <div class="testimonials-grid" data-scroll-reveal>
+            <article class="testimonial-card compact">
+                <div class="testimonial-quote">
+                    <svg class="icon icon-md" aria-hidden="true"><use href="#icon-quote"></use></svg>
+                    <p>"El taller de huertos verticales me enseñó a cultivar en mi balcón de 3m². Ahora tengo lechugas, tomates cherry y hierbas todo el año. Ahorro dinero y como sano."</p>
+                </div>
+                <footer class="testimonial-footer">
+                    <div class="testimonial-avatar" style="background: var(--color-primary-container);"><span>PV</span></div>
+                    <div class="testimonial-author"><cite>Patricia Vásquez</cite><span>Vecina Ñuñoa · Participante talleres</span></div>
+                </footer>
+                <div class="testimonial-tags"><span class="tag tag-space">Taller Huertos Verticales</span></div>
+            </article>
+
+            <article class="testimonial-card compact">
+                <div class="testimonial-quote">
+                    <svg class="icon icon-md" aria-hidden="true"><use href="#icon-quote"></use></svg>
+                    <p>"La Plaza Inclusiva Ñuñoa me devolvió la autonomía. Puedo ir sola con mi silla de ruedas, hay pavimento táctil, juegos para mi nieto con discapacidad. Por primera vez en años, disfruto una plaza."</p>
+                </div>
+                <footer class="testimonial-footer">
+                    <div class="testimonial-avatar" style="background: var(--color-secondary-container);"><span>JM</span></div>
+                    <div class="testimonial-author"><cite>Jorge Méndez</cite><span>Adulto mayor · Usuario silla de ruedas</span></div>
+                </footer>
+                <div class="testimonial-tags"><span class="tag tag-space">Plaza Inclusiva Ñuñoa</span></div>
+            </article>
+
+            <article class="testimonial-card compact">
+                <div class="testimonial-quote">
+                    <svg class="icon icon-md" aria-hidden="true"><use href="#icon-quote"></use></svg>
+                    <p>"Coordinar el compostaje comunitario en Santa Lucía unió a 15 familias que no se hablaban. Ahora compartimos humus, semillas, recetas y hasta cuidamos los hijos de los otros. El compost fue la excusa."</p>
+                </div>
+                <footer class="testimonial-footer">
+                    <div class="testimonial-avatar" style="background: var(--color-tertiary-container);"><span>LG</span></div>
+                    <div class="testimonial-author"><cite>Lucía González</cite><span>Coordinadora · Huerto Comunitario Santa Lucía</span></div>
+                </footer>
+                <div class="testimonial-tags"><span class="tag tag-space">Compostaje Santa Lucía</span></div>
+            </article>
+
+            <article class="testimonial-card compact">
+                <div class="testimonial-quote">
+                    <svg class="icon icon-md" aria-hidden="true"><use href="#icon-quote"></use></svg>
+                    <p>"Como municipalidad, Green Tech nos resolvió el problema de participación: ellos convocan, diseñan con la gente, ejecutan y entregan mantenido. Nosotros facilitamos permisos y agua. Modelo replicable."</p>
+                </div>
+                <footer class="testimonial-footer">
+                    <div class="testimonial-avatar" style="background: var(--color-primary-container);"><span>RM</span></div>
+                    <div class="testimonial-author"><cite>Roberto Muñoz</cite><span>Dir. Medio Ambiente · Municipalidad de Santiago</span></div>
+                </footer>
+                <div class="testimonial-tags"><span class="tag tag-space">Corredor Verde Matucana</span></div>
+            </article>
+
+            <article class="testimonial-card compact">
+                <div class="testimonial-quote">
+                    <svg class="icon icon-md" aria-hidden="true"><use href="#icon-quote"></use></svg>
+                    <p>"Mi tesis de magíster midió el impacto del Mini Bosque Franklin: -2.3°C temperatura superficial, +340% biodiversidad de insectos, +180 usuarios/mes. Datos duros para políticas públicas."</p>
+                </div>
+                <footer class="testimonial-footer">
+                    <div class="testimonial-avatar" style="background: var(--color-secondary-container);"><span>CF</span></div>
+                    <div class="testimonial-author"><cite>Camila Fuentes</cite><span>Investigadora · Pontificia Universidad Católica</span></div>
+                </footer>
+                <div class="testimonial-tags"><span class="tag tag-space">Mini Bosque Franklin</span></div>
+            </article>
+
+            <article class="testimonial-card compact">
+                <div class="testimonial-quote">
+                    <svg class="icon icon-md" aria-hidden="true"><use href="#icon-quote"></use></svg>
+                    <p>"Postulé mi esquina residual en Los Nogales y en 3 meses teníamos plaza. El proceso fue transparente: diagnóstico, voto vecinal, diseño, ejecución. Ahora mi hija tiene dónde jugar segura."</p>
+                </div>
+                <footer class="testimonial-footer">
+                    <div class="testimonial-avatar" style="background: var(--color-tertiary-container);"><span>AS</span></div>
+                    <div class="testimonial-author"><cite>Ana Silva</cite><span>Proponente · Junta de Vecinos Los Nogales</span></div>
+                </footer>
+                <div class="testimonial-tags"><span class="tag tag-space">Esquina Los Nogales</span></div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section section-lg">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal style="text-align: center; max-width: 700px; margin: 0 auto var(--space-space-xl);">
+            <span class="section-badge">En video</span>
+            <h2 class="section-title">Entrevistas en profundidad</h2>
+        </header>
+        
+        <div class="video-testimonials" data-scroll-reveal>
+            <article class="video-testimonial-card">
+                <div class="video-thumb" style="background: var(--color-primary-container);">
+                    <svg class="icon icon-2xl" aria-hidden="true"><use href="#icon-play-circle"></use></svg>
+                    <span class="video-length">12:45</span>
+                </div>
+                <div class="video-info">
+                    <h3>María Rojas: "Mi barrio, mi responsabilidad"</h3>
+                    <p>Presidenta JJ.VV. Yungay relata 40 años de historia barrial, la lucha por la plaza, y cómo Green Tech cambió la dinámica vecinal.</p>
+                    <a href="/testimonios/maria-rojas" class="btn btn-tertiary btn-sm">Ver entrevista completa</a>
+                </div>
+            </article>
+            <article class="video-testimonial-card">
+                <div class="video-thumb" style="background: var(--color-secondary-container);">
+                    <svg class="icon icon-2xl" aria-hidden="true"><use href="#icon-play-circle"></use></svg>
+                    <span class="video-length">8:30</span>
+                </div>
+                <div class="video-info">
+                    <h3>Tomás y sus compañeros: "Arquitectos de 10 años"</h3>
+                    <p>Estudiantes de 4° básico Escuela República de México cuentan su experiencia plantando el corredor verde y midiendo el crecimiento.</p>
+                    <a href="/testimonios/ninos-republica-mexico" class="btn btn-tertiary btn-sm">Ver entrevista completa</a>
+                </div>
+            </article>
+            <article class="video-testimonial-card">
+                <div class="video-thumb" style="background: var(--color-tertiary-container);">
+                    <svg class="icon icon-2xl" aria-hidden="true"><use href="#icon-play-circle"></use></svg>
+                    <span class="video-length">15:20</span>
+                </div>
+                <div class="video-info">
+                    <h3>Carolina Araya: "RSE que se mide"</h3>
+                    <p>Gerenta Sostenibilidad Constructora Andina explica su modelo de inversión en infraestructura verde con KPIs sociales y ambientales.</p>
+                    <a href="/testimonios/carolina-araya" class="btn btn-tertiary btn-sm">Ver entrevista completa</a>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+{# CTA #}
+<section class="cta-section section-lg">
+    <div class="container">
+        <div class="cta-content" style="text-align: center;">
+            <h2>¿Quieres compartir tu historia?</h2>
+            <p class="cta-description">Si participaste en una intervención, taller o actividad de Green Tech, tu testimonio inspira a otros. Te entrevistamos y publicamos tu historia.</p>
+            <a href="/contacto?subject=testimonio" class="btn btn-primary btn-lg">
+                Contar mi historia
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.testimonials-featured {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-space-lg);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.testimonial-card.featured {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 0;
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: border-color var(--transition-fast);
+}
+.testimonial-card.featured:hover {
+    border-color: var(--color-secondary);
+}
+.testimonial-card.featured.reverse {
+    direction: rtl;
+}
+.testimonial-card.featured.reverse > * {
+    direction: ltr;
+}
+.testimonial-card.featured .testimonial-content {
+    padding: var(--space-space-xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.testimonial-quote {
+    margin-bottom: var(--space-space-lg);
+}
+.testimonial-quote .icon {
+    width: 40px;
+    height: 40px;
+    color: var(--color-primary);
+    opacity: 0.3;
+    margin-bottom: var(--space-space-md);
+}
+.testimonial-quote p {
+    font-size: var(--font-size-body-lg, 16px);
+    line-height: 1.7;
+    color: var(--color-on-surface);
+    margin: 0;
+    font-style: italic;
+}
+.testimonial-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-space-md);
+    margin-bottom: var(--space-space-md);
+}
+.testimonial-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--font-size-body-sm, 13px);
+    color: var(--color-on-primary-container);
+    flex-shrink: 0;
+}
+.testimonial-author cite {
+    font-style: normal;
+    font-weight: 700;
+    font-size: var(--font-size-body-md, 14px);
+    color: var(--color-on-surface);
+    display: block;
+}
+.testimonial-author span {
+    font-size: var(--font-size-body-sm, 13px);
+    color: var(--color-on-surface-variant);
+}
+.testimonial-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-space-xs);
+}
+.testimonial-tags .tag {
+    font-size: var(--font-size-body-xs, 11px);
+    font-weight: 600;
+    padding: var(--space-space-xs) var(--space-space-sm);
+    border-radius: var(--radius-full);
+}
+.tag-space { background: var(--color-primary-container); color: var(--color-on-primary-container); }
+.tag-role { background: var(--color-outline-variant); color: var(--color-on-surface); }
+.testimonial-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+}
+.testimonial-image .icon {
+    width: 120px;
+    height: 120px;
+    color: var(--color-on-primary-container);
+    opacity: 0.15;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-space-md);
+}
+.testimonial-card.compact {
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+    padding: var(--space-space-lg);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+.testimonial-card.compact:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--color-secondary);
+}
+.testimonial-card.compact .testimonial-quote {
+    margin-bottom: var(--space-space-md);
+}
+.testimonial-card.compact .testimonial-quote .icon {
+    width: 32px;
+    height: 32px;
+    color: var(--color-primary);
+    opacity: 0.2;
+    margin-bottom: var(--space-space-sm);
+}
+.testimonial-card.compact .testimonial-quote p {
+    font-size: var(--font-size-body-sm, 13px);
+    line-height: 1.6;
+    color: var(--color-on-surface);
+    margin: 0;
+    font-style: italic;
+}
+.testimonial-card.compact .testimonial-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-space-sm);
+    margin-bottom: var(--space-space-md);
+}
+.testimonial-card.compact .testimonial-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: var(--font-size-body-xs, 11px);
+}
+.testimonial-card.compact .testimonial-author cite {
+    font-size: var(--font-size-body-sm, 13px);
+}
+.testimonial-card.compact .testimonial-author span {
+    font-size: var(--font-size-body-xs, 11px);
+}
+.testimonial-card.compact .testimonial-tags .tag {
+    font-size: var(--font-size-body-xs, 11px);
+}
+
+.video-testimonials {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: var(--space-space-md);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.video-testimonial-card {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: var(--space-space-md);
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: border-color var(--transition-fast);
+}
+.video-testimonial-card:hover {
+    border-color: var(--color-secondary);
+}
+.video-testimonial-card .video-thumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 160px;
+}
+.video-testimonial-card .video-thumb .icon {
+    width: 64px;
+    height: 64px;
+    color: var(--color-on-primary-container);
+    opacity: 0.8;
+}
+.video-testimonial-card .video-length {
+    position: absolute;
+    bottom: var(--space-space-sm);
+    right: var(--space-space-sm);
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: var(--space-space-xs) var(--space-space-sm);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-body-xs, 11px);
+    font-weight: 600;
+}
+.video-testimonial-card .video-info {
+    padding: var(--space-space-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-space-sm);
+}
+.video-testimonial-card .video-info h3 {
+    font-size: var(--font-size-headline-sm, 16px);
+    font-weight: 700;
+    color: var(--color-on-surface);
+    margin: 0;
+    line-height: 1.3;
+}
+.video-testimonial-card .video-info p {
+    font-size: var(--font-size-body-sm, 13px);
+    color: var(--color-on-surface-variant);
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .testimonial-card.featured {
+        grid-template-columns: 1fr;
+    }
+    .testimonial-card.featured .testimonial-image {
+        min-height: 200px;
+        order: -1;
+    }
+    .testimonial-card.featured.reverse {
+        direction: ltr;
+    }
+    .video-testimonial-card {
+        grid-template-columns: 1fr;
+    }
+    .video-testimonial-card .video-thumb {
+        min-height: 120px;
+    }
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+{% endblock %}

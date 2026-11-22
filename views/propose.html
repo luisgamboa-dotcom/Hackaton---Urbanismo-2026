@@ -1,0 +1,709 @@
+{# Postular Espacio Page #}
+{% extends "base.html" %}
+
+{% block title %}Postula un espacio baldío - Green Tech{% endblock %}
+
+{% block description %}
+¿Conoces un lote vacío, una esquina residual o un terreno en desuso que podría transformarse en un espacio verde para la comunidad? Postúlalo y lo evaluaremos para una futura intervención.
+{% endblock %}
+
+{% block canonical_url %}https://tramaurbanaverde.cl/postular{% endblock %}
+
+{% block og_title %}Postula un espacio baldío - Green Tech{% endblock %}
+
+{% block og_description %}
+Transforma tu barrio: postula un espacio baldío para que lo recuperemos como plaza de bolsillo, corredor verde, huerto comunitario o zona de descanso.
+{% endblock %}
+
+{% block og_image %}https://tramaurbanaverde.cl/images/og-propose.jpg{% endblock %}
+
+{% block content %}
+{# Page Hero #}
+<section class="page-hero section-lg" aria-labelledby="propose-hero-title">
+    <div class="container">
+        <div class="page-hero-content" data-scroll-reveal>
+            <span class="section-badge">Participa</span>
+            <h1 id="propose-hero-title" class="page-hero-title">Postula un espacio baldío</h1>
+            <p class="page-hero-description">
+                ¿Conoces un lote vacío, una esquina residual o un terreno en desuso que podría transformarse en un espacio verde para la comunidad? Postúlalo y lo evaluaremos para una futura intervención.
+            </p>
+        </div    </div>
+</section>
+
+{% include "partials/_help_modal.html" %}  {# Help Modal #}
+
+{# Main Form Section #}
+<section id="propose-space" class="propose-section section" aria-labelledby="propose-title">
+    <div class="container">
+        <div class="propose-content" data-scroll-reveal>
+            <div class="propose-form-container">
+                <form id="propose-form" class="propose-form" action="/api/requests" method="POST" enctype="multipart/form-data">
+                    {# Step 1: Basic Info #}
+                    <fieldset class="form-step" data-step="1">
+                        <legend class="step-title">
+                            <span class="step-number">1</span>
+                            Información básica del espacio
+                        </legend>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="space-name" class="form-label">Nombre o referencia <span class="required" aria-hidden="true">*</span></label>
+                                <input type="text" id="space-name" name="name" class="form-input" placeholder="Ej: Lote esquina Av. Matta con San Diego" required maxlength="200">
+                                <p class="form-hint">Cómo se conoce popularmente el lugar</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="space-category" class="form-label">Tipo de intervención sugerida <span class="required" aria-hidden="true">*</span></label>
+                                <select id="space-category" name="category" class="form-select" required>
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="pocket_park">Plaza de Bolsillo</option>
+                                    <option value="green_corridor">Corredor Verde</option>
+                                    <option value="community_garden">Huerto Comunitario</option>
+                                    <option value="playground">Área de Juegos</option>
+                                    <option value="resting_area">Zona de Descanso</option>
+                                    <option value="urban_forest">Mini Bosque Urbano</option>
+                                </select>
+                                <p class="form-hint">Qué tipo de proyecto imaginas para este espacio</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="space-description" class="form-label">Descripción del lugar <span class="required" aria-hidden="true">*</span></label>
+                            <textarea id="space-description" name="description" class="form-textarea" rows="4" placeholder="Describe el estado actual: dimensiones aproximadas, si tiene vegetación, escombros, acceso, iluminación, uso actual, etc." required maxlength="1000"></textarea>
+                            <p class="form-hint">Detalles que ayuden a entender el potencial del espacio</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="space-needs" class="form-label">¿Qué necesita este espacio? <span class="required" aria-hidden="true">*</span></label>
+                            <textarea id="space-needs" name="needs" class="form-textarea" rows="3" placeholder="Ej: vegetación nativa, bancos, zona de sombra, juegos infantiles, limpieza de escombros, cercado, iluminación, accesibilidad universal..." required maxlength="1000"></textarea>
+                            <p class="form-hint">Detalla qué elementos faltan para transformarlo en un lugar útil para la comunidad</p>
+                        </div>
+                    </fieldset>
+
+                    {# Step 2: Location #}
+                    <fieldset class="form-step" data-step="2">
+                        <legend class="step-title">
+                            <span class="step-number">2</span>
+                            Ubicación
+                        </legend>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="space-commune" class="form-label">Comuna <span class="required" aria-hidden="true">*</span></label>
+                                <select id="space-commune" name="commune" class="form-select" required>
+                                    <option value="">Selecciona la comuna</option>
+                                    <option value="Santiago">Santiago</option>
+                                    <option value="Providencia">Providencia</option>
+                                    <option value="Ñuñoa">Ñuñoa</option>
+                                    <option value="La Reina">La Reina</option>
+                                    <option value="Las Condes">Las Condes</option>
+                                    <option value="Vitacura">Vitacura</option>
+                                    <option value="Lo Barnechea">Lo Barnechea</option>
+                                    <option value="Independencia">Independencia</option>
+                                    <option value="Recoleta">Recoleta</option>
+                                    <option value="Conchalí">Conchalí</option>
+                                    <option value="Huechuraba">Huechuraba</option>
+                                    <option value="Quilicura">Quilicura</option>
+                                    <option value="Pudahuel">Pudahuel</option>
+                                    <option value="Lo Prado">Lo Prado</option>
+                                    <option value="Cerro Navia">Cerro Navia</option>
+                                    <option value="Quinta Normal">Quinta Normal</option>
+                                    <option value="Renca">Renca</option>
+                                    <option value="Estación Central">Estación Central</option>
+                                    <option value="Cerrillos">Cerrillos</option>
+                                    <option value="Maipú">Maipú</option>
+                                    <option value="San Miguel">San Miguel</option>
+                                    <option value="San Joaquín">San Joaquín</option>
+                                    <option value="La Granja">La Granja</option>
+                                    <option value="La Florida">La Florida</option>
+                                    <option value="La Pintana">La Pintana</option>
+                                    <option value="San Ramón">San Ramón</option>
+                                    <option value="El Bosque">El Bosque</option>
+                                    <option value="Pedro Aguirre Cerda">Pedro Aguirre Cerda</option>
+                                    <option value="Puente Alto">Puente Alto</option>
+                                    <option value="La Cisterna">La Cisterna</option>
+                                    <option value="San Bernardo">San Bernardo</option>
+                                    <option value="Buin">Buin</option>
+                                    <option value="Calera de Tango">Calera de Tango</option>
+                                    <option value="Peñaflor">Peñaflor</option>
+                                    <option value="Talagante">Talagante</option>
+                                    <option value="El Monte">El Monte</option>
+                                    <option value="Isla de Maipo">Isla de Maipo</option>
+                                    <option value="María Pinto">María Pinto</option>
+                                    <option value="Melipilla">Melipilla</option>
+                                    <option value="Alhué">Alhué</option>
+                                    <option value="Curacaví">Curacaví</option>
+                                    <option value="Padre Hurtado">Padre Hurtado</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="space-address" class="form-label">Dirección aproximada <span class="required" aria-hidden="true">*</span></label>
+                                <input type="text" id="space-address" name="address" class="form-input" placeholder="Ej: Av. Matta 1200 (esquina San Diego)" required maxlength="300">
+                                <p class="form-hint">Calle, número aproximado y referencias cercanas</p>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="space-lat" class="form-label">Latitud</label>
+                                <input type="number" id="space-lat" name="latitude" class="form-input" step="any" placeholder="-33.456789" min="-90" max="90" readonly>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="space-lng" class="form-label">Longitud</label>
+                                <input type="number" id="space-lng" name="longitude" class="form-input" step="any" placeholder="-70.654321" min="-180" max="180" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="space-reference" class="form-label">Referencia cercana (opcional)</label>
+                            <input type="text" id="space-reference" name="reference" class="form-input" placeholder="Ej: Frente a Metro Matta, junto a farmacia, esquina con Rosas" maxlength="300">
+                            <p class="form-hint">Puntos de referencia que ayuden a ubicar el lugar</p>
+                        </div>
+
+                        <div class="map-picker">
+                            <p class="map-picker-label">O ubica el punto en el mapa:</p>
+                            <div id="propose-map" class="propose-map" role="application" aria-label="Mapa para seleccionar ubicación del espacio"></div>
+                            <p class="map-picker-hint">Haz clic en el mapa para marcar la ubicación. Se completarán las coordenadas automáticamente.</p>
+                        </div>
+                    </fieldset>
+
+                    {# Step 3: Contact & Photos #}
+                    <fieldset class="form-step" data-step="3">
+                        <legend class="step-title">
+                            <span class="step-number">3</span>
+                            Contacto y fotos (opcional)
+                        </legend>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="contact-name" class="form-label">Tu nombre</label>
+                                <input type="text" id="contact-name" name="contact_name" class="form-input" placeholder="Juan Pérez" maxlength="100">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact-email" class="form-label">Email <span class="required" aria-hidden="true">*</span></label>
+                                <input type="email" id="contact-email" name="contact_email" class="form-input" placeholder="juan@ejemplo.cl" required maxlength="150">
+                                <p class="form-hint">Te contactaremos para validar la postulación</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-phone" class="form-label">Teléfono</label>
+                            <input type="tel" id="contact-phone" name="contact_phone" class="form-input" placeholder="+56 9 1234 5678" maxlength="20">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-org" class="form-label">Organización / Junta de vecinos (si aplica)</label>
+                            <input type="text" id="contact-org" name="contact_org" class="form-input" placeholder="Junta de Vecinos Villa Los Aromos" maxlength="150">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Fotos del lugar <span class="optional">(opcional, máx. 5)</span></label>
+                            <div class="file-upload" id="file-upload">
+                                <input type="file" id="space-photos" name="photos" class="file-input" accept="image/*" multiple data-max-files="5" hidden>
+                                <button type="button" class="btn btn-secondary file-upload-btn">
+                                    <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-upload"></use></svg>
+                                    Seleccionar fotos
+                                </button>
+                                <p class="file-upload-hint">Arrastra fotos aquí o haz clic para seleccionar. Formatos: JPG, PNG, WebP. Máx. 5 MB c/u.</p>
+                                <div class="file-previews" id="file-previews" role="list" aria-label="Vista previa de fotos seleccionadas"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="contact-consent" name="consent" class="checkbox-input" required>
+                            <label for="contact-consent" class="checkbox-label">
+                                Autorizo el tratamiento de mis datos para contactarme sobre esta postulación según la <a href="/privacidad" target="_blank">Política de Privacidad</a> <span class="required" aria-hidden="true">*</span>
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    {# Navigation #}
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-tertiary form-prev" disabled>
+                            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+                            Anterior
+                        </button>
+                        <div class="form-steps-indicator" role="navigation" aria-label="Pasos del formulario">
+                            <span class="step-indicator active" data-step="1" aria-current="step">
+                                <span class="step-indicator-number">1</span>
+                                <span class="step-indicator-label">Básicos</span>
+                            </span>
+                            <span class="step-indicator" data-step="2">
+                                <span class="step-indicator-number">2</span>
+                                <span class="step-indicator-label">Ubicación</span>
+                            </span>
+                            <span class="step-indicator" data-step="3">
+                                <span class="step-indicator-number">3</span>
+                                <span class="step-indicator-label">Contacto</span>
+                            </span>
+                        </div>
+                        <button type="button" class="btn btn-primary form-next">
+                            Siguiente
+                            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+                        </button>
+                    </div>
+
+                    {# Submit (shown on last step) #}
+                    <div class="form-submit" hidden>
+                        <button type="submit" class="btn btn-cta btn-lg btn-block">
+                            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-send"></use></svg>
+                            Enviar postulación
+                        </button>
+                        <p class="form-submit-note">Recibirás un email de confirmación. Nuestro equipo revisará la postulación en un plazo de 10 días hábiles.</p>
+                    </div>
+                </form>
+            </div>
+
+            {# Info sidebar #}
+            <aside class="propose-info" aria-labelledby="propose-info-title">
+                {# Mobile toggle button #}
+                <button type="button" class="propose-info-toggle" aria-expanded="false" aria-controls="propose-info-content" data-propose-info-toggle>
+                    <span>¿Qué pasa después?</span>
+                    <svg class="icon icon-sm toggle-icon" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+                </button>
+                <div id="propose-info-content" class="propose-info-content" role="region" aria-labelledby="propose-info-title">
+                    <h3 id="propose-info-title" class="propose-info-title">¿Qué pasa después?</h3>
+                    <ul class="propose-process">
+                    <li>
+                        <span class="process-number">1</span>
+                        <div>
+                            <strong>Revisión técnica</strong>
+                            <p>Verificamos factibilidad: propiedad del suelo, normativa, accesibilidad y impacto vecinal.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="process-number">2</span>
+                        <div>
+                            <strong>Visita a terreno</strong>
+                            <p>Coordinamos una visita con vecinos y equipo técnico para validar el diagnóstico.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="process-number">3</span>
+                        <div>
+                            <strong>Diseño participativo</strong>
+                            <p>Talleres con la comunidad para co-diseñar la intervención según necesidades reales.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="process-number">4</span>
+                        <div>
+                            <strong>Ejecución y entrega</strong>
+                            <p>Implementamos con voluntarios y socios. El espacio queda bajo cuidado comunitario.</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="propose-tips">
+                    <h4>Consejos para una buena postulación</h4>
+                    <ul>
+                        <li>Fotos claras del estado actual (día y noche si es posible)</li>
+                        <li>Medidas aproximadas del terreno (frente x fondo)</li>
+                        <li>Indica si hay acceso a agua y luz cercanos</li>
+                        <li>Menciona si la junta de vecinos ya está organizada</li>
+                        <li>Señala riesgos: microbasurales, inseguridad, inundaciones</li>
+                    </ul>
+                </div>
+            </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+{# CTA Section #}
+{% include "partials/_cta_section.html" %}
+{% endblock %}
+
+{% block extra_scripts %}
+{# Propose form JavaScript #}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // =========================================================================
+    // FORM STEP NAVIGATION
+    // =========================================================================
+    const form = document.getElementById('propose-form');
+    const steps = form.querySelectorAll('.form-step');
+    const prevBtn = form.querySelector('.form-prev');
+    const nextBtn = form.querySelector('.form-next');
+    const stepIndicators = form.querySelectorAll('.step-indicator');
+    const submitSection = form.querySelector('.form-submit');
+    let currentStep = 1;
+
+    function showStep(step) {
+        steps.forEach(s => {
+            s.hidden = parseInt(s.dataset.step) !== step;
+        });
+        stepIndicators.forEach(ind => {
+            const indStep = parseInt(ind.dataset.step);
+            ind.classList.toggle('active', indStep === step);
+            ind.classList.toggle('completed', indStep < step);
+            ind.setAttribute('aria-current', indStep === step ? 'step' : 'false');
+        });
+        prevBtn.disabled = step === 1;
+        nextBtn.hidden = step === steps.length;
+        submitSection.hidden = step !== steps.length;
+        currentStep = step;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function validateStep(step) {
+        const currentStepEl = form.querySelector(`.form-step[data-step="${step}"]`);
+        const requiredFields = currentStepEl.querySelectorAll('[required]');
+        let valid = true;
+        requiredFields.forEach(field => {
+            if (!field.value.trim()) {
+                field.style.borderColor = 'var(--color-error)';
+                valid = false;
+            } else {
+                field.style.borderColor = '';
+            }
+        });
+        return valid;
+    }
+
+    nextBtn.addEventListener('click', () => {
+        if (validateStep(currentStep)) {
+            showStep(currentStep + 1);
+        } else {
+            // Focus first invalid field
+            const invalid = form.querySelector('.form-step[data-step="' + currentStep + '"] [required]:invalid');
+            if (invalid) invalid.focus();
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentStep > 1) {
+            showStep(currentStep - 1);
+        }
+    });
+
+    // Form submission
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!validateStep(currentStep)) return;
+
+        const submitBtn = form.querySelector('.form-submit button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<svg class="icon icon-sm animate-spin" aria-hidden="true"><use href="#icon-loader"></use></svg> Enviando...';
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+
+        try {
+            const response = await fetch('/api/requests', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            const result = await response.json();
+
+            if (result.success) {
+                // Show success message
+                const reference = 'TUV-' + result.request_id.toString().padStart(6, '0');
+                alert(`¡Postulación enviada!\n\nGracias por postular un espacio. Hemos recibido tu información y la revisaremos en los próximos 10 días hábiles.\n\nTe contactaremos al email ${data.contact_email} para coordinar la visita a terreno.\n\nTu número de referencia: ${reference}`);
+                form.reset();
+                showStep(1);
+            } else {
+                alert('Error: ' + (result.message || 'No se pudo enviar la postulación'));
+            }
+        } catch (err) {
+            console.error('Error:', err);
+            alert('Error de conexión. Intenta nuevamente.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+    });
+
+    // =========================================================================
+    // MAP PICKER
+    // =========================================================================
+    let proposeMap = null;
+    let proposeMarker = null;
+
+    function initProposeMap() {
+        const mapContainer = document.getElementById('propose-map');
+        if (!mapContainer || proposeMap) return;
+
+        proposeMap = L.map('propose-map', {
+            center: [-33.4372, -70.6506],
+            zoom: 13,
+            zoomControl: true,
+            scrollWheelZoom: true,
+            attributionControl: true
+        });
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            maxZoom: 19
+        }).addTo(proposeMap);
+
+        proposeMap.on('click', (e) => {
+            const lat = e.latlng.lat;
+            const lng = e.latlng.lng;
+            updateCoordinates(lat, lng);
+            placeMarker(lat, lng);
+        });
+
+        // Enable scroll wheel zoom on hover
+        mapContainer.addEventListener('mouseenter', () => proposeMap.scrollWheelZoom.enable());
+        mapContainer.addEventListener('mouseleave', () => proposeMap.scrollWheelZoom.disable());
+    }
+
+    function updateCoordinates(lat, lng) {
+        document.getElementById('space-lat').value = lat.toFixed(6);
+        document.getElementById('space-lng').value = lng.toFixed(6);
+    }
+
+    function placeMarker(lat, lng) {
+        if (proposeMarker) {
+            proposeMap.removeLayer(proposeMarker);
+        }
+        const icon = L.divIcon({
+            className: 'hero-map-marker',
+            html: `
+                <div class="marker-inner" style="--marker-color: var(--color-primary);">
+                    <span class="marker-icon">📍</span>
+                    <span class="marker-pulse"></span>
+                </div>
+            `,
+            iconSize: [36, 36],
+            iconAnchor: [18, 36],
+            popupAnchor: [0, -36]
+        });
+        proposeMarker = L.marker([lat, lng], { icon }).addTo(proposeMap);
+        proposeMap.setView([lat, lng], 17);
+    }
+
+    // Initialize map when step 2 is shown
+    const step2Fieldset = form.querySelector('.form-step[data-step="2"]');
+    const observer = new MutationObserver(() => {
+        if (!step2Fieldset.hidden && !proposeMap) {
+            setTimeout(initProposeMap, 100);
+        }
+    });
+    observer.observe(step2Fieldset, { attributes: true, attributeFilter: ['hidden'] });
+
+    // Commune select -> center map
+    document.getElementById('space-commune').addEventListener('change', (e) => {
+        if (proposeMap && e.target.value) {
+            // Commune centers (approximate)
+            const communeCenters = {
+                'Santiago': [-33.4372, -70.6506],
+                'Providencia': [-33.4293, -70.6153],
+                'Ñuñoa': [-33.4569, -70.6031],
+                'La Reina': [-33.4394, -70.5489],
+                'Las Condes': [-33.4089, -70.5575],
+                'Vitacura': [-33.3833, -70.5167],
+                'Lo Barnechea': [-33.3500, -70.4833],
+                'Independencia': [-33.4167, -70.6500],
+                'Recoleta': [-33.4167, -70.6333],
+                'Conchalí': [-33.3833, -70.6833],
+                'Huechuraba': [-33.3667, -70.6333],
+                'Quilicura': [-33.3667, -70.7333],
+                'Pudahuel': [-33.4333, -70.7833],
+                'Lo Prado': [-33.4333, -70.7167],
+                'Cerro Navia': [-33.4167, -70.7333],
+                'Quinta Normal': [-33.4333, -70.6833],
+                'Renca': [-33.4000, -70.7000],
+                'Estación Central': [-33.4500, -70.6833],
+                'Cerrillos': [-33.4833, -70.7167],
+                'Maipú': [-33.5167, -70.7667],
+                'San Miguel': [-33.4833, -70.6500],
+                'San Joaquín': [-33.4833, -70.6167],
+                'La Granja': [-33.5333, -70.6167],
+                'La Florida': [-33.5333, -70.5667],
+                'La Pintana': [-33.5833, -70.6333],
+                'San Ramón': [-33.5333, -70.6500],
+                'El Bosque': [-33.5667, -70.6833],
+                'Pedro Aguirre Cerda': [-33.4833, -70.6667],
+                'Puente Alto': [-33.6167, -70.5667],
+                'La Cisterna': [-33.5333, -70.6667],
+                'San Bernardo': [-33.5833, -70.7000],
+                'Buin': [-33.7333, -70.7333],
+                'Calera de Tango': [-33.6167, -70.7167],
+                'Peñaflor': [-33.6000, -70.8833],
+                'Talagante': [-33.6667, -70.9000],
+                'El Monte': [-33.6833, -70.9833],
+                'Isla de Maipo': [-33.7667, -70.9000],
+                'María Pinto': [-33.6833, -71.0500],
+                'Melipilla': [-33.6833, -71.2167],
+                'Alhué': [-33.9667, -71.0833],
+                'Curacaví': [-33.7000, -71.0167],
+                'Padre Hurtado': [-33.5667, -70.8000]
+            };
+            const center = communeCenters[e.target.value];
+            if (center) {
+                proposeMap.setView(center, 14);
+            }
+        }
+    });
+
+    // =========================================================================
+    // FILE UPLOAD PREVIEWS
+    // =========================================================================
+    const fileInput = document.getElementById('space-photos');
+    const fileUpload = document.getElementById('file-upload');
+    const filePreviews = document.getElementById('file-previews');
+    const maxFiles = 5;
+
+    fileUpload.addEventListener('click', (e) => {
+        if (e.target === fileUpload || e.target.classList.contains('file-upload-btn') || e.target.closest('.file-upload-btn')) {
+            fileInput.click();
+        }
+    });
+
+    fileUpload.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        fileUpload.classList.add('drag-over');
+    });
+
+    fileUpload.addEventListener('dragleave', () => {
+        fileUpload.classList.remove('drag-over');
+    });
+
+    fileUpload.addEventListener('drop', (e) => {
+        e.preventDefault();
+        fileUpload.classList.remove('drag-over');
+        handleFiles(e.dataTransfer.files);
+    });
+
+    fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+    });
+
+    function handleFiles(files) {
+        const validFiles = Array.from(files).filter(f => {
+            const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            return validTypes.includes(f.type) && f.size <= 5 * 1024 * 1024;
+        });
+
+        if (validFiles.length + filePreviews.children.length > maxFiles) {
+            alert(`Máximo ${maxFiles} archivos permitidos.`);
+            return;
+        }
+
+        validFiles.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                addPreview(e.target.result, file.name);
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Update file input
+        const dt = new DataTransfer();
+        Array.from(fileInput.files).forEach(f => dt.items.add(f));
+        validFiles.forEach(f => dt.items.add(f));
+        fileInput.files = dt.files;
+    }
+
+    function addPreview(src, name) {
+        const preview = document.createElement('div');
+        preview.className = 'file-preview';
+        preview.innerHTML = `
+            <img src="${src}" alt="${name}">
+            <button type="button" class="file-preview-remove" aria-label="Eliminar ${name}">
+                <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-x"></use></svg>
+            </button>
+        `;
+        preview.querySelector('.file-preview-remove').addEventListener('click', (e) => {
+            e.stopPropagation();
+            preview.remove();
+            // Note: Can't easily remove from FileList, would need FormData manipulation
+        });
+        filePreviews.appendChild(preview);
+    }
+
+    // =========================================================================
+    // HELP MODAL
+    // =========================================================================
+    const helpModal = document.getElementById('propose-help-modal');
+    const helpOverlay = helpModal.querySelector('.modal-overlay');
+    const helpButtons = form.querySelectorAll('.help-btn');
+    const modalCloseBtns = helpModal.querySelectorAll('.modal-close, .modal-close-btn');
+
+    function openHelpModal() {
+        helpOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        helpModal.querySelector('.modal-close').focus();
+    }
+
+    function closeHelpModal() {
+        helpOverlay.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    helpButtons.forEach(btn => {
+        btn.addEventListener('click', openHelpModal);
+    });
+
+    modalCloseBtns.forEach(btn => {
+        btn.addEventListener('click', closeHelpModal);
+    });
+
+    helpOverlay.addEventListener('click', (e) => {
+        // Only close if clicking the overlay itself, not the modal container
+        if (e.target === helpOverlay) {
+            closeHelpModal();
+        }
+    });
+
+    // Escape key closes modals
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (helpOverlay.classList.contains('open')) {
+                closeHelpModal();
+            }
+        }
+    });
+});
+
+    // =========================================================================
+    // SIDEBAR TOGGLE (Mobile)
+    // =========================================================================
+    const sidebarToggle = document.querySelector('[data-propose-info-toggle]');
+    const sidebarContent = document.getElementById('propose-info-content');
+
+    if (sidebarToggle && sidebarContent) {
+        sidebarToggle.addEventListener('click', () => {
+            const isExpanded = sidebarToggle.getAttribute('aria-expanded') === 'true';
+            sidebarToggle.setAttribute('aria-expanded', !isExpanded);
+            sidebarContent.classList.toggle('open', !isExpanded);
+        });
+    }
+</script>
+
+{# Counter animation #}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const counters = document.querySelectorAll('[data-count]');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.dataset.count);
+                const duration = 2000;
+                const start = performance.now();
+
+                const animate = (now) => {
+                    const progress = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.round(target * eased);
+                    el.textContent = current.toLocaleString('es-CL');
+                    if (progress < 1) requestAnimationFrame(animate);
+                };
+                requestAnimationFrame(animate);
+                observer.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(el => observer.observe(el));
+});
+</script>
+{% endblock %}

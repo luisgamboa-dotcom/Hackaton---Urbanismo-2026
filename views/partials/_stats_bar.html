@@ -1,0 +1,32 @@
+{# Stats Bar Section #}
+<section id="stats" class="stats-bar" aria-labelledby="stats-title">
+    <div class="container">
+        <h2 id="stats-title" class="sr-only">Métricas de impacto</h2>
+        <div class="stats-grid">
+            {% for stat in stats %}
+            <article class="stat-item" data-scroll-reveal>
+                <svg class="stat-icon" aria-hidden="true">
+                    {% set icon = stat.icon %}
+                    {% if icon == 'leaf' %}
+                    <use href="#icon-leaf"></use>
+                    {% elif icon == 'map-pin' %}
+                    <use href="#icon-map-pin"></use>
+                    {% elif icon == 'users' %}
+                    <use href="#icon-users"></use>
+                    {% elif icon == 'building-2' %}
+                    <use href="#icon-building-2"></use>
+                    {% elif icon == 'handshake' %}
+                    <use href="#icon-handshake"></use>
+                    {% elif icon == 'users-round' %}
+                    <use href="#icon-users-round"></use>
+                    {% else %}
+                    <use href="#icon-leaf"></use>
+                    {% endif %}
+                </svg>
+                <div class="stat-value" data-count="{{ stat.value }}">{{ stat.formatted_value }}</div>
+                <div class="stat-label">{{ stat.label }}</div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>

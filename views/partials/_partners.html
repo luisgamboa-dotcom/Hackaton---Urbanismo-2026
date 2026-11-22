@@ -1,0 +1,79 @@
+{# Partners Section - Optimized: grouped by type, horizontal layout #}
+<section id="partners" class="partners-section section" aria-labelledby="partners-title">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal>
+            <span class="section-badge">Socios estratégicos</span>
+            <h2 id="partners-title" class="section-title">Alianzas que hacen posible el cambio</h2>
+            <p class="section-description">
+                Municipalidades, empresas con RSE, ONGs, viveros, universidades y comunidades
+                trabajan juntos para recuperar la ciudad.
+            </p>
+        </header>
+
+        {# Partners Grouped by Type - Horizontal layout #}
+        {% if partners_by_type %}
+        <div class="partners-by-type" data-scroll-reveal>
+            {% for type_key, type_partners in partners_by_type.items() %}
+            <div class="partner-type-group">
+                <div class="partner-type-header">
+                    <h3 class="partner-type-title">
+                        <svg class="icon icon-sm" aria-hidden="true">
+                            {% if type_key == 'municipality' %}
+                            <use href="#icon-building-2"></use>
+                            {% elif type_key == 'company_rse' %}
+                            <use href="#icon-briefcase"></use>
+                            {% elif type_key == 'ngo' %}
+                            <use href="#icon-heart"></use>
+                            {% elif type_key == 'nursery' %}
+                            <use href="#icon-leaf"></use>
+                            {% elif type_key == 'university' %}
+                            <use href="#icon-graduation-cap"></use>
+                            {% elif type_key == 'community' %}
+                            <use href="#icon-users"></use>
+                            {% else %}
+                            <use href="#icon-building"></use>
+                            {% endif %}
+                        </svg>
+                        {% if type_key == 'municipality' %}Municipalidades
+                        {% elif type_key == 'company_rse' %}Empresas RSE
+                        {% elif type_key == 'ngo' %}ONGs y Fundaciones
+                        {% elif type_key == 'nursery' %}Viveros
+                        {% elif type_key == 'university' %}Academia
+                        {% elif type_key == 'community' %}Comunidades
+                        {% else %}{{ type_key|title }}{% endif %}
+                        <span class="partner-count">({{ type_partners|length }})</span>
+                    </h3>
+                </div>
+                <div class="partner-type-list">
+                    {% for partner in type_partners %}
+                    <a href="{{ partner.website_url or '#' }}" class="partner-item"
+                       data-partner-type="{{ partner.type }}"
+                       {% if partner.website_url %}target="_blank" rel="noopener noreferrer"{% endif %}
+                       title="{{ partner.name }}{% if partner.description %}: {{ partner.description }}{% endif %}">
+                        <span class="partner-item-icon" aria-hidden="true">
+                            {% if partner.type == 'municipality' %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path><path d="M10 6h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 18h4"></path></svg>
+                            {% elif partner.type == 'company_rse' %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path><rect x="2" y="7" width="20" height="14" rx="2"></rect></svg>
+                            {% elif partner.type == 'ngo' %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 1 0 7.78l-12 12a5.5 5.5 0 0 1-7.78 0l-1.06-1.06a5.5 5.5 0 0 1 0-7.78l12-12a5.5 5.5 0 0 1 7.78 0l1.06 1.06z"></path></svg>
+                            {% elif partner.type == 'nursery' %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 6.1 17 10.3 17 10.3C17 10.3 22 7.5 22 14.2C22 18.5 18.9 20 14.2 20H11Z"></path><path d="M2 21L6 18M4 19L6 18L8 19"></path></svg>
+                            {% elif partner.type == 'university' %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.92 3.24a1 1 0 0 0-1.823.02L2.6 10.91a1 1 0 0 0 0 1.832l8.3 8.314a1 1 0 0 0 1.823-.02l8.52-8.53z"></path><path d="M22 10v6"></path><path d="M6 10v6"></path><path d="M14 14v4"></path></svg>
+                            {% elif partner.type == 'community' %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a6 6 0 0 0-12 0"></path><circle cx="12" cy="11" r="4"></circle><path d="M22 21c0-2.5-3-2.5-6-2.5s-6 0-6 2.5"></path></svg>
+                            {% else %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path><path d="M3 15h18"></path><path d="M9 3v18"></path><path d="M15 3v18"></path></svg>
+                            {% endif %}
+                        </span>
+                        <span class="partner-item-name">{{ partner.name }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</section>

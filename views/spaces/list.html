@@ -1,0 +1,289 @@
+{# Spaces List Page #}
+{% extends "base.html" %}
+
+{% block title %}Espacios Recuperados - Green Tech{% endblock %}
+
+{% block description %}
+Explora todos los espacios urbanos recuperados en Santiago. Filtra por comuna, categoría o estado para encontrar intervenciones cerca de ti.
+{% endblock %}
+
+{% block canonical_url %}https://tramaurbanaverde.cl/espacios{% endblock %}
+
+{% block og_title %}Espacios Recuperados - Green Tech{% endblock %}
+
+{% block og_description %}
++2.450 m² recuperados en 12 espacios a través de 5 comunas de Santiago. Plazas de bolsillo, corredores verdes, huertos comunitarios y más.
+{% endblock %}
+
+{% block og_image %}https://tramaurbanaverde.cl/images/og-spaces.jpg{% endblock %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Espacios Recuperados - Green Tech",
+  "description": "Listado de espacios urbanos recuperados mediante urbanismo táctico participativo en Santiago",
+  "itemListElement": [
+    {% for space in spaces[:5] %}
+    {
+      "@type": "ListItem",
+      "position": {{ loop.index }},
+      "item": {
+        "@type": "Place",
+        "name": "{{ space.name }}",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "{{ space.commune }}",
+          "addressRegion": "Región Metropolitana",
+          "addressCountry": "CL"
+        },
+        "description": "{{ space.description|truncate(150) if space.description else 'Espacio recuperado por Green Tech' }}",
+        "url": "https://tramaurbanaverde.cl/espacios/{{ space.id }}"
+      }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+{# Hero Section for Spaces List #}
+<section class="page-hero section-lg" aria-labelledby="spaces-hero-title">
+    <div class="container">
+        <div class="page-hero-content" data-scroll-reveal>
+            <span class="section-badge">Espacios</span>
+            <h1 id="spaces-hero-title" class="page-hero-title">Espacios recuperados en la ciudad</h1>
+            <p class="page-hero-description">
+                Cada intervención cuenta una historia de transformación comunitaria.
+                Explora, filtra y descubre los espacios que hemos recuperado junto a vecinos y socios.
+            </p>
+        </div>
+    </div>
+</section>
+
+{# Filters Section #}
+<section class="section-sm filters-section" aria-labelledby="filters-title">
+    <div class="container">
+        <div class="filters-form" data-scroll-reveal>
+            <form id="spaces-filters" class="filters-grid" action="/espacios" method="GET">
+                <div class="form-group">
+                    <label for="filter-status" class="form-label">Estado</label>
+                    <select id="filter-status" name="status" class="form-select">
+                        <option value="">Todos los estados</option>
+                        {% for status in statuses %}
+                        <option value="{{ status }}" {% if filters.status == status %}selected{% endif %}>
+                            {% if status == 'completed' %}Completado
+                            {% elif status == 'in_progress' %}En Progreso
+                            {% elif status == 'identified' %}Identificado
+                            {% else %}{{ status|title }}{% endif %}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="filter-category" class="form-label">Categoría</label>
+                    <select id="filter-category" name="category" class="form-select">
+                        <option value="">Todas las categorías</option>
+                        {% for cat in categories %}
+                        <option value="{{ cat }}" {% if filters.category == cat %}selected{% endif %}>
+                            {{ cat|format_category_label }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="filter-commune" class="form-label">Comuna</label>
+                    <select id="filter-commune" name="commune" class="form-select">
+                        <option value="">Todas las comunas</option>
+                        {% for commune in communes %}
+                        <option value="{{ commune }}" {% if filters.commune == commune %}selected{% endif %}>
+                            {{ commune }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group form-submit-group">
+                    <button type="submit" class="btn btn-primary btn-block">Filtrar</button>
+                    <a href="/espacios" class="btn btn-tertiary btn-block">Limpiar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{# Results Summary #}
+<section class="section-sm results-summary">
+    <div class="container">
+        <div class="results-info" data-scroll-reveal>
+            <p class="results-count">
+                <strong>{{ total }}</strong> espacio{% if total != 1 %}s{% endif %} encontrado{% if total != 1 %}s{% endif %}
+                {% if filters.status or filters.category or filters.commune %}
+                    con los filtros aplicados
+                {% endif %}
+            </p>
+            {% if filters.status or filters.category or filters.commune %}
+            <div class="active-filters" aria-label="Filtros activos">
+                {% if filters.status %}
+                <span class="filter-chip">
+                    Estado: {{ filters.status|format_status_label }}
+                    <a href="/espacios?category={{ filters.category|default('') }}&commune={{ filters.commune|default('') }}" class="filter-chip-remove" aria-label="Quitar filtro de estado">&times;</a>
+                </span>
+                {% endif %}
+                {% if filters.category %}
+                <span class="filter-chip">
+                    Categoría: {{ filters.category|format_category_label }}
+                    <a href="/espacios?status={{ filters.status|default('') }}&commune={{ filters.commune|default('') }}" class="filter-chip-remove" aria-label="Quitar filtro de categoría">&times;</a>
+                </span>
+                {% endif %}
+                {% if filters.commune %}
+                <span class="filter-chip">
+                    Comuna: {{ filters.commune }}
+                    <a href="/espacios?status={{ filters.status|default('') }}&category={{ filters.category|default('') }}" class="filter-chip-remove" aria-label="Quitar filtro de comuna">&times;</a>
+                </span>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{# Spaces Grid #}
+<section id="spaces" class="spaces-section section" aria-labelledby="spaces-title">
+    <div class="container">
+        {% if spaces %}
+        <div class="spaces-grid grid grid-cols-3 gap-lg">
+            {% for space in spaces %}
+            <article class="space-card card card-interactive card-elevated"
+                     data-space-card
+                     data-space-id="{{ space.id }}"
+                     data-scroll-reveal>
+                <div class="card-body">
+                    {% if space.status %}
+                    <span class="card-badge chip chip-sm status-{{ space.status.value }}">
+                        {{ space.status_label }}
+                    </span>
+                    {% endif %}
+                    <h3 class="card-title">{{ space.name }}</h3>
+
+                    <div class="card-commune">
+                        <svg class="icon icon-sm icon-muted" aria-hidden="true"><use href="#icon-map-pin"></use></svg>
+                        <span>{{ space.commune or 'Sin comuna' }}</span>
+                    </div>
+
+                    {% if space.description %}
+                    <p class="card-description" style="font-size: var(--font-size-body-sm, 13px); color: var(--color-on-surface-variant); margin-bottom: var(--space-space-sm); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">
+                        {{ space.description }}
+                    </p>
+                    {% endif %}
+
+                    <div class="card-meta">
+                        {% if space.area_m2 %}
+                        <span class="chip chip-sm chip-territorial">
+                            <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-square"></use></svg>
+                            {{ space.area_m2|format_area_m2 }}
+                        </span>
+                        {% endif %}
+
+                        {% if space.category %}
+                        <span class="card-category">
+                            <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-tag"></use></svg>
+                            {{ space.category_label }}
+                        </span>
+                        {% endif %}
+
+                        <span class="card-status status-{{ space.status.value }}">
+                            {{ space.status_label }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <a href="/espacios/{{ space.id }}" class="btn btn-tertiary btn-sm btn-block">
+                        Ver detalles
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        {# Pagination #}
+        {% if total > 50 %}
+        <nav class="pagination" aria-label="Paginación de espacios" data-scroll-reveal>
+            <div class="pagination-info">
+                Mostrando {{ spaces|length }} de {{ total }} espacios
+            </div>
+            <div class="pagination-controls">
+                <button class="btn btn-tertiary btn-sm" disabled>
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+                    Anterior
+                </button>
+                <span class="pagination-page">Página 1</span>
+                <button class="btn btn-tertiary btn-sm">
+                    Siguiente
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+                </button>
+            </div>
+        </nav>
+        {% endif %}
+        {% else %}
+        <div class="empty-state" data-scroll-reveal>
+            <svg class="icon icon-xl empty-state-icon" aria-hidden="true"><use href="#icon-map-pin"></use></svg>
+            <h2 class="empty-state-title">No se encontraron espacios</h2>
+            <p class="empty-state-description">
+                {% if filters.status or filters.category or filters.commune %}
+                No hay espacios que coincidan con los filtros seleccionados.
+                {% else %}
+                Aún no hay espacios recuperados publicados.
+                {% endif %}
+            </p>
+            {% if filters.status or filters.category or filters.commune %}
+            <a href="/espacios" class="btn btn-primary mt-md">Ver todos los espacios</a>
+            {% else %}
+            <a href="#propose-space" class="btn btn-primary mt-md">Postular un espacio</a>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{# CTA Section #}
+{% include "partials/_cta_section.html" %}
+{% endblock %}
+
+{% block extra_scripts %}
+{# Counter animation for stats #}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Animate counter numbers
+  const counters = document.querySelectorAll('[data-count]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.count);
+        const duration = 2000;
+        const start = performance.now();
+
+        const animate = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(target * eased);
+          el.textContent = current.toLocaleString('es-CL');
+          if (progress < 1) requestAnimationFrame(animate);
+        };
+        requestAnimationFrame(animate);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(el => observer.observe(el));
+});
+</script>
+{% endblock %}

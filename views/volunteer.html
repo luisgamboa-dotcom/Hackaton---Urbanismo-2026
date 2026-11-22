@@ -1,0 +1,639 @@
+{# Volunteer Page #}
+{% extends "base.html" %}
+
+{% block title %}Súmate como Voluntario - Green Tech{% endblock %}
+
+{% block description %}
+Únete como voluntario a Green Tech. Plantaciones, mantenimiento, difusión, logística y más. Tu tiempo transforma espacios urbanos en Santiago.
+{% endblock %}
+
+{% block canonical_url %}https://tramaurbanaverde.cl/voluntariado{% endblock %}
+
+{% block og_title %}Súmate como Voluntario - Green Tech{% endblock %}
+
+{% block og_description %}
+¿Quieres mancharte las manos por un Santiago más verde? Únete a nuestra red de voluntarios. Plantamos, cuidamos y difundimos.
+{% endblock %}
+
+{% block og_image %}https://tramaurbanaverde.cl/images/og-volunteer.jpg{% endblock %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Súmate como Voluntario - Green Tech",
+  "description": "Únete como voluntario a Green Tech. Plantaciones, mantenimiento, difusión, logística y más.",
+  "url": "https://tramaurbanaverde.cl/voluntariado",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Green Tech",
+    "url": "https://tramaurbanaverde.cl",
+    "volunteerOpportunity": {
+      "@type": "VolunteerOpportunity",
+      "name": "Voluntariado Green Tech",
+      "description": "Participa en la recuperación de espacios urbanos en Santiago",
+      "location": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Santiago",
+          "addressRegion": "Región Metropolitana",
+          "addressCountry": "CL"
+        }
+      }
+    }
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+{# Page Hero #}
+<section class="page-hero section-lg" aria-labelledby="volunteer-hero-title">
+    <div class="container">
+        <div class="page-hero-content" data-scroll-reveal>
+            <span class="section-badge">Participa</span>
+            <h1 id="volunteer-hero-title" class="page-hero-title">Súmate como voluntario</h1>
+            <p class="page-hero-description">
+                Tu tiempo y tus manos transforman lotes baldíos en plazas, huertos y corredores verdes para la comunidad. No se necesita experiencia, solo ganas.
+            </p>
+        </div>
+    </div>
+</section>
+
+{# Impact Stats #}
+<section class="section" style="background: var(--color-surface-container);">
+    <div class="container">
+        <div class="volunteer-stats" data-scroll-reveal>
+            <div class="stat-item">
+                <span class="stat-number" data-count="340">340</span>
+                <span class="stat-label">Voluntarios activos</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="1200">1.200</span>
+                <span class="stat-label">Horas de voluntariado</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="12">12</span>
+                <span class="stat-label">Espacios recuperados</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-count="5">5</span>
+                <span class="stat-label">Comunas de Santiago</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# How to participate #}
+<section class="section section-lg">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal style="text-align: center; max-width: 700px; margin: 0 auto var(--space-space-xl);">
+            <span class="section-badge">Cómo participar</span>
+            <h2 class="section-title">Elige tu forma de colaborar</h2>
+            <p class="section-description">Tenemos roles para todos los perfiles, tiempos y capacidades. Puedes combinar varios.</p>
+        </header>
+        
+        <div class="volunteer-roles" data-scroll-reveal>
+            <article class="role-card">
+                <header class="role-header">
+                    <svg class="role-icon" aria-hidden="true"><use href="#icon-leaf"></use></svg>
+                    <div>
+                        <h3 class="role-title">Manos a la tierra</h3>
+                        <p class="role-subtitle">Plantación y mantenimiento</p>
+                    </div>
+                </header>
+                <ul class="role-tasks">
+                    <li>Plantación de árboles, arbustos y herbáceas nativas</li>
+                    <li>Riego, poda, desmalezado y compostaje</li>
+                    <li>Instalación de mobiliario (bancas, juegos, señalética)</li>
+                    <li>Jornadas de limpieza y preparación de terreno</li>
+                </ul>
+                <span class="role-frequency">Frecuencia: Semanal / Quincenal (2-4 hrs)</span>
+            </article>
+
+            <article class="role-card">
+                <header class="role-header">
+                    <svg class="role-icon" aria-hidden="true"><use href="#icon-users"></use></svg>
+                    <div>
+                        <h3 class="role-title">Comunidad y talleres</h3>
+                        <p class="role-subtitle">Vinculación y educación</p>
+                    </div>
+                </header>
+                <ul class="role-tasks">
+                    <li>Facilitación de talleres (huertos, compostaje, biodiversidad)</li>
+                    <li>Acompañamiento a juntas de vecinos y colegios</li>
+                    <li>Mediación en procesos participativos de diseño</li>
+                    <li>Organización de eventos comunitarios (inauguraciones, ferias)</li>
+                </ul>
+                <span class="role-frequency">Frecuencia: Mensual / Eventual (3-6 hrs)</span>
+            </article>
+
+            <article class="role-card">
+                <header class="role-header">
+                    <svg class="role-icon" aria-hidden="true"><use href="#icon-upload"></use></svg>
+                    <div>
+                        <h3 class="role-title">Comunicación y difusión</h3>
+                        <p class="role-subtitle">Visibilidad y storytelling</p>
+                    </div>
+                </header>
+                <ul class="role-tasks">
+                    <li>Fotografía y video de antes/después y jornadas</li>
+                    <li>Redacción de notas para blog y newsletter</li>
+                    <li>Gestión de redes sociales (Instagram, Twitter, LinkedIn)</li>
+                    <li>Diseño gráfico de materiales (afiches, señalética, informes)</li>
+                </ul>
+                <span class="role-frequency">Frecuencia: Flexible / Remoto posible</span>
+            </article>
+
+            <article class="role-card">
+                <header class="role-header">
+                    <svg class="role-icon" aria-hidden="true"><use href="#icon-square"></use></svg>
+                    <div>
+                        <h3 class="role-title">Logística y coordinación</h3>
+                        <p class="role-subtitle">Organización y soporte</p>
+                    </div>
+                </header>
+                <ul class="role-tasks">
+                    <li>Gestión de insumos: herramientas, plantas, materiales</li>
+                    <li>Coordinación de jornadas: horarios, voluntarios, seguridad</li>
+                    <li>Transporte y acopio de materiales</li>
+                    <li>Apoyo administrativo: bases de datos, informes, rendiciones</li>
+                </ul>
+                <span class="role-frequency">Frecuencia: Semanal / Según proyectos</span>
+            </article>
+
+            <article class="role-card">
+                <header class="role-header">
+                    <svg class="role-icon" aria-hidden="true"><use href="#icon-graduation-cap"></use></svg>
+                    <div>
+                        <h3 class="role-title">Apoyo técnico y profesional</h3>
+                        <p class="role-subtitle">Conocimientos especializados</p>
+                    </div>
+                </header>
+                <ul class="role-tasks">
+                    <li>Arquitectura, paisajismo, diseño urbano</li>
+                    <li>Ingeniería (hidráulica, estructural, ambiental)</li>
+                    <li>Agronomía, botánica, ecología urbana</li>
+                    <li>Derecho, gestión de proyectos, financiamiento</li>
+                    <li>Psicología social, trabajo comunitario</li>
+                </ul>
+                <span class="role-frequency">Frecuencia: Por proyecto / Asesoría</span>
+            </article>
+
+            <article class="role-card">
+                <header class="role-header">
+                    <svg class="role-icon" aria-hidden="true"><use href="#icon-heart"></use></svg>
+                    <div>
+                        <h3 class="role-title">Embajador/a Green Tech</h3>
+                        <p class="role-subtitle">Representación y redes</p>
+                    </div>
+                </header>
+                <ul class="role-tasks">
+                    <li>Difusión en tu barrio, trabajo, universidad, redes</li>
+                    <li>Captación de nuevos voluntarios y aliados</li>
+                    <li>Representación en instancias vecinales y municipales</li>
+                    <li>Gestión de donaciones (materiales, especies, fondos)</li>
+                </ul>
+                <span class="role-frequency">Frecuencia: Flexible / Autogestionado</span>
+            </article>
+        </div>
+    </div>
+</section>
+
+{# Testimonials #}
+<section class="section section-lg" style="background: var(--color-surface-container);">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal style="text-align: center; max-width: 700px; margin: 0 auto var(--space-space-xl);">
+            <span class="section-badge">Experiencias</span>
+            <h2 class="section-title">Lo que dicen nuestros voluntarios</h2>
+        </header>
+        
+        <div class="testimonial-grid" data-scroll-reveal>
+            <article class="testimonial-card">
+                <blockquote>
+                    "Nunca había plantado un árbol y ahora no puedo parar. Ver crecer lo que plantamos con mis manos en mi barrio no tiene precio."
+                </blockquote>
+                <footer>
+                    <div class="testimonial-avatar">MC</div>
+                    <div>
+                        <cite>María C.</cite>
+                        <span>Voluntaria desde 2025 · Ñuñoa</span>
+                    </div>
+                </footer>
+            </article>
+            <article class="testimonial-card">
+                <blockquote>
+                    "Como arquitecto, aporto diseño. Como vecino, aprendo de la comunidad. Green Tech une ambos mundos."
+                </blockquote>
+                <footer>
+                    <div class="testimonial-avatar">JR</div>
+                    <div>
+                        <cite>Jorge R.</cite>
+                        <span>Arquitecto · Santiago Centro</span>
+                    </div>
+                </footer>
+            </article>
+            <article class="testimonial-card">
+                <blockquote>
+                    "Llevé a mis hijos a una plantación y ahora me piden ir todos los sábados. Es el mejor legado que les puedo dejar."
+                </blockquote>
+                <footer>
+                    <div class="testimonial-avatar">PV</div>
+                    <div>
+                        <cite>Paola V.</cite>
+                        <span>Mamá y vecina · Estación Central</span>
+                    </div>
+                </footer>
+            </article>
+        </div>
+    </div>
+</section>
+
+{# Registration Form #}
+<section class="section section-lg">
+    <div class="container">
+        <div class="registration-card" data-scroll-reveal>
+            <header style="text-align: center; margin-bottom: var(--space-space-xl);">
+                <h2>¿Te sumas? Regístrate aquí</h2>
+                <p style="color: var(--color-on-surface-variant); max-width: 600px; margin: 0 auto;">
+                    Te enviaremos información de las próximas jornadas, capacitaciones y cómo coordinar tu participación. Sin compromiso, te das de baja cuando quieras.
+                </p>
+            </header>
+            
+            <form id="volunteer-form" class="volunteer-form" action="/api/volunteer" method="POST">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="vol-name" class="form-label">Nombre <span class="required" aria-hidden="true">*</span></label>
+                        <input type="text" id="vol-name" name="name" class="form-input" placeholder="Tu nombre completo" required maxlength="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="vol-email" class="form-label">Correo electrónico <span class="required" aria-hidden="true">*</span></label>
+                        <input type="email" id="vol-email" name="email" class="form-input" placeholder="tu@email.cl" required maxlength="200">
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="vol-phone" class="form-label">Teléfono <span class="required" aria-hidden="true">*</span></label>
+                        <input type="tel" id="vol-phone" name="phone" class="form-input" placeholder="+56 9 XXXX XXXX" required maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="vol-commune" class="form-label">Comuna donde vives/trabajas <span class="required" aria-hidden="true">*</span></label>
+                        <select id="vol-commune" name="commune" class="form-select" required>
+                            <option value="">Selecciona tu comuna</option>
+                            <option value="Santiago">Santiago</option>
+                            <option value="Providencia">Providencia</option>
+                            <option value="Ñuñoa">Ñuñoa</option>
+                            <option value="La Reina">La Reina</option>
+                            <option value="Las Condes">Las Condes</option>
+                            <option value="Vitacura">Vitacura</option>
+                            <option value="Lo Barnechea">Lo Barnechea</option>
+                            <option value="Estación Central">Estación Central</option>
+                            <option value="San Miguel">San Miguel</option>
+                            <option value="La Cisterna">La Cisterna</option>
+                            <option value="El Bosque">El Bosque</option>
+                            <option value="Pedro Aguirre Cerda">Pedro Aguirre Cerda</option>
+                            <option value="Otra">Otra comuna de RM</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">¿En qué te interesa participar? <span class="required" aria-hidden="true">*</span></label>
+                    <div class="checkbox-grid">
+                        <label class="form-checkbox">
+                            <input type="checkbox" name="roles[]" value="tierra">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">🌿 Manos a la tierra (plantación, mantenimiento)</span>
+                        </label>
+                        <label class="form-checkbox">
+                            <input type="checkbox" name="roles[]" value="comunidad">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">👥 Comunidad y talleres</span>
+                        </label>
+                        <label class="form-checkbox">
+                            <input type="checkbox" name="roles[]" value="comunicacion">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">📸 Comunicación y difusión</span>
+                        </label>
+                        <label class="form-checkbox">
+                            <input type="checkbox" name="roles[]" value="logistica">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">📦 Logística y coordinación</span>
+                        </label>
+                        <label class="form-checkbox">
+                            <input type="checkbox" name="roles[]" value="tecnico">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">🎓 Apoyo técnico / profesional</span>
+                        </label>
+                        <label class="form-checkbox">
+                            <input type="checkbox" name="roles[]" value="embajador">
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">❤️ Embajador/a Green Tech</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="vol-availability" class="form-label">Disponibilidad horaria</label>
+                    <select id="vol-availability" name="availability" class="form-select">
+                        <option value="">Selecciona (opcional)</option>
+                        <option value="mananas_laborables">Mañanas entre semana</option>
+                        <option value="tardes_laborables">Tardes entre semana</option>
+                        <option value="sabanas">Sábados por la mañana</option>
+                        <option value="domingos">Domingos por la mañana</option>
+                        <option value="flexible">Flexible / Avisar con antelación</option>
+                        <option value="remoto">Solo actividades remotas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="vol-skills" class="form-label">Habilidades, profesión o experiencia relevante (opcional)</label>
+                    <textarea id="vol-skills" name="skills" class="form-textarea" rows="3" placeholder="Ej: arquitecto, agrónomo, fotógrafo, experiencia en huertos, manejo de redes sociales, conducción, primeros auxilios..." maxlength="500"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-checkbox">
+                        <input type="checkbox" name="newsletter" checked>
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-label">Quiero recibir el newsletter mensual con novedades y convocatorias</span>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label class="form-checkbox">
+                        <input type="checkbox" name="privacy" required>
+                        <span class="checkbox-custom"></span>
+                        <span class="checkbox-label">Acepto la <a href="/privacidad" target="_blank">Política de Privacidad</a> y autorizo el uso de mis datos para contactarme sobre voluntariado <span class="required" aria-hidden="true">*</span></span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-cta btn-block btn-lg">
+                    <span class="btn-text">Registrarme como voluntario</span>
+                    <span class="btn-loading" hidden>
+                        <svg class="icon icon-sm animate-spin" aria-hidden="true"><use href="#icon-loader"></use></svg>
+                        Registrando...
+                    </span>
+                </button>
+                <p class="form-success" hidden>¡Bienvenido/a! Te enviaremos un correo de confirmación con los próximos pasos.</p>
+                <p class="form-error" hidden>Error al registrar. Intenta de nuevo o escríbenos a <a href="mailto:voluntariado@tramaurbanaverde.cl">voluntariado@tramaurbanaverde.cl</a>.</p>
+            </form>
+        </div>
+    </div>
+</section>
+
+{# CTA #}
+<section class="cta-section section-lg">
+    <div class="container">
+        <div class="cta-content" style="text-align: center;">
+            <h2>¿Primero quieres ver los espacios?</h2>
+            <p class="cta-description">Conoce los 12 espacios que hemos recuperado y elige donde te gustaría participar.</p>
+            <a href="/espacios" class="btn btn-secondary btn-lg">
+                Ver espacios recuperados
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.volunteer-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-space-md);
+    text-align: center;
+}
+@media (max-width: 768px) {
+    .volunteer-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+.stat-number {
+    display: block;
+    font-size: var(--font-size-display-md, 42px);
+    font-weight: 800;
+    color: var(--color-primary);
+    line-height: 1;
+    margin-bottom: var(--space-space-xs);
+}
+.stat-label {
+    font-size: var(--font-size-body-sm, 13px);
+    color: var(--color-on-surface-variant);
+}
+
+.volunteer-roles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-space-md);
+}
+.role-card {
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+    padding: var(--space-space-lg);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.role-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--color-secondary);
+}
+.role-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-space-md);
+    margin-bottom: var(--space-space-md);
+}
+.role-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-container);
+    color: var(--color-on-primary-container);
+    border-radius: var(--radius-lg);
+    flex-shrink: 0;
+}
+.role-title {
+    font-size: var(--font-size-headline-sm, 18px);
+    font-weight: 700;
+    color: var(--color-on-surface);
+    margin: 0 0 var(--space-space-xs);
+}
+.role-subtitle {
+    font-size: var(--font-size-body-sm, 13px);
+    color: var(--color-on-surface-variant);
+    margin: 0;
+}
+.role-tasks {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-space-md);
+}
+.role-tasks li {
+    position: relative;
+    padding-left: var(--space-space-lg);
+    margin-bottom: var(--space-space-xs);
+    font-size: var(--font-size-body-sm, 13px);
+    color: var(--color-on-surface-variant);
+    line-height: 1.5;
+}
+.role-tasks li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+.role-frequency {
+    display: inline-block;
+    font-size: var(--font-size-body-xs, 11px);
+    font-weight: 600;
+    color: var(--color-primary);
+    background: var(--color-primary-container);
+    padding: var(--space-space-xs) var(--space-space-sm);
+    border-radius: var(--radius-full);
+}
+
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-space-md);
+}
+@media (max-width: 900px) {
+    .testimonial-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.testimonial-card {
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+    padding: var(--space-space-lg);
+}
+.testimonial-card blockquote {
+    margin: 0 0 var(--space-space-md);
+    font-size: var(--font-size-body-md, 15px);
+    line-height: 1.6;
+    color: var(--color-on-surface);
+    font-style: italic;
+}
+.testimonial-card footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-space-sm);
+}
+.testimonial-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--font-size-body-sm, 13px);
+}
+.testimonial-card cite {
+    font-style: normal;
+    font-weight: 600;
+    color: var(--color-on-surface);
+    display: block;
+}
+.testimonial-card span {
+    font-size: var(--font-size-body-xs, 11px);
+    color: var(--color-on-surface-variant);
+}
+
+.registration-card {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+    padding: var(--space-space-xl);
+}
+.checkbox-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-space-sm);
+    margin-top: var(--space-space-sm);
+}
+.checkbox-label {
+    font-size: var(--font-size-body-sm, 13px);
+}
+.form-success {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-align: center;
+    padding: var(--space-space-md);
+}
+.form-error {
+    color: var(--color-error, #D32F2F);
+    font-weight: 600;
+    text-align: center;
+    padding: var(--space-space-md);
+}
+</style>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('volunteer-form');
+    if (!form) return;
+
+    // Require at least one role checkbox
+    const roleCheckboxes = form.querySelectorAll('input[name="roles[]"]');
+    
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        // Validate at least one role
+        const checkedRoles = Array.from(roleCheckboxes).filter(cb => cb.checked);
+        if (checkedRoles.length === 0) {
+            alert('Por favor selecciona al menos una forma de participar');
+            return;
+        }
+        
+        const btn = form.querySelector('button[type="submit"]');
+        const btnText = btn.querySelector('.btn-text');
+        const btnLoading = btn.querySelector('.btn-loading');
+        const successMsg = form.querySelector('.form-success');
+        const errorMsg = form.querySelector('.form-error');
+        
+        successMsg.hidden = true;
+        errorMsg.hidden = true;
+        
+        btn.disabled = true;
+        btnText.hidden = true;
+        btnLoading.hidden = false;
+        
+        try {
+            const formData = new FormData(form);
+            const response = await fetch('/api/volunteer', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+            
+            if (response.ok) {
+                form.reset();
+                successMsg.hidden = false;
+                successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                throw new Error('Error en el registro');
+            }
+        } catch (err) {
+            errorMsg.hidden = false;
+            errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } finally {
+            btn.disabled = false;
+            btnText.hidden = false;
+            btnLoading.hidden = true;
+        }
+    });
+});
+</script>
+{% endblock %}

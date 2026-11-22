@@ -1,0 +1,182 @@
+{# Accessibility Statement Page #}
+{% extends "base.html" %}
+
+{% block title %}Declaración de Accesibilidad - Green Tech{% endblock %}
+
+{% block description %}
+Declaración de accesibilidad de Green Tech. Compromiso con WCAG 2.1 AA, mejoras implementadas y cómo reportar barreras.
+{% endblock %}
+
+{% block canonical_url %}https://tramaurbanaverde.cl/accesibilidad{% endblock %}
+
+{% block content %}
+<section class="page-hero section-lg">
+    <div class="container">
+        <div class="page-hero-content" data-scroll-reveal>
+            <span class="section-badge">Accesibilidad</span>
+            <h1 class="page-hero-title">Declaración de Accesibilidad</h1>
+            <p class="page-hero-description">Green Tech se compromete a que su plataforma sea accesible para todas las personas, siguiendo las pautas WCAG 2.1 nivel AA.</p>
+            <p class="page-hero-meta">Fecha de declaración: 22 de noviembre de 2026 · Próxima revisión: 22 de mayo de 2027</p>
+        </div>
+    </div>
+</section>
+
+<section class="section section-lg">
+    <div class="container">
+        <div class="legal-content" data-scroll-reveal>
+            
+            <article>
+                <h2>1. Estado de cumplimiento</h2>
+                <p>Esta plataforma tiene <strong>conformidad parcial</strong> con la norma <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank">WCAG 2.1 nivel AA</a>. "Parcial" significa que algunas partes no cumplen plenamente (ver sección 3).</p>
+            </article>
+
+            <article>
+                <h2>2. Medidas implementadas</h2>
+                <h3>2.1 Perceptible</h3>
+                <ul>
+                    <li>Textos alternativos en todas las imágenes informativas (<code>alt</code> descriptivo).</li>
+                    <li>Contraste mínimo 4.5:1 (textos) y 3:1 (elementos UI) en modo claro y oscuro.</li>
+                    <li>Escalado de texto hasta 200% sin pérdida de contenido ni funcionalidad.</li>
+                    <li>No se usa solo color para transmitir información (iconos, patrones, etiquetas).</li>
+                    <li>Subtítulos en contenido multimedia (cuando aplique).</li>
+                </ul>
+                <h3>2.2 Operable</h3>
+                <ul>
+                    <li>Navegación completa por teclado (Tab, Enter, Espacio, Flechas, Escape).</li>
+                    <li>Indicador de foco visible en todos los elementos interactivos.</li>
+                    <li>Orden de foco lógico y predecible.</li>
+                    <li>Enlace "Saltar al contenido principal" al inicio de cada página.</li>
+                    <li>Sin trampas de teclado; tiempo suficiente para leer y actuar.</li>
+                    <li>Mapa interactivo (Leaflet) operable por teclado y táctil.</li>
+                </ul>
+                <h3>2.3 Comprensible</h3>
+                <ul>
+                    <li>Idioma de la página definido (<code>lang="es"</code>).</li>
+                    <li>Etiquetas en formularios asociadas correctamente (<code><label for></code>).</li>
+                    <li>Mensajes de error claros y sugerencias de corrección.</li>
+                    <li>Navegación consistente en todo el sitio.</li>
+                    <li>Ayuda contextual en formularios complejos (modal de ayuda).</li>
+                </ul>
+                <h3>2.4 Robusto</h3>
+                <ul>
+                    <li>HTML5 semántico (header, nav, main, section, article, aside, footer).</li>
+                    <li>ARIA landmarks y roles donde HTML nativo no basta.</li>
+                    <li>Compatibilidad probada con NVDA, JAWS, VoiceOver, Orca.</li>
+                    <li>Validación HTML (W3C) y CSS (W3C) sin errores críticos.</li>
+                </ul>
+            </article>
+
+            <article>
+                <h2>3. Limitaciones y excepciones conocidas</h2>
+                <table class="accessibility-table">
+                    <thead><tr><th>Componente</th><th>Problema</th><th>Estado</th><th>Solución prevista</th></tr></thead>
+                    <tbody>
+                        <tr>
+                            <td>Mapa interactivo (Leaflet)</td>
+                            <td>Marcadores solo operables por ratón/táctil; popup requiere clic</td>
+                            <td>Parcial</td>
+                            <td>Añadir navegación por teclado entre marcadores (Q2 2027)</td>
+                        </tr>
+                        <tr>
+                            <td>Gráficos de impacto (SVG/Canvas)</td>
+                            <td>Falta descripción textual alternativa completa</td>
+                            <td>Parcial</td>
+                            <td>Añadir <code><desc></code> y tabla de datos equivalente (Q1 2027)</td>
+                        </tr>
+                        <tr>
+                            <td>Subida de archivos</td>
+                            <td>Arrastrar y soltar no operable por teclado</td>
+                            <td>Parcial</td>
+                            <td>Alternativa con botón "Seleccionar archivos" ya implementada</td>
+                        </tr>
+                        <tr>
+                            <td>PDFs descargables (informes)</td>
+                            <td>Algunos PDFs históricos no etiquetados</td>
+                            <td>No conforme</td>
+                            <td>Regenerar con etiquetas PDF/UA (continuo)</td>
+                        </tr>
+                        <tr>
+                            <td>Vídeos incrustados (YouTube)</td>
+                            <td>Subtítulos automáticos pueden ser imprecisos</td>
+                            <td>Parcial</td>
+                            <td>Revisar y corregir subtítulos manualmente (continuo)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+
+            <article>
+                <h2>4. Evaluación y pruebas</h2>
+                <ul>
+                    <li><strong>Autoevaluación:</strong> Lista de control WCAG 2.1 AA (interna, cada release).</li>
+                    <li><strong>Herramientas automatizadas:</strong> axe-core, Lighthouse, WAVE (puntuación ≥ 95%).</li>
+                    <li><strong>Pruebas con usuarios:</strong> 2 sesiones/año con personas con discapacidad visual, motora y cognitiva.</li>
+                    <li><strong>Auditoría externa:</strong> Anual por consultora especializada (próxima: marzo 2027).</li>
+                </ul>
+            </article>
+
+            <article>
+                <h2>5. Tecnologías de asistencia probadas</h2>
+                <ul>
+                    <li>Lectores de pantalla: NVDA (Windows), JAWS (Windows), VoiceOver (macOS/iOS), Orca (Linux).</li>
+                    <li>Ampliadores: ZoomText, Lupas de Windows/macOS.</li>
+                    <li>Reconocimiento de voz: Dragon NaturallySpeaking, Dictado de Windows/macOS.</li>
+                    <li>Navegación solo teclado: probada en Chrome, Firefox, Safari, Edge.</li>
+                </ul>
+            </article>
+
+            <article>
+                <h2>6. Cómo reportar barreras de accesibilidad</h2>
+                <p>Si encuentras una barrera no listada arriba, por favor infórmanos:</p>
+                <ul>
+                    <li><strong>Email:</strong> <a href="mailto:accesibilidad@tramaurbanaverde.cl">accesibilidad@tramaurbanaverde.cl</a></li>
+                    <li><strong>Formulario:</strong> <a href="/contacto?subject=accesibilidad">Contacto (asunto: Accesibilidad)</a></li>
+                    <li><strong>Teléfono:</strong> +56 2 XXXX XXXX (horario oficina)</li>
+                </ul>
+                <p>Incluye: URL afectada, tecnología usada, descripción del problema y, si es posible, captura de pantalla. Responderemos en ≤ 10 días hábiles.</p>
+            </article>
+
+            <article>
+                <h2>7. Vía de reclamación</h2>
+                <p>Si la respuesta no es satisfactoria, puedes dirigirte a la autoridad competente en Chile (Comisión para la Transparencia / SENADIS) o a los tribunales de justicia.</p>
+            </article>
+
+            <article>
+                <h2>8. Compromiso de mejora continua</h2>
+                <p>Publicaremos actualizaciones en esta página. Nuestro objetivo: conformidad total WCAG 2.1 AA para diciembre 2027.</p>
+            </article>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.accessibility-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-space-md) 0;
+    font-size: var(--font-size-body-sm, 13px);
+}
+.accessibility-table th, .accessibility-table td {
+    padding: var(--space-space-sm) var(--space-space-md);
+    border: 1px solid var(--color-outline-variant);
+    text-align: left;
+    vertical-align: top;
+}
+.accessibility-table th {
+    background: var(--color-surface-container);
+    font-weight: 600;
+}
+.accessibility-table tr:nth-child(even) td {
+    background: var(--color-surface-container-lowest);
+}
+.accessibility-table code {
+    background: var(--color-surface-container-high);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9em;
+}
+</style>
+{% endblock %}

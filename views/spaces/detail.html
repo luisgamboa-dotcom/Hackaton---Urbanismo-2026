@@ -1,0 +1,505 @@
+{# Space Detail Page #}
+{% extends "base.html" %}
+
+{% block title %}{{ space.name }} - Green Tech{% endblock %}
+
+{% block description %}
+{{ space.description|truncate(160) if space.description else 'Detalles del espacio recuperado ' ~ space.name ~ ' en ' ~ space.commune ~ '. ' ~ space.area_m2|format_area_m2 ~ ' de suelo vivo recuperado.' }}
+{% endblock %}
+
+{% block canonical_url %}https://tramaurbanaverde.cl/espacios/{{ space.id }}{% endblock %}
+
+{% block og_title %}{{ space.name }} - Green Tech{% endblock %}
+
+{% block og_description %}
+{{ space.description|truncate(160) if space.description else 'Espacio recuperado en ' ~ space.commune ~ '. ' ~ space.area_m2|format_area_m2 ~ ' de vegetación nativa y suelo permeable.' }}
+{% endblock %}
+
+{% block og_image %}{{ space.photo_url or 'https://tramaurbanaverde.cl/images/og-space-default.jpg' }}{% endblock %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": "{{ space.name }}",
+  "description": "{{ space.description|truncate(300) if space.description else 'Espacio urbano recuperado mediante urbanismo táctico participativo' }}",
+  "url": "https://tramaurbanaverde.cl/espacios/{{ space.id }}",
+  "image": "{{ space.photo_url or 'https://tramaurbanaverde.cl/images/og-space-default.jpg' }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ space.address or 'Dirección no especificada' }}",
+    "addressLocality": "{{ space.commune }}",
+    "addressRegion": "Región Metropolitana",
+    "addressCountry": "CL"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": {{ space.latitude }},
+    "longitude": {{ space.longitude }}
+  },
+  "category": "{{ space.category_label }}",
+  "areaServed": "{{ space.commune }}",
+  "additionalProperty": [
+    {% if space.area_m2 %}
+    {
+      "@type": "PropertyValue",
+      "name": "Área recuperada",
+      "value": "{{ space.area_m2 }} m²",
+      "unitCode": "MTK"
+    },
+    {% endif %}
+    {
+      "@type": "PropertyValue",
+      "name": "Estado",
+      "value": "{{ space.status_label }}"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Categoría",
+      "value": "{{ space.category_label }}"
+    }
+  ],
+  "publisher": {
+    "@type": "Organization",
+    "name": "Green Tech",
+    "url": "https://tramaurbanaverde.cl"
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+{# Hero Section for Space Detail #}
+<section class="space-hero section-lg" aria-labelledby="space-name">
+    <div class="container">
+        <div class="space-hero-grid" data-scroll-reveal>
+            <div class="space-hero-content">
+                <nav class="breadcrumb" aria-label="Navegación" style="margin-bottom: var(--space-space-md);">
+                    <ol class="breadcrumb-list" style="display: flex; flex-wrap: wrap; gap: var(--space-space-xs); list-style: none; font-size: var(--font-size-body-sm, 13px);">
+                        <li><a href="/" style="color: var(--color-on-surface-variant);">Inicio</a></li>
+                        <li style="color: var(--color-on-surface-variant);">/</li>
+                        <li><a href="/espacios" style="color: var(--color-on-surface-variant);">Espacios</a></li>
+                        <li style="color: var(--color-on-surface-variant);">/</li>
+                        <li><a href="/espacios?commune={{ space.commune|urlencode }}" style="color: var(--color-on-surface-variant);">{{ space.commune }}</a></li>
+                        <li style="color: var(--color-on-surface-variant);">/</li>
+                        <li aria-current="page" style="color: var(--color-on-surface); font-weight: 500;">{{ space.name }}</li>
+                    </ol>
+                </nav>
+
+                {% if space.status %}
+                <span class="card-badge chip chip-md status-{{ space.status.value }}" style="margin-bottom: var(--space-space-md); display: inline-block;">
+                    {{ space.status_label }}
+                </span>
+                {% endif %}
+
+                <h1 id="space-name" class="page-hero-title" style="margin-bottom: var(--space-space-sm);">{{ space.name }}</h1>
+
+                <div class="space-hero-meta" style="display: flex; flex-wrap: wrap; gap: var(--space-space-lg); margin-bottom: var(--space-space-lg); color: var(--color-on-surface-variant);">
+                    <div class="meta-item" style="display: flex; align-items: center; gap: var(--space-space-xs);">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-map-pin"></use></svg>
+                        <span>{{ space.commune }}, Santiago</span>
+                    </div>
+                    {% if space.area_m2 %}
+                    <div class="meta-item" style="display: flex; align-items: center; gap: var(--space-space-xs);">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-square"></use></svg>
+                        <span>{{ space.area_m2|format_area_m2 }} recuperados</span>
+                    </div>
+                    {% endif %}
+                    {% if space.category %}
+                    <div class="meta-item" style="display: flex; align-items: center; gap: var(--space-space-xs);">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-tag"></use></svg>
+                        <span>{{ space.category_label }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if space.description %}
+                <p class="space-hero-description" style="font-size: var(--font-size-body-lg, 17px); line-height: 1.7; color: var(--color-on-surface-variant); max-width: 600px;">
+                    {{ space.description }}
+                </p>
+                {% endif %}
+
+                <div class="space-hero-actions" style="display: flex; flex-wrap: wrap; gap: var(--space-space-md); margin-top: var(--space-space-lg);">
+                    <a href="#support" class="btn btn-primary btn-lg">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-heart"></use></svg>
+                        Apoyar este espacio
+                    </a>
+                    <a href="#share" class="btn btn-secondary btn-lg">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-share"></use></svg>
+                        Compartir
+                    </a>
+                </div>
+            </div>
+
+            {# Space Image/Map #}
+            <div class="space-hero-visual" data-scroll-reveal>
+                {% if space.photo_url %}
+                <div class="space-hero-image" style="border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-hover);">
+                    <img src="{{ space.photo_url }}" alt="{{ space.name }} - Vista del espacio recuperado" style="width: 100%; height: 400px; object-fit: cover;">
+                </div>
+                {% else %}
+                <div class="space-hero-map" style="border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-hover); height: 400px;">
+                    <div id="space-detail-map" style="width: 100%; height: 100%;"></div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Main Content #}
+<section class="space-detail section" aria-labelledby="detail-title">
+    <div class="container">
+        <div class="space-detail-grid" data-scroll-reveal>
+            <div class="space-detail-main">
+                {# About Section #}
+                <article class="detail-section card card-elevated" id="about" aria-labelledby="about-title">
+                    <header class="detail-section-header">
+                        <h2 id="about-title" class="detail-section-title">Sobre este espacio</h2>
+                    </header>
+                    <div class="detail-section-body">
+                        {% if space.description %}
+                        <div class="detail-text" style="line-height: 1.8;">
+                            {{ space.description }}
+                        </div>
+                        {% else %}
+                        <p class="detail-text" style="color: var(--color-on-surface-variant);">
+                            No hay descripción detallada disponible para este espacio.
+                        </p>
+                        {% endif %}
+
+                        <div class="detail-specs" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-space-md); margin-top: var(--space-space-xl); padding-top: var(--space-space-lg); border-top: 1px solid var(--color-outline-variant);">
+                            <div class="spec-item">
+                                <dt class="spec-label" style="font-size: var(--font-size-body-xs, 12px); text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-on-surface-variant); margin-bottom: var(--space-space-xs);">Tipo de intervención</dt>
+                                <dd class="spec-value" style="font-weight: 600;">{{ space.category_label }}</dd>
+                            </div>
+                            <div class="spec-item">
+                                <dt class="spec-label" style="font-size: var(--font-size-body-xs, 12px); text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-on-surface-variant); margin-bottom: var(--space-space-xs);">Estado actual</dt>
+                                <dd class="spec-value" style="font-weight: 600;">{{ space.status_label }}</dd>
+                            </div>
+                            {% if space.area_m2 %}
+                            <div class="spec-item">
+                                <dt class="spec-label" style="font-size: var(--font-size-body-xs, 12px); text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-on-surface-variant); margin-bottom: var(--space-space-xs);">Área recuperada</dt>
+                                <dd class="spec-value" style="font-weight: 600;">{{ space.area_m2|format_area_m2 }}</dd>
+                            </div>
+                            {% endif %}
+                            <div class="spec-item">
+                                <dt class="spec-label" style="font-size: var(--font-size-body-xs, 12px); text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-on-surface-variant); margin-bottom: var(--space-space-xs);">Comuna</dt>
+                                <dd class="spec-value" style="font-weight: 600;">{{ space.commune }}</dd>
+                            </div>
+                            {% if space.address %}
+                            <div class="spec-item">
+                                <dt class="spec-label" style="font-size: var(--font-size-body-xs, 12px); text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-on-surface-variant); margin-bottom: var(--space-space-xs);">Dirección</dt>
+                                <dd class="spec-value" style="font-weight: 600;">{{ space.address }}</dd>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </article>
+
+                {# Impact Section #}
+                <article class="detail-section card card-elevated" id="impact" aria-labelledby="impact-title">
+                    <header class="detail-section-header">
+                        <h2 id="impact-title" class="detail-section-title">Impacto y métricas</h2>
+                    </header>
+                    <div class="detail-section-body">
+                        <div class="impact-stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-space-md);">
+                            <div class="impact-stat-card" style="text-align: center; padding: var(--space-space-md); background: var(--color-surface-container-low); border-radius: var(--radius-lg);">
+                                <div class="impact-stat-value" style="font-size: var(--font-size-headline-xl, 40px); font-weight: 800; color: var(--color-primary); line-height: 1;">{{ space.area_m2 or 0 }}</div>
+                                <div class="impact-stat-label" style="font-size: var(--font-size-body-sm, 13px); color: var(--color-on-surface-variant);">m² recuperados</div>
+                            </div>
+                            <div class="impact-stat-card" style="text-align: center; padding: var(--space-space-md); background: var(--color-surface-container-low); border-radius: var(--radius-lg);">
+                                <div class="impact-stat-value" style="font-size: var(--font-size-headline-xl, 40px); font-weight: 800; color: var(--color-secondary); line-height: 1;">{{ (space.area_m2 * 2)|default(0) }}</div>
+                                <div class="impact-stat-label" style="font-size: var(--font-size-body-sm, 13px); color: var(--color-on-surface-variant);">Vecinos beneficiados (est.)</div>
+                            </div>
+                            <div class="impact-stat-card" style="text-align: center; padding: var(--space-space-md); background: var(--color-surface-container-low); border-radius: var(--radius-lg);">
+                                <div class="impact-stat-value" style="font-size: var(--font-size-headline-xl, 40px); font-weight: 800; color: var(--color-tertiary); line-height: 1;">{{ (space.area_m2 / 50)|default(0, true)|int }}</div>
+                                <div class="impact-stat-label" style="font-size: var(--font-size-body-sm, 13px); color: var(--color-on-surface-variant);">Voluntarios (est.)</div>
+                            </div>
+                            <div class="impact-stat-card" style="text-align: center; padding: var(--space-space-md); background: var(--color-surface-container-low); border-radius: var(--radius-lg);">
+                                <div class="impact-stat-value" style="font-size: var(--font-size-headline-xl, 40px); font-weight: 800; color: var(--color-on-surface-variant); line-height: 1;">{{ (space.area_m2 / 100)|default(0, true)|int }}</div>
+                                <div class="impact-stat-label" style="font-size: var(--font-size-body-sm, 13px); color: var(--color-on-surface-variant);">Árboles plantados (est.)</div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                {# Partners/Community Section #}
+                {% if space.partners %}
+                <article class="detail-section card card-elevated" id="partners" aria-labelledby="partners-title">
+                    <header class="detail-section-header">
+                        <h2 id="partners-title" class="detail-section-title">Socios y comunidad</h2>
+                    </header>
+                    <div class="detail-section-body">
+                        <div class="partners-list" style="display: flex; flex-wrap: wrap; gap: var(--space-space-sm);">
+                            {% for partner in space.partners %}
+                            <a href="{{ partner.website_url or '#' }}" class="partner-item" {% if partner.website_url %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                                <span class="partner-item-icon" aria-hidden="true">
+                                    {% if partner.type == 'municipality' %}
+                                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path><path d="M10 6h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 18h4"></path></svg>
+                                    {% elif partner.type == 'company_rse' %}
+                                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path><rect x="2" y="7" width="20" height="14" rx="2"></rect></svg>
+                                    {% elif partner.type == 'ngo' %}
+                                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 1 0 7.78l-12 12a5.5 5.5 0 0 1-7.78 0l-1.06-1.06a5.5 5.5 0 0 1 0-7.78l12-12a5.5 5.5 0 0 1 7.78 0l1.06 1.06z"></path></svg>
+                                    {% elif partner.type == 'nursery' %}
+                                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 6.1 17 10.3 17 10.3C17 10.3 22 7.5 22 14.2C22 18.5 18.9 20 14.2 20H11Z"></path><path d="M2 21L6 18M4 19L6 18L8 19"></path></svg>
+                                    {% elif partner.type == 'university' %}
+                                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.92 3.24a1 1 0 0 0-1.823.02L2.6 10.91a1 1 0 0 0 0 1.832l8.3 8.314a1 1 0 0 0 1.823-.02l8.52-8.53z"></path><path d="M22 10v6"></path><path d="M6 10v6"></path><path d="M14 14v4"></path></svg>
+                                    {% elif partner.type == 'community' %}
+                                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 21a6 6 0 0 0-12 0"></path><circle cx="12" cy="11" r="4"></circle><path d="M22 21c0-2.5-3-2.5-6-2.5s-6 0-6 2.5"></path></svg>
+                                    {% else %}
+                                    <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path><path d="M3 15h18"></path><path d="M9 3v18"></path><path d="M15 3v18"></path></svg>
+                                    {% endif %}
+                                </span>
+                                <span class="partner-item-name">{{ partner.name }}</span>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </article>
+                {% endif %}
+
+                {# Support Section #}
+                <article class="detail-section card card-elevated" id="support" aria-labelledby="support-title">
+                    <header class="detail-section-header">
+                        <h2 id="support-title" class="detail-section-title">Apoya este espacio</h2>
+                    </header>
+                    <div class="detail-section-body">
+                        <p style="color: var(--color-on-surface-variant); margin-bottom: var(--space-space-lg);">
+                            Tu apoyo ayuda a demostrar el interés comunitario y fortalece la postulación ante autoridades y socios.
+                        </p>
+                        <div class="support-count" style="margin-bottom: var(--space-space-lg); padding: var(--space-space-lg); background: var(--color-primary-fixed); border-radius: var(--radius-lg); text-align: center;">
+                            <div style="font-size: var(--font-size-headline-xl, 40px); font-weight: 800; color: var(--color-primary); line-height: 1;">{{ space.support_count or 0 }}</div>
+                            <div style="font-size: var(--font-size-body-sm, 13px); color: var(--color-on-surface-variant);">personas apoyan este espacio</div>
+                        </div>
+                        <form id="support-form" class="support-form" style="max-width: 400px;">
+                            <div class="form-group" style="margin-bottom: var(--space-space-md);">
+                                <label for="support-email" class="form-label">Tu email <span class="required" aria-hidden="true">*</span></label>
+                                <input type="email" id="support-email" name="email" class="form-input" placeholder="tu@email.cl" required>
+                            </div>
+                            <div class="form-group" style="margin-bottom: var(--space-space-md);">
+                                <label for="support-name" class="form-label">Tu nombre</label>
+                                <input type="text" id="support-name" name="name" class="form-input" placeholder="Juan Pérez" maxlength="100">
+                            </div>
+                            <div class="form-group checkbox-group" style="margin-bottom: var(--space-space-md);">
+                                <input type="checkbox" id="support-consent" name="consent" class="checkbox-input" required>
+                                <label for="support-consent" class="checkbox-label">
+                                    Autorizo el tratamiento de mis datos según la <a href="/privacidad" target="_blank">Política de Privacidad</a> <span class="required" aria-hidden="true">*</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">
+                                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-heart"></use></svg>
+                                Apoyar ahora
+                            </button>
+                            <p class="form-hint" style="margin-top: var(--space-space-sm); text-align: center;">Recibirás una confirmación por email.</p>
+                        </form>
+                    </div>
+                </article>
+
+                {# Share Section #}
+                <article class="detail-section card card-elevated" id="share" aria-labelledby="share-title">
+                    <header class="detail-section-header">
+                        <h2 id="share-title" class="detail-section-title">Comparte este espacio</h2>
+                    </header>
+                    <div class="detail-section-body">
+                        <p style="color: var(--color-on-surface-variant); margin-bottom: var(--space-space-lg);">
+                            Difunde la iniciativa y ayuda a que más vecinos conozcan este espacio recuperado.
+                        </p>
+                        <div class="share-buttons" style="display: flex; flex-wrap: wrap; gap: var(--space-space-sm);">
+                            <a href="https://twitter.com/intent/tweet?text={{ '¡Conoce ' ~ space.name ~ ', un espacio recuperado por @TramaUrbanaVerde en ' ~ space.commune ~ '! #UrbanismoTáctico #Santiago'|urlencode }}" target="_blank" rel="noopener noreferrer" class="btn btn-tertiary" style="display: inline-flex; align-items: center; gap: var(--space-space-sm);" aria-label="Compartir en Twitter">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+                                Twitter
+                            </a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://tramaurbanaverde.cl/espacios/{{ space.id }}" target="_blank" rel="noopener noreferrer" class="btn btn-tertiary" style="display: inline-flex; align-items: center; gap: var(--space-space-sm);" aria-label="Compartir en Facebook">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                                Facebook
+                            </a>
+                            <a href="https://wa.me/?text={{ '¡Conoce ' ~ space.name ~ ', un espacio recuperado por Green Tech en ' ~ space.commune ~ '! https://tramaurbanaverde.cl/espacios/' ~ space.id|urlencode }}" target="_blank" rel="noopener noreferrer" class="btn btn-tertiary" style="display: inline-flex; align-items: center; gap: var(--space-space-sm);" aria-label="Compartir por WhatsApp">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.52 3.48A11.88 11.88 0 0 0 12 0C5.37 0 0 5.37 0 12c0 1.97.49 3.84 1.38 5.47L0 24l6.13-1.73a11.8 11.8 0 0 0 5.38-1.4A12 12 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+                                WhatsApp
+                            </a>
+                            <button class="btn btn-tertiary" id="copy-link-btn" style="display: inline-flex; align-items: center; gap: var(--space-space-sm);" aria-label="Copiar enlace">
+                                <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                                Copiar enlace
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            {# Sidebar #}
+            <aside class="space-detail-sidebar" aria-labelledby="sidebar-title">
+                <div class="sidebar-card card card-elevated" style="position: sticky; top: var(--space-space-xl);" data-scroll-reveal>
+                    <h3 id="sidebar-title" class="sidebar-title" style="font-size: var(--font-size-headline-sm, 18px); font-weight: 600; margin-bottom: var(--space-space-lg); padding-bottom: var(--space-space-md); border-bottom: 1px solid var(--color-outline-variant);">Información clave</h3>
+
+                    <dl class="sidebar-info" style="display: grid; gap: var(--space-space-md);">
+                        <div class="sidebar-item">
+                            <dt class="sidebar-label" style="font-size: var(--font-size-body-xs, 12px); text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-on-surface-variant);">Categoría</dt>
+                            <dd class="sidebar-value" style="font-weight: 500;">{{ space.category_label }}</dd>
+                        </div>
+                        <div class="sidebar-item">
+                            <dt class="sidebar-label" style="font-size: var(--font-size-body-xs, 12px); text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-on-surface-variant);">Estado</dt>
+                            <dd class="sidebar-value" style="font-weight: 500;"><span class="chip chip-sm status-{{ space.status.value }}">{{ space.status_label }}</span></dd>
+                        </div>
+                        {% if space.area_m2 %}
+                        <div class="sidebar-item">
+                            <dt class="sidebar-label" style="font-size: var(--font-size-body-xs, 12px); text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-on-surface-variant);">Área</dt>
+                            <dd class="sidebar-value" style="font-weight: 500;">{{ space.area_m2|format_area_m2 }}</dd>
+                        </div>
+                        {% endif %}
+                        <div class="sidebar-item">
+                            <dt class="sidebar-label" style="font-size: var(--font-size-body-xs, 12px); text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-on-surface-variant);">Comuna</dt>
+                            <dd class="sidebar-value" style="font-weight: 500;">{{ space.commune }}</dd>
+                        </div>
+                        {% if space.address %}
+                        <div class="sidebar-item">
+                            <dt class="sidebar-label" style="font-size: var(--font-size-body-xs, 12px); text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-on-surface-variant);">Dirección</dt>
+                            <dd class="sidebar-value" style="font-weight: 500;">{{ space.address }}</dd>
+                        </div>
+                        {% endif %}
+                        <div class="sidebar-item">
+                            <dt class="sidebar-label" style="font-size: var(--font-size-body-xs, 12px); text-transform: uppercase; letter-spacing: 0.03em; color: var(--color-on-surface-variant);">Coordenadas</dt>
+                            <dd class="sidebar-value" style="font-weight: 500; font-size: var(--font-size-body-sm, 13px);">{{ space.latitude }}, {{ space.longitude }}</dd>
+                        </div>
+                    </dl>
+
+                    <div class="sidebar-actions" style="margin-top: var(--space-space-xl); padding-top: var(--space-space-lg); border-top: 1px solid var(--color-outline-variant); display: flex; flex-direction: column; gap: var(--space-space-sm);">
+                        <a href="/espacios?commune={{ space.commune|urlencode }}" class="btn btn-secondary btn-sm" style="text-align: center;">
+                            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-map-pin"></use></svg>
+                            Ver más en {{ space.commune }}
+                        </a>
+                        <a href="/espacios?category={{ space.category|urlencode }}" class="btn btn-tertiary btn-sm" style="text-align: center;">
+                            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-tag"></use></svg>
+                            Ver más {{ space.category_label|lower }}s
+                        </a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+{# CTA Section #}
+{% include "partials/_cta_section.html" %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+// Leaflet map for space detail
+(function() {
+    'use strict';
+
+    const mapContainer = document.getElementById('space-detail-map');
+    if (!mapContainer) return;
+
+    const lat = {{ space.latitude }};
+    const lng = {{ space.longitude }};
+    const name = {{ space.name|tojson }};
+    const category = "{{ space.category }}";
+
+    const map = L.map('space-detail-map', {
+        center: [lat, lng],
+        zoom: 16,
+        zoomControl: true,
+        scrollWheelZoom: false,
+        attributionControl: true
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
+    }).addTo(map);
+
+    const categoryIcons = {
+        pocket_park: '🌳',
+        green_corridor: '🌿',
+        community_garden: '🥕',
+        resting_area: '🪑',
+        urban_forest: '🌲',
+        playground: '🛝'
+    };
+
+    const iconHtml = categoryIcons[category] || '📍';
+    const color = {
+        completed: 'var(--color-primary)',
+        in_progress: 'var(--color-tertiary)',
+        identified: 'var(--color-on-surface-variant)'
+    }['{{ space.status.value }}'] || 'var(--color-on-surface-variant)';
+
+    const icon = L.divIcon({
+        className: 'hero-map-marker',
+        html: `
+            <div class="marker-inner" style="--marker-color: ${color};">
+                <span class="marker-icon">${iconHtml}</span>
+                <span class="marker-pulse"></span>
+            </div>
+        `,
+        iconSize: [36, 36],
+        iconAnchor: [18, 36],
+        popupAnchor: [0, -36]
+    });
+
+    L.marker([lat, lng], { icon }).addTo(map)
+        .bindPopup(`<strong>${name}</strong><br>{{ space.category_label }}<br>{{ space.commune }}`)
+        .openPopup();
+
+    // Enable scroll wheel zoom on hover
+    mapContainer.addEventListener('mouseenter', () => map.scrollWheelZoom.enable());
+    mapContainer.addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
+})();
+
+// Copy link functionality
+document.addEventListener('DOMContentLoaded', () => {
+    const copyBtn = document.getElementById('copy-link-btn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg> ¡Copiado!';
+                copyBtn.style.color = 'var(--color-secondary)';
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.style.color = '';
+                }, 2000);
+            } catch (err) {
+                console.error('Error al copiar:', err);
+            }
+        });
+    }
+
+    // Support form handling
+    const supportForm = document.getElementById('support-form');
+    if (supportForm) {
+        supportForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(supportForm);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const response = await fetch('/api/requests/{{ space.id }}/support', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    alert('¡Gracias por tu apoyo! Se ha registrado correctamente.');
+                    supportForm.reset();
+                    // Update count
+                    const countEl = document.querySelector('.support-count div');
+                    if (countEl) countEl.textContent = result.support_count;
+                } else {
+                    alert('Error: ' + (result.error || 'No se pudo registrar el apoyo'));
+                }
+            } catch (err) {
+                console.error('Error:', err);
+                alert('Error de conexión. Intenta nuevamente.');
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

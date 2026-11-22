@@ -1,0 +1,105 @@
+{# Base template for Green Tech #}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    {# SEO Meta Tags #}
+    <title>{% block title %}Green Tech - Recuperación Urbana Táctica en Santiago{% endblock %}</title>
+    <meta name="description" content="{% block description %}Recuperamos espacios urbanos inutilizados en sectores densos de Santiago mediante urbanismo táctico participativo. Plazas de bolsillo, corredores verdes y huertos comunitarios.{% endblock %}">
+    <link rel="canonical" href="{{ canonical_url | default('https://tramaurbanaverde.cl/') }}">
+
+    {# Open Graph #}
+    <meta property="og:type" content="{{ og_type | default('website') }}">
+    <meta property="og:url" content="{{ canonical_url | default('https://tramaurbanaverde.cl/') }}">
+    <meta property="og:title" content="{{ og_title | default(title) }}">
+    <meta property="og:description" content="{{ og_description | default(description) }}">
+    <meta property="og:image" content="{{ og_image | default('https://tramaurbanaverde.cl/images/og-default.jpg') }}">
+    {% if og_image_alt %}<meta property="og:image:alt" content="{{ og_image_alt }}">{% endif %}
+
+    {# Twitter Card #}
+    <meta name="twitter:card" content="{{ twitter_card | default('summary_large_image') }}">
+    <meta name="twitter:title" content="{{ twitter_title | default(title) }}">
+    <meta name="twitter:description" content="{{ twitter_description | default(description) }}">
+    <meta name="twitter:image" content="{{ twitter_image | default(og_image) }}">
+
+    {# Favicon & Icons #}
+    <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png">
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
+
+    {# Preconnect for fonts #}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+
+    {# CSS #}
+    <link rel="stylesheet" href="/public/css/main.css">
+
+    {# Leaflet CSS #}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin="">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css">
+
+    {# JSON-LD Structured Data #}
+    {% block json_ld %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Green Tech",
+      "url": "https://tramaurbanaverde.cl",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://tramaurbanaverde.cl/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    {% endblock %}
+
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="page">
+    {# Skip link for accessibility #}
+    <a href="#main-content" class="sr-only focus-visible:not-sr-only fixed top-4 left-4 z-50 btn btn-primary">
+        Saltar al contenido principal
+    </a>
+
+    {# SVG Icon Sprite #}
+    {% include "partials/_icons.html" %}
+
+    {# Header #}
+    {% include "partials/_header.html" %}
+
+    {# Main Content #}
+    <main id="main-content" class="main" role="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    {# Footer #}
+    {% include "partials/_footer.html" %}
+
+    {# JavaScript #}
+    <script type="module" src="/public/js/main.js"></script>
+
+    {# Leaflet JS #}
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" 
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" 
+            crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="/public/js/hero-map.js"></script>
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,16 @@
+/*
+ * Main CSS Entry Point - Green Tech
+ * Imports all CSS modules in correct order
+ */
+
+/* 1. Design tokens (CSS variables) - MUST be first */
+@import "design-tokens.css";
+
+/* 2. Layout system (reset, typography, grid, page structure) */
+@import "layout.css";
+
+/* 3. Components (buttons, cards, forms, etc.) */
+@import "components.css";
+
+/* 4. Page-specific styles (if any) */
+/* @import "pages/landing.css"; */

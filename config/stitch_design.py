@@ -6,8 +6,6 @@ via utils/stitch_sync.py and can be imported directly in Python for server-side 
 """
 
 from dataclasses import dataclass
-from typing import Literal
-
 
 # =============================================================================
 # COLOR PALETTE
@@ -103,28 +101,28 @@ class TypographyScale:
     font_family_fallback: str = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
 
     # Display
-    display_lg: dict = None  # 52px / 60px / -0.03em / 800
-    display_lg_mobile: dict = None  # 36px / 44px / -0.02em / 800
+    display_lg: dict[str, str] | None = None
+    display_lg_mobile: dict[str, str] | None = None
 
     # Headlines
-    headline_xl: dict = None  # 40px / 48px / -0.02em / 700
-    headline_xl_mobile: dict = None  # 30px / 38px / -0.015em / 700
-    headline_lg: dict = None  # 32px / 40px / -0.015em / 700
-    headline_lg_mobile: dict = None  # 24px / 32px / -0.01em / 600
-    headline_md: dict = None  # 22px / 30px / -0.01em / 600
-    headline_sm: dict = None  # 18px / 26px / -0.005em / 600
+    headline_xl: dict[str, str] | None = None
+    headline_xl_mobile: dict[str, str] | None = None
+    headline_lg: dict[str, str] | None = None
+    headline_lg_mobile: dict[str, str] | None = None
+    headline_md: dict[str, str] | None = None
+    headline_sm: dict[str, str] | None = None
 
     # Body
-    body_lg: dict = None  # 17px / 28px / 0em / 400
-    body_md: dict = None  # 15px / 24px / 0em / 400
-    body_sm: dict = None  # 13px / 20px / 0.005em / 400
+    body_lg: dict[str, str] | None = None
+    body_md: dict[str, str] | None = None
+    body_sm: dict[str, str] | None = None
 
     # Labels
-    label_lg: dict = None  # 14px / 20px / 0.01em / 600
-    label_md: dict = None  # 12px / 16px / 0.03em / 600
-    label_sm: dict = None  # 10px / 14px / 0.06em / 700
+    label_lg: dict[str, str] | None = None
+    label_md: dict[str, str] | None = None
+    label_sm: dict[str, str] | None = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         object.__setattr__(self, "display_lg", {
             "font_size": "52px", "line_height": "60px",
             "letter_spacing": "-0.03em", "font_weight": "800"
@@ -283,12 +281,12 @@ class Breakpoints:
 class ButtonVariants:
     """Button style variants."""
 
-    primary: dict = None
-    cta: dict = None          # Call to Action - Tertiary color
-    secondary: dict = None    # Outlined
-    tertiary: dict = None     # Ghost
+    primary: dict[str, str] | None = None
+    cta: dict[str, str] | None = None          # Call to Action - Tertiary color
+    secondary: dict[str, str] | None = None    # Outlined
+    tertiary: dict[str, str] | None = None     # Ghost
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         object.__setattr__(self, "primary", {
             "bg": "var(--color-primary)",
             "color": "var(--color-on-primary)",
@@ -323,11 +321,11 @@ class ButtonVariants:
 class CardVariants:
     """Card style variants."""
 
-    default: dict = None
-    elevated: dict = None
-    interactive: dict = None
+    default: dict[str, str] | None = None
+    elevated: dict[str, str] | None = None
+    interactive: dict[str, str] | None = None
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         object.__setattr__(self, "default", {
             "bg": "var(--color-surface-container-lowest)",
             "border": "1px solid var(--color-outline-variant)",
@@ -417,7 +415,7 @@ def get_css_variables() -> str:
 
     # Typography (font family)
     lines.append(f"  --font-family: '{typography.font_family}', {typography.font_family_fallback};")
-    lines.append(f"  --font-family-mono: 'Geist Mono', 'JetBrains Mono', monospace;")
+    lines.append("  --font-family-mono: 'Geist Mono', 'JetBrains Mono', monospace;")
 
     # Container
     lines.append(f"  --container-max: {spacing.container_max};")

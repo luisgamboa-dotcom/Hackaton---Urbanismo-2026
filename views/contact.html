@@ -1,0 +1,450 @@
+{# Contact Page #}
+{% extends "base.html" %}
+
+{% block title %}Contacto - Green Tech{% endblock %}
+
+{% block description %}
+Contacta con Green Tech. Formulario de contacto, información de la organización, redes sociales y preguntas frecuentes.
+{% endblock %}
+
+{% block canonical_url %}https://tramaurbanaverde.cl/contacto{% endblock %}
+
+{% block og_title %}Contacto - Green Tech{% endblock %}
+
+{% block og_description %}
+¿Quieres colaborar, tienes dudas o sugerencias? Escríbenos. Green Tech - Recuperación urbana táctica en Santiago.
+{% endblock %}
+
+{% block og_image %}https://tramaurbanaverde.cl/images/og-contact.jpg{% endblock %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Contacto - Green Tech",
+  "description": "Formulario de contacto e información de Green Tech.",
+  "url": "https://tramaurbanaverde.cl/contacto",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "Green Tech",
+    "url": "https://tramaurbanaverde.cl",
+    "email": "contacto@tramaurbanaverde.cl",
+    "telephone": "+56-2-XXXX-XXXX",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Santiago",
+      "addressRegion": "Región Metropolitana",
+      "addressCountry": "CL"
+    }
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+{# Page Hero #}
+<section class="page-hero section-lg" aria-labelledby="contact-hero-title">
+    <div class="container">
+        <div class="page-hero-content" data-scroll-reveal>
+            <span class="section-badge">Contacto</span>
+            <h1 id="contact-hero-title" class="page-hero-title">¿Hablamos?</h1>
+            <p class="page-hero-description">
+                ¿Tienes una propuesta, quieres colaborar, necesitas información o simplemente quieres saludarnos? Estamos para escucharte.
+            </p>
+        </div>
+    </div>
+</section>
+
+{# Contact Content #}
+<section class="section section-lg">
+    <div class="container">
+        <div class="contact-grid" data-scroll-reveal>
+            
+            {# Contact Form #}
+            <article class="contact-form-card">
+                <header class="card-header">
+                    <h2 class="card-title">Envíanos un mensaje</h2>
+                    <p class="card-description">Te responderemos en un plazo máximo de 48 horas hábiles.</p>
+                </header>
+                <form id="contact-form" class="contact-form" action="/api/contact" method="POST">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="contact-name" class="form-label">Nombre <span class="required" aria-hidden="true">*</span></label>
+                            <input type="text" id="contact-name" name="name" class="form-input" placeholder="Tu nombre" required maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email" class="form-label">Correo electrónico <span class="required" aria-hidden="true">*</span></label>
+                            <input type="email" id="contact-email" name="email" class="form-input" placeholder="tu@email.cl" required maxlength="200">
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="contact-subject" class="form-label">Asunto <span class="required" aria-hidden="true">*</span></label>
+                            <select id="contact-subject" name="subject" class="form-select" required>
+                                <option value="">Selecciona un tema</option>
+                                <option value="propuesta">Propuesta de espacio</option>
+                                <option value="voluntariado">Voluntariado / Sumarse</option>
+                                <option value="colaboracion">Colaboración / Alianza</option>
+                                <option value="prensa">Prensa / Medios</option>
+                                <option value="soporte">Soporte técnico</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-phone" class="form-label">Teléfono (opcional)</label>
+                            <input type="tel" id="contact-phone" name="phone" class="form-input" placeholder="+56 9 XXXX XXXX" maxlength="20">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message" class="form-label">Mensaje <span class="required" aria-hidden="true">*</span></label>
+                        <textarea id="contact-message" name="message" class="form-textarea" rows="5" placeholder="Cuéntanos en qué podemos ayudarte..." required maxlength="2000"></textarea>
+                        <p class="form-hint">Máximo 2000 caracteres</p>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-checkbox">
+                            <input type="checkbox" name="privacy" required>
+                            <span class="checkbox-custom"></span>
+                            <span class="checkbox-label">He leído y acepto la <a href="/privacidad" target="_blank">Política de Privacidad</a> <span class="required" aria-hidden="true">*</span></span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">
+                        <span class="btn-text">Enviar mensaje</span>
+                        <span class="btn-loading" hidden>
+                            <svg class="icon icon-sm animate-spin" aria-hidden="true"><use href="#icon-loader"></use></svg>
+                            Enviando...
+                        </span>
+                    </button>
+                    <p class="form-success" hidden>¡Mensaje enviado! Te responderemos pronto.</p>
+                    <p class="form-error" hidden>Error al enviar. Intenta de nuevo o escríbenos directamente.</p>
+                </form>
+            </article>
+
+            {# Contact Info #}
+            <aside class="contact-info">
+                <article class="info-card">
+                    <header>
+                        <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-mail"></use></svg>
+                        <h3>Correo electrónico</h3>
+                    </header>
+                    <ul class="contact-list">
+                        <li><a href="mailto:contacto@tramaurbanaverde.cl">contacto@tramaurbanaverde.cl</a> <span class="contact-desc">General</span></li>
+                        <li><a href="mailto:privacidad@tramaurbanaverde.cl">privacidad@tramaurbanaverde.cl</a> <span class="contact-desc">Protección de datos</span></li>
+                        <li><a href="mailto:prensa@tramaurbanaverde.cl">prensa@tramaurbanaverde.cl</a> <span class="contact-desc">Prensa y medios</span></li>
+                        <li><a href="mailto:alianzas@tramaurbanaverde.cl">alianzas@tramaurbanaverde.cl</a> <span class="contact-desc">Colaboraciones</span></li>
+                    </ul>
+                </article>
+
+                <article class="info-card">
+                    <header>
+                        <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-map-pin"></use></svg>
+                        <h3>Ubicación</h3>
+                    </header>
+                    <ul class="contact-list">
+                        <li>Santiago, Región Metropolitana</li>
+                        <li>Chile</li>
+                        <li class="contact-desc">Trabajamos en terreno en 5 comunas</li>
+                    </ul>
+                </article>
+
+                <article class="info-card">
+                    <header>
+                        <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-users"></use></svg>
+                        <h3>Horarios de atención</h3>
+                    </header>
+                    <ul class="contact-list">
+                        <li>Lunes a viernes: 9:00 - 18:00</li>
+                        <li>Sábados (terreno): 10:00 - 14:00</li>
+                        <li class="contact-desc">Domingos y festivos: cerrado</li>
+                    </ul>
+                </article>
+
+                <article class="info-card">
+                    <header>
+                        <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-users-plus"></use></svg>
+                        <h3>Redes sociales</h3>
+                    </header>
+                    <ul class="contact-list social-list">
+                        <li><a href="https://instagram.com/tramaurbanaverde" target="_blank" rel="noopener" aria-label="Instagram"><svg class="icon icon-md" aria-hidden="true"><use href="#icon-instagram"></use></svg> @tramaurbanaverde</a></li>
+                        <li><a href="https://twitter.com/tramaurbanaverde" target="_blank" rel="noopener" aria-label="Twitter / X"><svg class="icon icon-md" aria-hidden="true"><use href="#icon-twitter"></use></svg> @tramaurbanaverde</a></li>
+                        <li><a href="https://linkedin.com/company/trama-urbana-verde" target="_blank" rel="noopener" aria-label="LinkedIn"><svg class="icon icon-md" aria-hidden="true"><use href="#icon-linkedin"></use></svg> Green Tech</a></li>
+                    </ul>
+                </article>
+
+            </aside>
+
+        </div>
+    </div>
+</section>
+
+{# FAQ #}
+<section class="section section-lg" style="background: var(--color-surface-container);">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal style="text-align: center; max-width: 700px; margin: 0 auto var(--space-space-xl);">
+            <span class="section-badge">Preguntas frecuentes</span>
+            <h2 class="section-title">Respuestas rápidas</h2>
+            <p class="section-description">Las dudas más comunes que recibimos. Si no encuentras la tuya, <a href="#contact-form">escríbenos</a>.</p>
+        </header>
+        
+        <div class="faq-grid" data-scroll-reveal>
+            <details class="faq-item">
+                <summary>¿Cómo postulo un espacio baldío?</summary>
+                <p>Ve a <a href="/postular">/postular</a> y completa el formulario de 3 pasos: información básica, ubicación en mapa y datos de contacto. Recibirás confirmación por email con número de seguimiento.</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Cuánto tarda la evaluación de mi postulación?</summary>
+                <p>Entre 5 y 10 días hábiles. Recibirás notificación si se aprueba, rechaza o requiere más información.</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Puedo ser voluntario sin experiencia previa?</summary>
+                <p>¡Por supuesto! Valoramos las ganas y el compromiso. Hay tareas para todos los perfiles: plantación, mantenimiento, difusión, logística, talleres...</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Cómo pueden colaborar empresas o instituciones?</summary>
+                <p>Tenemos programas de responsabilidad social, apadrinamiento de espacios, donación de materiales, voluntariado corporativo y alianzas estratégicas. Escríbenos a <a href="mailto:alianzas@tramaurbanaverde.cl">alianzas@tramaurbanaverde.cl</a>.</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Los espacios son de acceso público?</summary>
+                <p>Sí, todos los espacios recuperados son de uso público, gratuitos y accesibles. Diseñamos con criterios de accesibilidad universal.</p>
+            </details>
+            <details class="faq-item">
+                <summary>¿Cómo se financia Green Tech?</summary>
+                <p>Fondos públicos (fondos concursables municipales/gubernamentales), aportes privados (empresas, fundaciones), donaciones ciudadanas y voluntariado. Publicamos nuestra rendición de cuentas en <a href="/transparencia">Transparencia</a>.</p>
+            </details>
+        </div>
+    </div>
+</section>
+
+{# CTA #}
+<section class="cta-section section-lg">
+    <div class="container">
+        <div class="cta-content" style="text-align: center;">
+            <h2>¿Prefieres escribirnos directo?</h2>
+            <p class="cta-description">También puedes enviarnos un email a <a href="mailto:contacto@tramaurbanaverde.cl">contacto@tramaurbanaverde.cl</a></p>
+            <div class="cta-actions">
+                <a href="/postular" class="btn btn-cta btn-lg">
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-map-pin-plus"></use></svg>
+                    Postular espacio
+                </a>
+                <a href="/voluntariado" class="btn btn-secondary btn-lg">
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-users-plus"></use></svg>
+                    Ser voluntario
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-space-xl);
+}
+@media (max-width: 900px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.contact-form-card {
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+    padding: var(--space-space-xl);
+}
+.card-header {
+    margin-bottom: var(--space-space-lg);
+}
+.card-title {
+    font-size: var(--font-size-headline-md, 24px);
+    font-weight: 700;
+    color: var(--color-on-surface);
+    margin-bottom: var(--space-space-xs);
+}
+.card-description {
+    color: var(--color-on-surface-variant);
+}
+.contact-form .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-space-md);
+}
+@media (max-width: 600px) {
+    .contact-form .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.form-success {
+    color: var(--color-primary);
+    font-weight: 600;
+    text-align: center;
+    padding: var(--space-space-md);
+}
+.form-error {
+    color: var(--color-error, #D32F2F);
+    font-weight: 600;
+    text-align: center;
+    padding: var(--space-space-md);
+}
+
+.contact-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-space-md);
+}
+@media (max-width: 600px) {
+    .contact-info {
+        grid-template-columns: 1fr;
+    }
+}
+.info-card {
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-lg);
+    padding: var(--space-space-lg);
+}
+.info-card header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-space-sm);
+    margin-bottom: var(--space-space-md);
+    color: var(--color-primary);
+}
+.info-card header svg {
+    width: 32px;
+    height: 32px;
+}
+.info-card h3 {
+    font-size: var(--font-size-headline-sm, 18px);
+    font-weight: 600;
+    color: var(--color-on-surface);
+    margin: 0;
+}
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.contact-list li {
+    margin-bottom: var(--space-space-sm);
+}
+.contact-list a {
+    color: var(--color-on-surface);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+.contact-list a:hover {
+    color: var(--color-primary);
+}
+.contact-desc {
+    display: block;
+    font-size: var(--font-size-body-xs, 11px);
+    color: var(--color-on-surface-variant);
+    margin-top: 2px;
+}
+.social-list a {
+    display: flex;
+    align-items: center;
+    gap: var(--space-space-sm);
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-space-md);
+}
+.faq-item {
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-lg);
+    padding: var(--space-space-md);
+}
+.faq-item summary {
+    font-weight: 600;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--color-on-surface);
+}
+.faq-item summary::after {
+    content: '+';
+    font-size: var(--font-size-headline-md, 24px);
+    color: var(--color-primary);
+    transition: transform var(--transition-fast);
+}
+.faq-item[open] summary::after {
+    transform: rotate(45deg);
+}
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+.faq-item p {
+    margin: var(--space-space-md) 0 0;
+    font-size: var(--font-size-body-sm, 13px);
+    color: var(--color-on-surface-variant);
+    line-height: 1.6;
+}
+.faq-item a {
+    color: var(--color-primary);
+}
+</style>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const btn = form.querySelector('button[type="submit"]');
+        const btnText = btn.querySelector('.btn-text');
+        const btnLoading = btn.querySelector('.btn-loading');
+        const successMsg = form.querySelector('.form-success');
+        const errorMsg = form.querySelector('.form-error');
+        
+        // Hide previous messages
+        successMsg.hidden = true;
+        errorMsg.hidden = true;
+        
+        // Show loading
+        btn.disabled = true;
+        btnText.hidden = true;
+        btnLoading.hidden = false;
+        
+        try {
+            const formData = new FormData(form);
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+            
+            if (response.ok) {
+                form.reset();
+                successMsg.hidden = false;
+                // Scroll to success message
+                successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                throw new Error('Error en el envío');
+            }
+        } catch (err) {
+            errorMsg.hidden = false;
+            errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } finally {
+            btn.disabled = false;
+            btnText.hidden = false;
+            btnLoading.hidden = true;
+        }
+    });
+});
+</script>
+{% endblock %}

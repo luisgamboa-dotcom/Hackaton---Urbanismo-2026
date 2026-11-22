@@ -1,4 +1,4 @@
-# Trama Urbana Verde — Landing Page
+# Green Tech — Landing Page
 
 > **Recuperación de espacios urbanos inutilizados en sectores densos de Santiago**
 
@@ -126,7 +126,7 @@ cp .env.example .env
 
 ```env
 # .env
-APP_NAME="Trama Urbana Verde"
+APP_NAME="Green Tech"
 APP_ENV=development
 DEBUG=true
 
@@ -239,7 +239,7 @@ MIT License - ver [LICENSE](LICENSE)
 
 ## 🙋 Créditos
 
-- **Diseño**: Google Stitch ("Minimalist Business Showcase" → adaptado a "Trama Urbana Verde")
+- **Diseño**: Google Stitch ("Minimalist Business Showcase" → adaptado a "Green Tech")
 - **Modelo de Negocio**: Business Model Canvas - Hackatón Urbanismo 2026
 - **Desarrollo**: Luis Gamboa (@luisgamboaretamal)
 - **Inspiración**: Recuperación táctica de espacios urbanos en Santiago de Chile

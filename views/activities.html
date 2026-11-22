@@ -1,0 +1,565 @@
+{# Activities / Events Page #}
+{% extends "base.html" %}
+
+{% block title %}Actividades y Talleres - Green Tech{% endblock %}
+
+{% block description %}
+Calendario de actividades de Green Tech: plantaciones, talleres, charlas, ferias y encuentros comunitarios. Inscríbete gratis.
+{% endblock %}
+
+{% block canonical_url %}https://tramaurbanaverde.cl/actividades{% endblock %}
+
+{% block content %}
+<section class="page-hero section-lg">
+    <div class="container">
+        <div class="page-hero-content" data-scroll-reveal>
+            <span class="section-badge">Agenda</span>
+            <h1 class="page-hero-title">Actividades y Talleres</h1>
+            <p class="page-hero-description">Participa en nuestras jornadas abiertas: plantaciones, talleres prácticos, charlas y ferias barriales. Todas gratuitas y abiertas a la comunidad.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section section-lg">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal style="text-align: center; max-width: 700px; margin: 0 auto var(--space-space-xl);">
+            <span class="section-badge">Próximas actividades</span>
+            <h2 class="section-title">Calendario noviembre - diciembre 2026</h2>
+        </header>
+        
+        <div class="activities-list" data-scroll-reveal>
+            <article class="activity-card featured">
+                <header class="activity-header">
+                    <span class="activity-badge activity-plantacion">Plantación</span>
+                    <div class="activity-date">
+                        <span class="date-day">15</span>
+                        <span class="date-month">DIC</span>
+                    </div>
+                </header>
+                <div class="activity-content">
+                    <h3>Gran Plantación Navideña: Corredor Verde Matucana</h3>
+                    <p class="activity-description">Cierre de año plantando 200 árboles y arbustos nativos en el bandejón central. Chocolate caliente, villancicos y entrega de certificados a voluntarios 2026.</p>
+                    <div class="activity-meta">
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-map-pin"></use></svg> Bandejón Matucana (Metro Matucana - Quinta Normal)</span>
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-clock"></use></svg> 09:00 - 13:00</span>
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-users"></use></svg> Cupo: 80 personas</span>
+                    </div>
+                    <div class="activity-tags">
+                        <span class="tag tag-family">Familiar</span>
+                        <span class="tag tag-free">Gratis</span>
+                        <span class="tag tag-open">Inscripción abierta</span>
+                    </div>
+                    <a href="/actividades/plantacion-navidad-2026" class="btn btn-primary btn-block">Inscribirme</a>
+                </div>
+            </article>
+
+            <article class="activity-card">
+                <header class="activity-header">
+                    <span class="activity-badge activity-taller">Taller</span>
+                    <div class="activity-date">
+                        <span class="date-day">07</span>
+                        <span class="date-month">DIC</span>
+                    </div>
+                </header>
+                <div class="activity-content">
+                    <h3>Taller: Huertos Urbanos en Espacios Reducidos</h3>
+                    <p class="activity-description">Aprende a diseñar y mantener huertos en balcones, terrazas y patios pequeños. Incluye kit de semillas nativas y sustrato para llevarte.</p>
+                    <div class="activity-meta">
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-map-pin"></use></svg> Sede JJ.VV. Yungay (Calle Rosas 345)</span>
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-clock"></use></svg> 10:00 - 13:00</span>
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-users"></use></svg> Cupo: 25 personas</span>
+                    </div>
+                    <div class="activity-tags">
+                        <span class="tag tag-adults">Adultos</span>
+                        <span class="tag tag-free">Gratis</span>
+                        <span class="tag tag-open">Quedan 8 cupos</span>
+                    </div>
+                    <a href="/actividades/taller-huertos-urbanos" class="btn btn-secondary btn-block">Inscribirme</a>
+                </div>
+            </article>
+
+            <article class="activity-card">
+                <header class="activity-header">
+                    <span class="activity-badge activity-charla">Charla</span>
+                    <div class="activity-date">
+                        <span class="date-day">28</span>
+                        <span class="date-month">NOV</span>
+                    </div>
+                </header>
+                <div class="activity-content">
+                    <h3>Charla: Biodiversidad Urbana y Especies Nativas</h3>
+                    <p class="activity-description">Dr. Pedro Méndez (UC) expone sobre el rol de la flora nativa en la ciudad: aves, polinizadores, corredores ecológicos y cambio climático. Preguntas y café.</p>
+                    <div class="activity-meta">
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-map-pin"></use></svg> Biblioteca de Santiago (Matucana 151) - Auditorio</span>
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-clock"></use></svg> 18:30 - 20:00</span>
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-users"></use></svg> Cupo: 100 personas</span>
+                    </div>
+                    <div class="activity-tags">
+                        <span class="tag tag-all">Todo público</span>
+                        <span class="tag tag-free">Gratis</span>
+                        <span class="tag tag-full">Cupo completo</span>
+                    </div>
+                    <a href="/actividades/charlabiodiversidad" class="btn btn-tertiary btn-block">Lista de espera</a>
+                </div>
+            </article>
+
+            <article class="activity-card">
+                <header class="activity-header">
+                    <span class="activity-badge activity-feria">Feria</span>
+                    <div class="activity-date">
+                        <span class="date-day">05</span>
+                        <span class="date-month">DIC</span>
+                    </div>
+                </header>
+                <div class="activity-content">
+                    <h3>Feria Barrial: Navidad Verde en Plaza Pocket Yungay</h3>
+                    <p class="activity-description">Emprendedores locales, talleres para niños, trueque de semillas, música en vivo y stand de Green Tech con info de voluntariado 2027.</p>
+                    <div class="activity-meta">
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-map-pin"></use></svg> Plaza Pocket Yungay (Esquina Rosas con Yungay)</span>
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-clock"></use></svg> 16:00 - 21:00</span>
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-users"></use></svg> Entrada libre</span>
+                    </div>
+                    <div class="activity-tags">
+                        <span class="tag tag-family">Familiar</span>
+                        <span class="tag tag-free">Gratis</span>
+                        <span class="tag tag-open">Sin inscripción</span>
+                    </div>
+                    <a href="/actividades/feria-navidad-yungay" class="btn btn-cta btn-block">Ver detalles</a>
+                </div>
+            </article>
+
+            <article class="activity-card">
+                <header class="activity-header">
+                    <span class="activity-badge activity-taller">Taller</span>
+                    <div class="activity-date">
+                        <span class="date-day">12</span>
+                        <span class="date-month">DIC</span>
+                    </div>
+                </header>
+                <div class="activity-content">
+                    <h3>Taller: Compostaje Comunitario y Vermicompostaje</h3>
+                    <p class="activity-description">Montaje práctico de compostera y lombricultura en el Huerto Comunitario Santa Lucía. Cada participante se lleva su starter de lombrices.</p>
+                    <div class="activity-meta">
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-map-pin"></use></svg> Huerto Comunitario Santa Lucía (Falda Cerro Santa Lucía)</span>
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-clock"></use></svg> 10:00 - 13:00</span>
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-users"></use></svg> Cupo: 20 personas</span>
+                    </div>
+                    <div class="activity-tags">
+                        <span class="tag tag-adults">Adultos</span>
+                        <span class="tag tag-free">Gratis</span>
+                        <span class="tag tag-open">Quedan 5 cupos</span>
+                    </div>
+                    <a href="/actividades/taller-compostaje" class="btn btn-secondary btn-block">Inscribirme</a>
+                </div>
+            </article>
+
+            <article class="activity-card">
+                <header class="activity-header">
+                    <span class="activity-badge activity-encuentro">Encuentro</span>
+                    <div class="activity-date">
+                        <span class="date-day">19</span>
+                        <span class="date-month">DIC</span>
+                    </div>
+                </header>
+                <div class="activity-content">
+                    <h3>Encuentro Anual de Juntas de Vecinos Aliadas</h3>
+                    <p class="activity-description">Balance 2026, planificación 2027, intercambio de experiencias y reconocimiento a voluntarios destacados. Solo para organizaciones inscritas.</p>
+                    <div class="activity-meta">
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-map-pin"></use></svg> Centro Cultural Gabriela Mistral (GAM) - Sala A1</span>
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-clock"></use></svg> 09:00 - 14:00</span>
+                        <span><svg class="icon icon-xs" aria-hidden="true"><use href="#icon-users"></use></svg> Solo invitados</span>
+                    </div>
+                    <div class="activity-tags">
+                        <span class="tag tag-invite">Solo invitados</span>
+                        <span class="tag tag-free">Gratis</span>
+                    </div>
+                    <a href="/comunidades" class="btn btn-tertiary btn-block">Ver red de juntas</a>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section section-lg" style="background: var(--color-surface-container);">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal style="text-align: center; max-width: 700px; margin: 0 auto var(--space-space-xl);">
+            <span class="section-badge">Categorías</span>
+            <h2 class="section-title">Tipos de actividades</h2>
+        </header>
+        
+        <div class="categories-grid" data-scroll-reveal>
+            <article class="category-card">
+                <header>
+                    <svg class="icon icon-xl" aria-hidden="true"><use href="#icon-leaf"></use></svg>
+                    <h3>Plantaciones</h3>
+                </header>
+                <p>Jornadas masivas de plantación de árboles, arbustos y herbáceas nativas en espacios recuperados. Abiertas a todo público, familiares.</p>
+                <ul>
+                    <li>Corredores verdes</li>
+                    <li>Plazas de bolsillo</li>
+                    <li>Mini bosques Miyawaki</li>
+                </ul>
+            </article>
+            <article class="category-card">
+                <header>
+                    <svg class="icon icon-xl" aria-hidden="true"><use href="#icon-graduation-cap"></use></svg>
+                    <h3>Talleres Prácticos</h3>
+                </header>
+                <p>Aprendizaje hands-on: huertos urbanos, compostaje, podas, riego eficiente, especies nativas, diseño participativo.</p>
+                <ul>
+                    <li>Huertos en espacios reducidos</li>
+                    <li>Compostaje y vermicompostaje</li>
+                    <li>Podas y mantenimiento</li>
+                </ul>
+            </article>
+            <article class="category-card">
+                <header>
+                    <svg class="icon icon-xl" aria-hidden="true"><use href="#icon-users"></use></svg>
+                    <h3>Charlas y Conversatorios</h3>
+                </header>
+                <p>Expertos en biodiversidad urbana, arquitectura de paisaje, cambio climático, participación ciudadana. Preguntas y debate.</p>
+                <ul>
+                    <li>Biodiversidad en la ciudad</li>
+                    <li>Adaptación climática</li>
+                    <li>Diseño participativo</li>
+                </ul>
+            </article>
+            <article class="category-card">
+                <header>
+                    <svg class="icon icon-xl" aria-hidden="true"><use href="#icon-heart"></use></svg>
+                    <h3>Ferias y Fiestas Barriales</h3>
+                </header>
+                <p>Celebraciones comunitarias en espacios recuperados: emprendedores, trueques, talleres infantiles, música, stand Green Tech.</p>
+                <ul>
+                    <li>Fiestas de inauguración</li>
+                    <li>Navidad Verde</li>
+                    <li>Día del Árbol</li>
+                </ul>
+            </article>
+            <article class="category-card">
+                <header>
+                    <svg class="icon icon-xl" aria-hidden="true"><use href="#icon-building-2"></use></svg>
+                    <h3>Encuentros de Red</h3>
+                </header>
+                <p>Espacios de coordinación entre juntas de vecinos, voluntarios, aliados técnicos y municipalidades. Planificación y balance.</p>
+                <ul>
+                    <li>Encuentro anual de juntas</li>
+                    <li>Mesas de trabajo temáticas</li>
+                    <li>Capacitación de líderes</li>
+                </ul>
+            </article>
+            <article class="category-card">
+                <header>
+                    <svg class="icon icon-xl" aria-hidden="true"><use href="#icon-map-pin"></use></svg>
+                    <h3>Recorridos Guiados</h3>
+                </header>
+                <p>Caminatas interpretativas por espacios recuperados: historia del lugar, especies plantadas, impacto social y ecológico.</p>
+                <ul>
+                    <li>Ruta Corredor Verde Matucana</li>
+                    <li>Circuito Plazas de Bolsillo Centro</li>
+                    <li>Visita Huertos Comunitarios</li>
+                </ul>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section section-lg">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal style="text-align: center; max-width: 700px; margin: 0 auto var(--space-space-xl);">
+            <span class="section-badge">¿Te perdiste alguna?</span>
+            <h2 class="section-title">Actividades pasadas (2026)</h2>
+        </header>
+        
+        <div class="past-activities" data-scroll-reveal>
+            <article class="past-card">
+                <header>
+                    <span class="past-date">Oct 2026</span>
+                    <h3>Plantación Masiva: Corredor Verde Matucana - Fase 1</h3>
+                </header>
+                <p>120 voluntarios plantaron 350 árboles nativos (quillay, peumo, arrayán, patagua) en 320 m² de bandejón central. <a href="/actividades/plantacion-matucana-f1">Ver fotos y resultados →</a></p>
+            </article>
+            <article class="past-card">
+                <header>
+                    <span class="past-date">Sep 2026</span>
+                    <h3>Taller: Huertos Verticales con Materiales Reciclados</h3>
+                </header>
+                <p>30 participantes construyeron 15 huertos verticales con pallets y botellas PET. Instalados en sedes vecinales. <a href="/actividades/taller-huertos-verticales">Ver guía →</a></p>
+            </article>
+            <article class="past-card">
+                <header>
+                    <span class="past-date">Ago 2026</span>
+                    <h3>Feria: Día del Árbol en Plaza Pocket Yungay</h3>
+                </header>
+                <p>200 asistentes, 15 emprendedores, 8 talleres infantiles, trueque de 200 sobres de semillas. <a href="/actividades/feria-dia-arbol">Ver crónica →</a></p>
+            </article>
+            <article class="past-card">
+                <header>
+                    <span class="past-date">Jul 2026</span>
+                    <h3>Charla: Ciudades Esponja y Adaptación Climática</h3>
+                </header>
+                <p>Dra. Camila Rojas (U. Chile) expuso sobre infraestructura verde para gestión de aguas lluvia. 85 asistentes. <a href="/actividades/charla-ciudades-esponja">Ver video →</a></p>
+            </article>
+            <article class="past-card">
+                <header>
+                    <span class="past-date">Jun 2026</span>
+                    <h3>Encuentro: Planificación 2026-2027 con Juntas de Vecinos</h3>
+                </header>
+                <p>12 organizaciones definieron prioridades: 3 nuevos corredores, 5 plazas de bolsillo, 2 huertos escolares. <a href="/actividades/encuentro-planificacion">Ver acta →</a></p>
+            </article>
+            <article class="past-card">
+                <header>
+                    <span class="past-date">May 2026</span>
+                    <h3>Taller: Compostaje en Departamentos (Bokashi)</h3>
+                </header>
+                <p>25 participantes aprendieron método Bokashi para espacios sin patio. Kits entregados. <a href="/actividades/taller-bokashi">Ver materiales →</a></p>
+            </article>
+        </div>
+    </div>
+</section>
+
+{# CTA #}
+<section class="cta-section section-lg">
+    <div class="container">
+        <div class="cta-content" style="text-align: center;">
+            <h2>¿Quieres proponer una actividad?</h2>
+            <p class="cta-description">¿Tienes una idea para un taller, charla o evento en tu barrio? Green Tech te apoya con logística, difusión y materiales.</p>
+            <a href="/contacto?subject=actividades" class="btn btn-primary btn-lg">
+                Proponer actividad
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.activities-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-space-md);
+    max-width: 900px;
+    margin: 0 auto;
+}
+.activity-card {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--space-space-md);
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.activity-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--color-secondary);
+}
+.activity-card.featured {
+    grid-template-columns: 100px 1fr;
+    border-color: var(--color-primary);
+}
+.activity-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: var(--space-space-md);
+    background: var(--color-surface-container);
+    position: relative;
+}
+.activity-card.featured .activity-header {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+}
+.activity-badge {
+    font-size: var(--font-size-body-xs, 11px);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: var(--space-space-xs) var(--space-space-sm);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-space-md);
+}
+.activity-plantacion { background: var(--color-primary-container); color: var(--color-on-primary-container); }
+.activity-taller { background: var(--color-secondary-container); color: var(--color-on-secondary-container); }
+.activity-charla { background: var(--color-tertiary-container); color: var(--color-on-tertiary-container); }
+.activity-feria { background: var(--color-warning-container, #FFF3E0); color: var(--color-warning-on-container, #E65100); }
+.activity-encuentro { background: var(--color-outline-variant); color: var(--color-on-surface); }
+.activity-card.featured .activity-plantacion { background: var(--color-on-primary); color: var(--color-primary); }
+.activity-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+}
+.date-day {
+    font-size: var(--font-size-display-sm, 32px);
+    font-weight: 800;
+}
+.date-month {
+    font-size: var(--font-size-label-md, 12px);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.activity-content {
+    padding: var(--space-space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-space-md);
+}
+.activity-content h3 {
+    font-size: var(--font-size-headline-md, 24px);
+    font-weight: 700;
+    color: var(--color-on-surface);
+    margin: 0;
+    line-height: 1.2;
+}
+.activity-description {
+    color: var(--color-on-surface-variant);
+    line-height: 1.6;
+    margin: 0;
+}
+.activity-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-space-md);
+    font-size: var(--font-size-body-sm, 13px);
+    color: var(--color-on-surface-variant);
+}
+.activity-meta span {
+    display: flex;
+    align-items: center;
+    gap: var(--space-space-xs);
+}
+.activity-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-space-xs);
+}
+.tag {
+    font-size: var(--font-size-body-xs, 11px);
+    font-weight: 600;
+    padding: var(--space-space-xs) var(--space-space-sm);
+    border-radius: var(--radius-full);
+}
+.tag-family { background: var(--color-primary-container); color: var(--color-on-primary-container); }
+.tag-adults { background: var(--color-secondary-container); color: var(--color-on-secondary-container); }
+.tag-all { background: var(--color-tertiary-container); color: var(--color-on-tertiary-container); }
+.tag-free { background: var(--color-outline-variant); color: var(--color-on-surface); }
+.tag-open { background: var(--color-success-container, #E8F5E9); color: var(--color-success-on-container, #1B5E20); }
+.tag-full { background: var(--color-error-container, #FDEDEC); color: var(--color-error-on-container, #B71C1C); }
+.tag-invite { background: var(--color-primary-container); color: var(--color-on-primary-container); }
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-space-md);
+}
+.category-card {
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+    padding: var(--space-space-lg);
+    transition: transform var(--transition-base);
+}
+.category-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--color-secondary);
+}
+.category-card header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-space-md);
+    margin-bottom: var(--space-space-md);
+}
+.category-card header .icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-container);
+    color: var(--color-on-primary-container);
+    border-radius: var(--radius-lg);
+}
+.category-card h3 {
+    font-size: var(--font-size-headline-sm, 18px);
+    font-weight: 700;
+    color: var(--color-on-surface);
+    margin: 0;
+}
+.category-card p {
+    font-size: var(--font-size-body-sm, 13px);
+    color: var(--color-on-surface-variant);
+    margin: 0 0 var(--space-space-md);
+    line-height: 1.5;
+}
+.category-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.category-card li {
+    font-size: var(--font-size-body-xs, 11px);
+    color: var(--color-on-surface-variant);
+    padding: var(--space-space-xs) 0;
+    border-bottom: 1px solid var(--color-outline-variant);
+}
+.category-card li:last-child {
+    border-bottom: none;
+}
+
+.past-activities {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-space-md);
+    max-width: 900px;
+    margin: 0 auto;
+}
+.past-card {
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-lg);
+    padding: var(--space-space-md) var(--space-space-lg);
+    transition: border-color var(--transition-fast);
+}
+.past-card:hover {
+    border-color: var(--color-secondary);
+}
+.past-card header {
+    display: flex;
+    gap: var(--space-space-md);
+    align-items: flex-start;
+    margin-bottom: var(--space-space-sm);
+}
+.past-date {
+    font-size: var(--font-size-body-xs, 11px);
+    font-weight: 700;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    padding-top: 2px;
+}
+.past-card h3 {
+    font-size: var(--font-size-headline-sm, 18px);
+    font-weight: 700;
+    color: var(--color-on-surface);
+    margin: 0;
+}
+.past-card p {
+    margin: 0;
+    font-size: var(--font-size-body-sm, 13px);
+    color: var(--color-on-surface-variant);
+    line-height: 1.5;
+}
+.past-card a {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+</style>
+{% endblock %}

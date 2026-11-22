@@ -1,1 +1,1 @@
-"""Config package for Trama Urbana Verde."""
+"""Config package for Green Tech."""

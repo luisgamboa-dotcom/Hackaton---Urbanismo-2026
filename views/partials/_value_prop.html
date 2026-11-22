@@ -1,0 +1,49 @@
+{# Value Proposition Section #}
+<section id="value-props" class="value-props section" aria-labelledby="value-props-title">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal>
+            <span class="section-badge">Nuestra propuesta</span>
+            <h2 id="value-props-title" class="section-title">Tres pilares para transformar la ciudad</h2>
+            <p class="section-description">
+                Cada intervención nace del diálogo con la comunidad y se ejecuta con recursos locales,
+                generando impacto ambiental y social medible.
+            </p>
+        </header>
+
+        <div class="value-props-grid grid grid-cols-3 gap-lg">
+            {% for prop in value_props %}
+            <article class="value-prop-card card card-elevated" data-scroll-reveal>
+                <div class="value-prop-icon" aria-hidden="true">
+                    {% set icon = prop.icon %}
+                    {% if icon == 'leaf' %}
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 6.1 17 10.3 17 10.3C17 10.3 22 7.5 22 14.2C22 18.5 18.9 20 14.2 20H11Z"></path>
+                        <path d="M2 21L6 18M4 19L6 18L8 19"></path>
+                    </svg>
+                    {% elif icon == 'users' %}
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    {% elif icon == 'trending-up' %}
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                        <polyline points="17 6 23 6 23 12"></polyline>
+                    </svg>
+                    {% endif %}
+                </div>
+                <h3 class="value-prop-title">{{ prop.title }}</h3>
+                <p class="value-prop-description">{{ prop.description }}</p>
+                {% if prop.metric_value %}
+                <div class="value-prop-metric">
+                    <span class="value-prop-metric-value">{{ prop.metric_value }}</span>
+                    <span class="value-prop-metric-label">{{ prop.metric_label }}</span>
+                </div>
+                {% endif %}
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,31 @@
+{# 500 Error Page #}
+{% extends "base.html" %}
+
+{% block title %}Error del servidor - Green Tech{% endblock %}
+
+{% block description %}Ha ocurrido un error interno. Nuestro equipo ha sido notificado.{% endblock %}
+
+{% block content %}
+<section class="error-page section" aria-labelledby="error-title">
+    <div class="container">
+        <div class="error-content" data-scroll-reveal>
+            <h1 id="error-title" class="error-code">500</h1>
+            <h2 class="error-title">Error interno del servidor</h2>
+            <p class="error-description">
+                Ha ocurrido un error inesperado. Nuestro equipo técnico ha sido notificado
+                y está trabajando para resolverlo lo antes posible.
+            </p>
+            <div class="error-actions">
+                <a href="/" class="btn btn-primary btn-lg">
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-home"></use></svg>
+                    Volver al inicio
+                </a>
+                <button class="btn btn-secondary btn-lg" onclick="window.location.reload()">
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-refresh"></use></svg>
+                    Reintentar
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

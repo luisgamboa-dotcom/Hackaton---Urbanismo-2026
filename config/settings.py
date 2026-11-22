@@ -1,8 +1,9 @@
 """Application settings using Pydantic BaseSettings."""
 
 from functools import lru_cache
-from pydantic_settings import BaseSettings, SettingsConfigDict
+
 from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -16,7 +17,7 @@ class Settings(BaseSettings):
     )
 
     # Application
-    app_name: str = Field(default="Trama Urbana Verde", alias="APP_NAME")
+    app_name: str = Field(default="Green Tech", alias="APP_NAME")
     app_env: str = Field(default="development", alias="APP_ENV")
     debug: bool = Field(default=True, alias="DEBUG")
 
@@ -31,6 +32,15 @@ class Settings(BaseSettings):
     # Security
     secret_key: str = Field(default="", alias="SECRET_KEY")
 
+    # Email (SMTP)
+    smtp_host: str = Field(default="smtp.gmail.com", alias="SMTP_HOST")
+    smtp_port: int = Field(default=587, alias="SMTP_PORT")
+    smtp_username: str = Field(default="", alias="SMTP_USERNAME")
+    smtp_password: str = Field(default="", alias="SMTP_PASSWORD")
+    smtp_use_tls: bool = Field(default=True, alias="SMTP_USE_TLS")
+    email_from: str = Field(default="", alias="EMAIL_FROM")
+    email_to: str = Field(default="", alias="EMAIL_TO")
+
     @property
     def is_production(self) -> bool:
         """Check if running in production environment."""
@@ -40,6 +50,11 @@ class Settings(BaseSettings):
     def is_development(self) -> bool:
         """Check if running in development environment."""
         return self.app_env.lower() == "development"
+
+    @property
+    def email_configured(self) -> bool:
+        """Check if email is properly configured."""
+        return bool(self.smtp_username and self.smtp_password and self.email_from)
 
 
 @lru_cache

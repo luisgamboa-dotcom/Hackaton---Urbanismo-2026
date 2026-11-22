@@ -1,0 +1,125 @@
+{# Cookies Policy Page #}
+{% extends "base.html" %}
+
+{% block title %}Política de Cookies - Green Tech{% endblock %}
+
+{% block description %}
+Política de cookies de Green Tech. Qué cookies usamos, para qué y cómo gestionarlas.
+{% endblock %}
+
+{% block canonical_url %}https://tramaurbanaverde.cl/cookies{% endblock %}
+
+{% block content %}
+<section class="page-hero section-lg">
+    <div class="container">
+        <div class="page-hero-content" data-scroll-reveal>
+            <span class="section-badge">Legal</span>
+            <h1 class="page-hero-title">Política de Cookies</h1>
+            <p class="page-hero-description">Esta página explica qué son las cookies, cómo las usamos y cómo puedes controlarlas.</p>
+            <p class="page-hero-meta">Última actualización: 22 de noviembre de 2026</p>
+        </div>
+    </div>
+</section>
+
+<section class="section section-lg">
+    <div class="container">
+        <div class="legal-content" data-scroll-reveal>
+            
+            <article>
+                <h2>1. ¿Qué son las cookies?</h2>
+                <p>Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo (ordenador, móvil, tablet) cuando visitas un sitio web. Permiten recordar tus preferencias, mejorar la experiencia y analizar el uso del sitio.</p>
+            </article>
+
+            <article>
+                <h2>2. Tipos de cookies que usamos</h2>
+                
+                <h3>2.1 Cookies necesarias (siempre activas)</h3>
+                <p>Imprescindibles para el funcionamiento básico del Sitio. No requieren consentimiento.</p>
+                <table class="cookie-table">
+                    <thead><tr><th>Cookie</th><th>Proveedor</th><th>Finalidad</th><th>Duración</th></tr></thead>
+                    <tbody>
+                        <tr><td>session_id</td><td>Green Tech</td><td>Mantener sesión de usuario</td><td>Sesión</td></tr>
+                        <tr><td>csrf_token</td><td>Green Tech</td><td>Protección contra CSRF</td><td>Sesión</td></tr>
+                        <tr><td>cookie_consent</td><td>Green Tech</td><td>Recordar preferencias de cookies</td><td>1 año</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>2.2 Cookies de analítica (requieren consentimiento)</h3>
+                <p>Nos ayudan a entender cómo usan el Sitio para mejorarlo.</p>
+                <table class="cookie-table">
+                    <thead><tr><th>Cookie</th><th>Proveedor</th><th>Finalidad</th><th>Duración</th></tr></thead>
+                    <tbody>
+                        <tr><td>_ga, _ga_*</td><td>Google Analytics</td><td>Distinguir usuarios, sesiones</td><td>14 meses</td></tr>
+                        <tr><td>_gid</td><td>Google Analytics</td><td>Distinguir usuarios</td><td>24 horas</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>2.3 Cookies de funcionalidad (requieren consentimiento)</h3>
+                <p>Mejoran la experiencia guardando preferencias.</p>
+                <table class="cookie-table">
+                    <thead><tr><th>Cookie</th><th>Proveedor</th><th>Finalidad</th><th>Duración</th></tr></thead>
+                    <tbody>
+                        <tr><td>map_preferences</td><td>Green Tech</td><td>Guardar vista del mapa (zoom, posición)</td><td>30 días</td></tr>
+                        <tr><td>filter_preferences</td><td>Green Tech</td><td>Guardar filtros en listados</td><td>30 días</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>2.4 Cookies de terceros / redes sociales</h3>
+                <p>Al interactuar con botones de compartir o contenido incrustado (YouTube, Instagram), terceros pueden instalar cookies. Green Tech no controla estas cookies.</p>
+            </article>
+
+            <article>
+                <h2>3. Gestión de cookies</h2>
+                <p>Puedes gestionar tus preferencias en cualquier momento:</p>
+                <ul>
+                    <li><strong>Botón "Configurar cookies"</strong> en el banner inferior (si está activo).</li>
+                    <li><strong>Navegador:</strong> Configuración → Privacidad → Cookies (bloquear, eliminar, permitir).</li>
+                    <li><strong>Herramientas:</strong> <a href="https://www.aboutcookies.org/" target="_blank">AboutCookies.org</a>, <a href="https://www.youronlinechoices.com/" target="_blank">YourOnlineChoices</a>.</li>
+                </ul>
+                <p class="warning">⚠️ Si desactivas cookies necesarias, partes del Sitio pueden no funcionar (formularios, mapa, sesión).</p>
+            </article>
+
+            <article>
+                <h2>4. Consentimiento</h2>
+                <p>Al hacer clic en "Aceptar todas" en el banner, das consentimiento para cookies de analítica y funcionalidad. Puedes retirar consentimiento en cualquier momento desde la configuración del navegador o el botón "Configurar".</p>
+            </article>
+
+            <article>
+                <h2>5. Contacto</h2>
+                <p>Dudas sobre esta política: <a href="mailto:privacidad@tramaurbanaverde.cl">privacidad@tramaurbanaverde.cl</a>.</p>
+            </article>
+
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.cookie-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-space-md) 0;
+    font-size: var(--font-size-body-sm, 13px);
+}
+.cookie-table th, .cookie-table td {
+    padding: var(--space-space-sm) var(--space-space-md);
+    border: 1px solid var(--color-outline-variant);
+    text-align: left;
+}
+.cookie-table th {
+    background: var(--color-surface-container);
+    font-weight: 600;
+}
+.cookie-table tr:nth-child(even) td {
+    background: var(--color-surface-container-lowest);
+}
+.warning {
+    background: var(--color-warning-container, #FFF3E0);
+    color: var(--color-warning-on-container, #E65100);
+    padding: var(--space-space-md);
+    border-radius: var(--radius-lg);
+    border-left: 4px solid var(--color-warning, #FF9800);
+}
+</style>
+{% endblock %}

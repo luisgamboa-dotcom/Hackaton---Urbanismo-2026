@@ -69,10 +69,9 @@ fi
 if [ -n "${DATABASE_URL:-}" ]; then
     log_info "Initializing database..."
     python -c "
-import asyncio
-from config.database import init_db
-asyncio.run(init_db())
-" && log_success "Database initialized" || {
+from config.database import init_and_seed_db
+init_and_seed_db()
+" && log_success "Database initialized and seeded" || {
         log_error "Database initialization failed"
         exit 1
     }

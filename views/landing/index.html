@@ -1,0 +1,127 @@
+{# Landing Page - Main Template #}
+{% extends "base.html" %}
+
+{% block title %}Green Tech - Recuperación Urbana Táctica en Santiago{% endblock %}
+
+{% block description %}
+Recuperamos espacios urbanos inutilizados en sectores densos de Santiago mediante urbanismo táctico participativo. Plazas de bolsillo, corredores verdes y huertos comunitarios.
+{% endblock %}
+
+{% block canonical_url %}https://tramaurbanaverde.cl/{% endblock %}
+
+{% block og_title %}Green Tech - Recuperación Urbana Táctica{% endblock %}
+
+{% block og_description %}
+Transformamos lotes baldíos en espacios vivos para la comunidad. +2.450 m² recuperados, 12 espacios, 340 voluntarios, 5 comunas de Santiago.
+{% endblock %}
+
+{% block og_image %}https://tramaurbanaverde.cl/images/og-default.jpg{% endblock %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Green Tech",
+  "url": "https://tramaurbanaverde.cl",
+  "description": "Recuperación de espacios urbanos inutilizados en sectores densos de Santiago mediante urbanismo táctico participativo.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://tramaurbanaverde.cl/search?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Green Tech",
+    "logo": "https://tramaurbanaverde.cl/images/logo.svg"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Green Tech",
+  "alternateName": "Recuperación Urbana Táctica",
+  "url": "https://tramaurbanaverde.cl",
+  "logo": "https://tramaurbanaverde.cl/images/logo.svg",
+  "description": "Recuperación de espacios urbanos inutilizados en sectores densos de Santiago mediante urbanismo táctico participativo.",
+  "foundingDate": "2026",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Santiago",
+    "addressRegion": "Región Metropolitana",
+    "addressCountry": "CL"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+56-2-XXXX-XXXX",
+    "contactType": "customer service",
+    "availableLanguage": ["Spanish"]
+  },
+  "sameAs": [
+    "https://www.instagram.com/tramaurbanaverde",
+    "https://www.twitter.com/tramaurbanaverde",
+    "https://www.linkedin.com/company/trama-urbana-verde"
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+{# Hero Section #}
+{% include "partials/_hero.html" %}
+
+{# Value Proposition #}
+{% include "partials/_value_prop.html" %}
+
+{# Stats Bar #}
+{% include "partials/_stats_bar.html" %}
+
+{# Spaces Grid #}
+{% include "partials/_spaces_grid.html" %}
+
+{# Partners #}
+{% include "partials/_partners.html" %}
+
+{# Impact Meter #}
+{% include "partials/_impact_meter.html" %}
+
+{# CTA Section #}
+{% include "partials/_cta_section.html" %}
+{% endblock %}
+
+{% block extra_scripts %}
+{# Counter animation for stats #}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // Animate counter numbers
+  const counters = document.querySelectorAll('[data-count]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.count);
+        const duration = 2000;
+        const start = performance.now();
+
+        const animate = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          const current = Math.round(target * eased);
+          el.textContent = current.toLocaleString('es-CL');
+          if (progress < 1) requestAnimationFrame(animate);
+        };
+        requestAnimationFrame(animate);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(el => observer.observe(el));
+});
+</script>
+{% endblock %}

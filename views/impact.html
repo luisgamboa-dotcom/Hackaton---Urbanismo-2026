@@ -1,0 +1,310 @@
+{# Impacto y Métricas Page #}
+{% extends "base.html" %}
+
+{% block title %}Impacto y Métricas - Green Tech{% endblock %}
+
+{% block description %}
+Mide el impacto real de la recuperación urbana táctica: metros cuadrados de suelo vivo, árboles plantados, voluntarios movilizados y vecinos beneficiados en Santiago.
+{% endblock %}
+
+{% block canonical_url %}https://tramaurbanaverde.cl/impacto{% endblock %}
+
+{% block og_title %}Impacto y Métricas - Green Tech{% endblock %}
+
+{% block og_description %}
++2.450 m² recuperados, 12 espacios transformados, 340 voluntarios, 5 comunas. Mide el impacto real de la recuperación urbana táctica en Santiago.
+{% endblock %}
+
+{% block og_image %}https://tramaurbanaverde.cl/images/og-impact.jpg{% endblock %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Impacto y Métricas - Green Tech",
+  "description": "Métricas de impacto de la recuperación urbana táctica en Santiago",
+  "url": "https://tramaurbanaverde.cl/impacto",
+  "mainEntity": {
+    "@type": "QuantitativeValue",
+    "name": "Metros cuadrados de suelo vivo recuperados",
+    "value": {{ stats|selectattr('metric_key', 'equalto', 'total_m2_recovered')|map(attribute='value')|first|default(2450) }},
+    "unitCode": "MTK"
+  }
+}
+</script>
+{% endblock %}
+
+{% block content %}
+{# Page Hero #}
+<section class="page-hero section-lg" aria-labelledby="impact-hero-title">
+    <div class="container">
+        <div class="page-hero-content" data-scroll-reveal>
+            <span class="section-badge">Impacto</span>
+            <h1 id="impact-hero-title" class="page-hero-title">Impacto medible en la ciudad</h1>
+            <p class="page-hero-description">
+                Cada metro cuadrado cuenta: vegetación nativa, suelo permeable, biodiversidad y bienestar comunitario.
+                Medimos lo que importa para demostrar que el urbanismo táctico transforma barrios reales.
+            </p>
+        </div>
+    </div>
+</section>
+
+{# Impact Meter Section #}
+<section id="impact" class="impact-section section-sm" aria-labelledby="impact-title">
+    <div class="container">
+        <div class="impact-meter" data-scroll-reveal>
+            <header class="impact-meter-header">
+                <span class="section-badge" style="background: var(--color-tertiary); color: var(--color-on-tertiary);">Medidor de impacto</span>
+                <h2 id="impact-title" class="impact-meter-title">Metros cuadrados de suelo vivo recuperados</h2>
+                <p class="impact-meter-subtitle">
+                    Cada metro cuadrado cuenta: vegetación nativa, suelo permeable, biodiversidad y bienestar comunitario.
+                </p>
+            </header>
+
+            {# Progress Bar #}
+            <div class="impact-meter-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso de m² recuperados">
+                <div class="impact-meter-fill" data-impact-fill style="width: 0%;"></div>
+                <div class="impact-meter-marker" data-impact-marker aria-hidden="true"></div>
+            </div>
+
+            {# Get the m2_recovered metric for the target label #}
+            {% set m2_metric = stats|selectattr('metric_key', 'equalto', 'total_m2_recovered')|first %}
+            {% if not m2_metric %}{% set m2_metric = {'value': 2450} %}{% endif %}
+
+            <div class="impact-meter-labels">
+                <span>0 m²</span>
+                <span data-impact-value class="font-semibold">0 m²</span>
+                <span id="impact-target-label">{{ m2_metric.value|format_number }} m²</span>
+            </div>
+
+            {# Key Stats Grid #}
+            <div class="impact-meter-stats">
+                {% for stat in stats %}
+                <div class="impact-stat" data-scroll-reveal>
+                    <div class="impact-stat-value" data-count="{{ stat.value }}">{{ stat.formatted_value }}</div>
+                    <div class="impact-stat-label">{{ stat.label }}</div>
+                </div>
+                {% endfor %}
+            </div>
+
+            {# Hidden data for JS component #}
+            <div data-impact-meter
+                 data-impact-target="{{ m2_metric.value|default(10000) }}"
+                 data-impact-value="{{ m2_metric.value|default(2450) }}"
+                 data-impact-unit="m²"
+                 data-impact-duration="2000"
+                 style="display: none;"></div>
+        </div>
+    </div>
+</section>
+
+{# Detailed Impact Breakdown #}
+<section class="impact-breakdown section" aria-labelledby="breakdown-title">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal>
+            <span class="section-badge">Detalle</span>
+            <h2 id="breakdown-title" class="section-title">Desglose por tipo de intervención</h2>
+            <p class="section-description">
+                Cada tipología de espacio aporta beneficios específicos a la comunidad y al ecosistema urbano.
+            </p>
+        </header>
+
+        <div class="impact-categories-grid grid grid-cols-3 gap-lg">
+            {% set categories_impact = {
+                'pocket_park': { 'icon': 'leaf', 'label': 'Plazas de Bolsillo', 'color': 'primary', 'benefits': ['Encuentro vecinal', 'Juego infantil', 'Sombra y frescor', 'Biodiversidad local'] },
+                'green_corridor': { 'icon': 'leaf', 'label': 'Corredores Verdes', 'color': 'secondary', 'benefits': ['Conectividad ecológica', 'Movilidad activa', 'Polinizadores', 'Regulación térmica'] },
+                'community_garden': { 'icon': 'leaf', 'label': 'Huertos Comunitarios', 'color': 'tertiary', 'benefits': ['Seguridad alimentaria', 'Cohesión social', 'Educación ambiental', 'Economía circular'] },
+                'playground': { 'icon': 'leaf', 'label': 'Áreas de Juegos', 'color': 'primary', 'benefits': ['Desarrollo infantil', 'Juego inclusivo', 'Vida comunitaria', 'Espacio seguro'] },
+                'resting_area': { 'icon': 'leaf', 'label': 'Zonas de Descanso', 'color': 'secondary', 'benefits': ['Bienestar adultos mayores', 'Pausa activa', 'Encuentro intergeneracional', 'Accesibilidad universal'] },
+                'urban_forest': { 'icon': 'leaf', 'label': 'Mini Bosques Urbanos', 'color': 'tertiary', 'benefits': ['Captura CO₂', 'Biodiversidad nativa', 'Regulación hídrica', 'Resiliencia climática'] }
+            } %}
+
+            {% for cat_key, cat_data in categories_impact.items() %}
+            <article class="impact-category-card card card-elevated" data-scroll-reveal>
+                <div class="impact-category-header" style="padding: var(--space-space-lg); border-bottom: 1px solid var(--color-outline-variant);">
+                    <div class="impact-category-icon" style="width: 48px; height: 48px; background: var(--color-{{ cat_data.color }}-container); color: var(--color-on-{{ cat_data.color }}-container); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; margin-bottom: var(--space-space-md);">
+                        <svg class="icon icon-md" aria-hidden="true"><use href="#icon-{{ cat_data.icon }}"></use></svg>
+                    </div>
+                    <h3 class="impact-category-title" style="margin: 0;">{{ cat_data.label }}</h3>
+                </div>
+                <div class="impact-category-body" style="padding: var(--space-space-lg);">
+                    <ul class="impact-benefits" style="list-style: none; padding: 0; margin: 0;">
+                        {% for benefit in cat_data.benefits %}
+                        <li style="display: flex; align-items: flex-start; gap: var(--space-space-sm); margin-bottom: var(--space-space-sm); padding-left: var(--space-space-lg); position: relative;">
+                            <span style="position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; background: var(--color-{{ cat_data.color }}); border-radius: 50%;"></span>
+                            {{ benefit }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="impact-category-footer" style="padding: var(--space-space-lg); border-top: 1px solid var(--color-outline-variant); background: var(--color-surface-container-low);">
+                    <a href="/espacios?category={{ cat_key }}" class="btn btn-secondary btn-sm btn-block">
+                        Ver espacios {{ cat_data.label|lower }}
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{# Methodology Section #}
+<section class="impact-methodology section" aria-labelledby="methodology-title">
+    <div class="container">
+        <div class="methodology-card card card-elevated" data-scroll-reveal>
+            <header class="methodology-header">
+                <h2 id="methodology-title" class="methodology-title">¿Cómo medimos el impacto?</h2>
+            </header>
+            <div class="methodology-body">
+                <div class="methodology-grid grid grid-cols-2 gap-xl">
+                    <div class="methodology-item">
+                        <h3 style="font-size: var(--font-size-headline-sm, 18px); margin-bottom: var(--space-space-md); display: flex; align-items: center; gap: var(--space-space-sm);">
+                            <svg class="icon icon-md" style="color: var(--color-primary);" aria-hidden="true"><use href="#icon-square"></use></svg>
+                            Métricas ambientales
+                        </h3>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: var(--space-space-sm); padding-left: var(--space-space-lg); position: relative;">
+                                <span style="position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; background: var(--color-primary); border-radius: 50%;"></span>
+                                <strong>m² de suelo vivo:</strong> Superficie permeable con vegetación nativa
+                            </li>
+                            <li style="margin-bottom: var(--space-space-sm); padding-left: var(--space-space-lg); position: relative;">
+                                <span style="position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; background: var(--color-primary); border-radius: 50%;"></span>
+                                <strong>Árboles plantados:</strong> Especies nativas y adaptadas al clima mediterráneo
+                            </li>
+                            <li style="margin-bottom: var(--space-space-sm); padding-left: var(--space-space-lg); position: relative;">
+                                <span style="position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; background: var(--color-primary); border-radius: 50%;"></span>
+                                <strong>Biodiversidad:</strong> Registro de flora y fauna en intervenciones
+                            </li>
+                            <li style="padding-left: var(--space-space-lg); position: relative;">
+                                <span style="position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; background: var(--color-primary); border-radius: 50%;"></span>
+                                <strong>Infiltración hídrica:</strong> Reducción de escorrentía superficial
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="methodology-item">
+                        <h3 style="font-size: var(--font-size-headline-sm, 18px); margin-bottom: var(--space-space-md); display: flex; align-items: center; gap: var(--space-space-sm);">
+                            <svg class="icon icon-md" style="color: var(--color-secondary);" aria-hidden="true"><use href="#icon-users"></use></svg>
+                            Métricas sociales
+                        </h3>
+                        <ul style="list-style: none; padding: 0; margin: 0;">
+                            <li style="margin-bottom: var(--space-space-sm); padding-left: var(--space-space-lg); position: relative;">
+                                <span style="position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; background: var(--color-secondary); border-radius: 50%;"></span>
+                                <strong>Vecinos beneficiados:</strong> Población en radio de 400m (caminabilidad)
+                            </li>
+                            <li style="margin-bottom: var(--space-space-sm); padding-left: var(--space-space-lg); position: relative;">
+                                <span style="position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; background: var(--color-secondary); border-radius: 50%;"></span>
+                                <strong>Voluntarios movilizados:</strong> Participantes en jornadas de plantación y mantenimiento
+                            </li>
+                            <li style="margin-bottom: var(--space-space-sm); padding-left: var(--space-space-lg); position: relative;">
+                                <span style="position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; background: var(--color-secondary); border-radius: 50%;"></span>
+                                <strong>Juntas de vecinos activas:</strong> Organizaciones que cuidan los espacios
+                            </li>
+                            <li style="padding-left: var(--space-space-lg); position: relative;">
+                                <span style="position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; background: var(--color-secondary); border-radius: 50%;"></span>
+                                <strong>Actividades comunitarias:</strong> Talleres, ferias, eventos en espacios recuperados
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="methodology-note" style="margin-top: var(--space-space-xl); padding: var(--space-space-lg); background: var(--color-primary-fixed); border-radius: var(--radius-lg);">
+                    <h4 style="color: var(--color-primary); margin: 0 0 var(--space-space-sm);">Transparencia y datos abiertos</h4>
+                    <p style="margin: 0; color: var(--color-on-surface-variant); font-size: var(--font-size-body-sm, 13px);">
+                        Todas las métricas se basan en datos recolectados en terreno por nuestro equipo técnico y validados con las comunidades.
+                        Los datos están disponibles en formato abierto para investigación y análisis independiente.
+                        <a href="#transparency" style="color: var(--color-primary); font-weight: 600;">Ver portal de transparencia →</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# CTA Section #}
+{% include "partials/_cta_section.html" %}
+{% endblock %}
+
+{% block extra_scripts %}
+{# Impact Meter Animation #}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Impact meter animation
+    const meterData = document.querySelector('[data-impact-meter]');
+    if (meterData) {
+        const target = parseInt(meterData.dataset.impactTarget);
+        const current = parseInt(meterData.dataset.impactValue);
+        const unit = meterData.dataset.impactUnit || 'm²';
+        const duration = parseInt(meterData.dataset.impactDuration) || 2000;
+
+        const fill = document.querySelector('[data-impact-fill]');
+        const marker = document.querySelector('[data-impact-marker]');
+        const valueEl = document.querySelector('[data-impact-value]');
+        const targetLabel = document.getElementById('impact-target-label');
+
+        if (fill && valueEl) {
+            const progress = Math.min(current / target, 1);
+            const start = performance.now();
+
+            const animate = (now) => {
+                const elapsed = now - start;
+                const prog = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - prog, 3);
+                const currentProg = progress * eased;
+                const displayValue = Math.round(current * eased);
+
+                fill.style.width = (currentProg * 100) + '%';
+                if (marker) marker.style.left = (currentProg * 100) + '%';
+                valueEl.textContent = displayValue.toLocaleString('es-CL') + ' ' + unit;
+
+                if (prog < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    fill.style.width = (progress * 100) + '%';
+                    if (marker) marker.style.left = (progress * 100) + '%';
+                    valueEl.textContent = current.toLocaleString('es-CL') + ' ' + unit;
+                }
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        requestAnimationFrame(animate);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(meterData);
+        }
+    }
+
+    // Counter animation for stats
+    const counters = document.querySelectorAll('[data-count]');
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.dataset.count);
+                const duration = 2000;
+                const start = performance.now();
+
+                const animate = (now) => {
+                    const progress = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.round(target * eased);
+                    el.textContent = current.toLocaleString('es-CL');
+                    if (progress < 1) requestAnimationFrame(animate);
+                };
+                requestAnimationFrame(animate);
+                counterObserver.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(el => counterObserver.observe(el));
+});
+</script>
+{% endblock %}

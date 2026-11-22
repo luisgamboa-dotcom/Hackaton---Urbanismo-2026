@@ -1,0 +1,189 @@
+{# Socios y Aliados Page #}
+{% extends "base.html" %}
+
+{% block title %}Socios y Aliados - Green Tech{% endblock %}
+
+{% block description %}
+Conoce a las municipalidades, empresas, ONGs, universidades, viveros y comunidades que hacen posible la recuperación urbana táctica en Santiago.
+{% endblock %}
+
+{% block canonical_url %}https://tramaurbanaverde.cl/socios{% endblock %}
+
+{% block og_title %}Socios y Aliados - Green Tech{% endblock %}
+
+{% block og_description %}
+Municipalidades, empresas con RSE, ONGs, viveros, universidades y comunidades trabajan juntos para recuperar la ciudad. +30 aliados estratégicos.
+{% endblock %}
+
+{% block og_image %}https://tramaurbanaverde.cl/images/og-partners.jpg{% endblock %}
+
+{% block json_ld %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Green Tech",
+  "description": "Red de socios y aliados para la recuperación urbana táctica en Santiago",
+  "url": "https://tramaurbanaverde.cl/socios",
+  "member": [
+    {% for type_key, type_partners in partners_by_type.items() %}
+    {% for partner in type_partners %}
+    {
+      "@type": "Organization",
+      "name": "{{ partner.name }}",
+      "url": "{{ partner.website_url or 'https://tramaurbanaverde.cl' }}",
+      "description": "{{ partner.description or 'Socio estratégico de Green Tech' }}"
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+    {% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+{# Page Hero #}
+<section class="page-hero section-lg" aria-labelledby="partners-hero-title">
+    <div class="container">
+        <div class="page-hero-content" data-scroll-reveal>
+            <span class="section-badge">Socios</span>
+            <h1 id="partners-hero-title" class="page-hero-title">Socios y aliados estratégicos</h1>
+            <p class="page-hero-description">
+                Municipalidades, empresas con RSE, ONGs, viveros, universidades y comunidades
+                trabajan juntos para recuperar la ciudad. Cada alianza aporta recursos, conocimientos
+                y territorio para transformar espacios baldíos en lugares vivos.
+            </p>
+        </div>
+    </div>
+</section>
+
+{# Partners by Type - Horizontal Layout #}
+<section id="partners" class="partners-section section" aria-labelledby="partners-title">
+    <div class="container">
+        {% if partners_by_type %}
+        <div class="partners-by-type" data-scroll-reveal>
+            {% for type_key, type_partners in partners_by_type.items() %}
+            <div class="partner-type-group">
+                <div class="partner-type-header">
+                    <h3 class="partner-type-title">
+                        <svg class="icon icon-sm" aria-hidden="true">
+                            {% if type_key == 'municipality' %}
+                            <use href="#icon-building-2"></use>
+                            {% elif type_key == 'company_rse' %}
+                            <use href="#icon-briefcase"></use>
+                            {% elif type_key == 'ngo' %}
+                            <use href="#icon-heart"></use>
+                            {% elif type_key == 'nursery' %}
+                            <use href="#icon-leaf"></use>
+                            {% elif type_key == 'university' %}
+                            <use href="#icon-graduation-cap"></use>
+                            {% elif type_key == 'community' %}
+                            <use href="#icon-users"></use>
+                            {% else %}
+                            <use href="#icon-building"></use>
+                            {% endif %}
+                        </svg>
+                        {% if type_key == 'municipality' %}Municipalidades
+                        {% elif type_key == 'company_rse' %}Empresas RSE
+                        {% elif type_key == 'ngo' %}ONGs y Fundaciones
+                        {% elif type_key == 'nursery' %}Viveros
+                        {% elif type_key == 'university' %}Academia
+                        {% elif type_key == 'community' %}Comunidades
+                        {% else %}{{ type_key|title }}{% endif %}
+                        <span class="partner-count">({{ type_partners|length }})</span>
+                    </h3>
+                </div>
+                <div class="partner-type-list">
+                    {% for partner in type_partners %}
+                    <a href="{{ partner.website_url or '#' }}" class="partner-item"
+                       data-partner-type="{{ partner.type }}"
+                       {% if partner.website_url %}target="_blank" rel="noopener noreferrer"{% endif %}
+                       title="{{ partner.name }}{% if partner.description %}: {{ partner.description }}{% endif %}">
+                        <span class="partner-item-icon" aria-hidden="true">
+                            {% if partner.type == 'municipality' %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18"></path><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path><path d="M10 6h4"></path><path d="M10 10h4"></path><path d="M10 14h4"></path><path d="M10 18h4"></path></svg>
+                            {% elif partner.type == 'company_rse' %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path><rect x="2" y="7" width="20" height="14" rx="2"></rect></svg>
+                            {% elif partner.type == 'ngo' %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 1 0 7.78l-12 12a5.5 5.5 0 0 1-7.78 0l-1.06-1.06a5.5 5.5 0 0 1 0-7.78l12-12a5.5 5.5 0 0 1 7.78 0l1.06 1.06z"></path></svg>
+                            {% elif partner.type == 'nursery' %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 6.1 17 10.3 17 10.3C17 10.3 22 7.5 22 14.2C22 18.5 18.9 20 14.2 20H11Z"></path><path d="M2 21L6 18M4 19L6 18L8 19"></path></svg>
+                            {% elif partner.type == 'university' %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.92 3.24a1 1 0 0 0-1.823.02L2.6 10.91a1 1 0 0 0 0 1.832l8.3 8.314a1 1 0 0 0 1.823-.02l8.52-8.53z"></path><path d="M22 10v6"></path><path d="M6 10v6"></path><path d="M14 14v4"></path></svg>
+                            {% elif partner.type == 'community' %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 21a6 6 0 0 0-12 0"></path><circle cx="12" cy="11" r="4"></circle><path d="M22 21c0-2.5-3-2.5-6-2.5s-6 0-6 2.5"></path></svg>
+                            {% else %}
+                            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M3 9h18"></path><path d="M3 15h18"></path><path d="M9 3v18"></path><path d="M15 3v18"></path></svg>
+                            {% endif %}
+                        </span>
+                        <span class="partner-item-name">{{ partner.name }}</span>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state" data-scroll-reveal>
+            <svg class="icon icon-xl empty-state-icon" aria-hidden="true"><use href="#icon-handshake"></use></svg>
+            <h2 class="empty-state-title">Próximamente</h2>
+            <p class="empty-state-description">Estamos cargando la información de nuestros socios y aliados.</p>
+        </div>
+        {% endif %}
+
+        {# Become a Partner CTA #}
+        <div class="section-cta" data-scroll-reveal style="margin-top: var(--space-space-xl); padding-top: var(--space-space-xl); border-top: 1px solid var(--color-outline-variant);">
+            <div class="cta-partner-card" style="max-width: 600px; margin: 0 auto; text-align: center; padding: var(--space-space-xl); background: var(--color-surface-container-low); border-radius: var(--radius-xl); border: 1px solid var(--color-outline-variant);">
+                <h3 style="font-size: var(--font-size-headline-md, 22px); margin-bottom: var(--space-space-sm);">¿Quieres ser socio?</h3>
+                <p style="color: var(--color-on-surface-variant); margin-bottom: var(--space-space-lg);">
+                    Municipalidades, empresas, ONGs, universidades, viveros y comunidades:
+                    sumate a la red que recupera la ciudad metro a metro.
+                </p>
+                <a href="/contacto" class="btn btn-primary btn-lg">
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-mail"></use></svg>
+                    Contactar para alianzas
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# Impact Meter Section #}
+{% include "partials/_impact_meter.html" %}
+
+{# CTA Section #}
+{% include "partials/_cta_section.html" %}
+{% endblock %}
+
+{% block extra_scripts %}
+{# Counter animation for stats #}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Animate counter numbers
+    const counters = document.querySelectorAll('[data-count]');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                const target = parseInt(el.dataset.count);
+                const duration = 2000;
+                const start = performance.now();
+
+                const animate = (now) => {
+                    const progress = Math.min((now - start) / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.round(target * eased);
+                    el.textContent = current.toLocaleString('es-CL');
+                    if (progress < 1) requestAnimationFrame(animate);
+                };
+                requestAnimationFrame(animate);
+                observer.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(el => observer.observe(el));
+});
+</script>
+{% endblock %}

@@ -1,0 +1,414 @@
+{# Communities / Neighborhood Associations Page #}
+{% extends "base.html" %}
+
+{% block title %}Juntas de Vecinos y Comunidades - Green Tech{% endblock %}
+
+{% block description %}
+Red de juntas de vecinos y organizaciones comunitarias aliadas de Green Tech. Cómo sumar a tu organización, casos de éxito y recursos.
+{% endblock %}
+
+{% block canonical_url %}https://tramaurbanaverde.cl/comunidades{% endblock %}
+
+{% block content %}
+<section class="page-hero section-lg">
+    <div class="container">
+        <div class="page-hero-content" data-scroll-reveal>
+            <span class="section-badge">Comunidad</span>
+            <h1 class="page-hero-title">Juntas de Vecinos y Comunidades</h1>
+            <p class="page-hero-description">La fuerza de Green Tech nace en los barrios. Trabajamos codo a codo con juntas de vecinos, comités ambientales y organizaciones territoriales.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section section-lg">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal style="text-align: center; max-width: 700px; margin: 0 auto var(--space-space-xl);">
+            <span class="section-badge">¿Cómo colaboramos?</span>
+            <h2 class="section-title">Modelo de trabajo conjunto</h2>
+            <p class="section-description">No intervenimos sin la comunidad. Cada proyecto nace, se diseña y se cuida con quienes habitan el territorio.</p>
+        </header>
+        
+        <div class="process-steps" data-scroll-reveal>
+            <article class="process-step">
+                <span class="step-number">1</span>
+                <div class="step-content">
+                    <h3>Diagnóstico participativo</h3>
+                    <p>Recorridos barriales, mapeo colectivo de espacios baldíos, priorización con vecinos.</p>
+                </div>
+            </article>
+            <article class="process-step">
+                <span class="step-number">2</span>
+                <div class="step-content">
+                    <h3>Co-diseño del proyecto</h3>
+                    <p>Talleres de diseño: qué especies, qué mobiliario, qué usos. La comunidad decide.</p>
+                </div>
+            </article>
+            <article class="process-step">
+                <span class="step-number">3</span>
+                <div class="step-content">
+                    <h3>Ejecución comunitaria</h3>
+                    <p>Jornadas de plantación y construcción abiertas a todo el barrio. Manos locales.</p>
+                </div>
+            </article>
+            <article class="process-step">
+                <span class="step-number">4</span>
+                <div class="step-content">
+                    <h3>Cuidado compartido</h3>
+                    <p>Comité de mantenimiento vecinal + apoyo técnico Green Tech. Sostenibilidad real.</p>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section section-lg" style="background: var(--color-surface-container);">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal style="text-align: center; max-width: 700px; margin: 0 auto var(--space-space-xl);">
+            <span class="section-badge">Aliados territoriales</span>
+            <h2 class="section-title">Juntas de vecinos activas</h2>
+        </header>
+        
+        <div class="communities-grid" data-scroll-reveal>
+            <article class="community-card">
+                <header>
+                    <div class="community-avatar">JV<br>Yungay</div>
+                    <div>
+                        <h3>Junta de Vecinos Yungay</h3>
+                        <span class="community-commune">Santiago Centro</span>
+                    </div>
+                </header>
+                <p>Primera plaza de bolsillo Green Tech (Plaza Pocket Yungay). Comité de riego activo de 12 vecinos.</p>
+                <ul class="community-tags">
+                    <li>Plaza de bolsillo</li>
+                    <li>Riego autogestionado</li>
+                    <li>Eventos culturales</li>
+                </ul>
+            </article>
+            <article class="community-card">
+                <header>
+                    <div class="community-avatar">JV<br>Santa Lucía</div>
+                    <div>
+                        <h3>Junta de Vecinos Santa Lucía</h3>
+                        <span class="community-commune">Santiago Centro</span>
+                    </div>
+                </header>
+                <p>Huertos comunitarios en falda del cerro. Alianzas con escuela y colegio aledaños. 25 familias cultivando.</p>
+                <ul class="community-tags">
+                    <li>Huertos elevados</li>
+                    <li>Alianza educativa</li>
+                    <li>Compostaje comunitario</li>
+                </ul>
+            </article>
+            <article class="community-card">
+                <header>
+                    <div class="community-avatar">JV<br>Matta Norte</div>
+                    <div>
+                        <h3>Comité Ambiental Matta Norte</h3>
+                        <span class="community-commune">Santiago Centro</span>
+                    </div>
+                </header>
+                <p>Intervención táctica en veredas: jardineras modulares, bancas de pallets, mesa de ping-pong, mural.</p>
+                <ul class="community-tags">
+                    <li>Calles completas</li>
+                    <li>Mural participativo</li>
+                    <li>Juegos inclusivos</li>
+                </ul>
+            </article>
+            <article class="community-card">
+                <header>
+                    <div class="community-avatar">JV<br>Matucana</div>
+                    <div>
+                        <h3>Junta de Vecinos Matucana Poniente</h3>
+                        <span class="community-commune">Estación Central</span>
+                    </div>
+                </header>
+                <p>Corredor verde conectando Metro Matucana con Quinta Normal. 320 m² en veredas y bandejones.</p>
+                <ul class="community-tags">
+                    <li>Corredor verde</li>
+                    <li>Conectividad peatonal</li>
+                    <li>Arbolado nativo</li>
+                </ul>
+            </article>
+            <article class="community-card">
+                <header>
+                    <div class="community-avatar">JV<br>Ñuñoa Inclusiva</div>
+                    <div>
+                        <h3>Junta de Vecinos Plaza Ñuñoa</h3>
+                        <span class="community-commune">Ñuñoa</span>
+                    </div>
+                </header>
+                <p>Primera plaza 100% accesible: pavimento táctil, juegos inclusivos, pérgola vegetal, bebedero accesible.</p>
+                <ul class="community-tags">
+                    <li>Diseño universal</li>
+                    <li>Accesibilidad total</li>
+                    <li>Juegos inclusivos</li>
+                </ul>
+            </article>
+            <article class="community-card">
+                <header>
+                    <div class="community-avatar">JV<br>Franklin</div>
+                    <div>
+                        <h3>Comité Pro Recuperación Franklin</h3>
+                        <span class="community-commune">Santiago Centro</span>
+                    </div>
+                </header>
+                <p>Lote de 800 m² postulado para mini bosque Miyawaki. En fase de limpieza y remediación de suelo.</p>
+                <ul class="community-tags">
+                    <li>Mini bosque urbano</li>
+                    <li>En tramitación</li>
+                    <li>300 árboles nativos</li>
+                </ul>
+            </article>
+        </div>
+        
+        <div style="text-align: center; margin-top: var(--space-space-xl);" data-scroll-reveal>
+            <a href="/contacto?subject=comunidades" class="btn btn-primary btn-lg">
+                ¿Quieres sumar a tu junta de vecinos?
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section section-lg">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal style="text-align: center; max-width: 700px; margin: 0 auto var(--space-space-xl);">
+            <span class="section-badge">Recursos</span>
+            <h2 class="section-title">Herramientas para tu organización</h2>
+        </header>
+        
+        <div class="resources-grid" data-scroll-reveal>
+            <article class="resource-card">
+                <header>
+                    <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-file-text"></use></svg>
+                    <h3>Guías descargables</h3>
+                </header>
+                <ul>
+                    <li><a href="/documentos/guia-postulacion.pdf">Guía: Cómo postular un espacio</a></li>
+                    <li><a href="/documentos/guia-mantenimiento.pdf">Guía: Mantenimiento de espacios verdes</a></li>
+                    <li><a href="/documentos/guia-participacion.pdf">Guía: Participación efectiva en talleres</a></li>
+                    <li><a href="/documentos/guia-especies-nativas.pdf">Guía: Especies nativas para Santiago</a></li>
+                </ul>
+            </article>
+            <article class="resource-card">
+                <header>
+                    <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-graduation-cap"></use></svg>
+                    <h3>Capacitaciones</h3>
+                </header>
+                <ul>
+                    <li><a href="/actividades#talleres">Taller: Diseño participativo de plazas</a></li>
+                    <li><a href="/actividades#talleres">Taller: Huertos urbanos y compostaje</a></li>
+                    <li><a href="/actividades#talleres">Taller: Podas y riego eficiente</a></li>
+                    <li><a href="/actividades#talleres">Taller: Gestión de proyectos vecinales</a></li>
+                </ul>
+            </article>
+            <article class="resource-card">
+                <header>
+                    <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-users-plus"></use></svg>
+                    <h3>Red de apoyo</h3>
+                </header>
+                <ul>
+                    <li><a href="/voluntariado">Bolsa de voluntarios para tu junta</a></li>
+                    <li><a href="/contacto?subject=alianzas">Asesoría técnica gratuita</a></li>
+                    <li><a href="/contacto?subject=financiamiento">Búsqueda de financiamiento conjunto</a></li>
+                    <li><a href="/comunidades#encuentros">Encuentros trimestrales de juntas</a></li>
+                </ul>
+            </article>
+        </div>
+    </div>
+</section>
+
+{# CTA #}
+<section class="cta-section section-lg">
+    <div class="container">
+        <div class="cta-content" style="text-align: center;">
+            <h2>¿Tu junta de vecinos quiere postular un espacio?</h2>
+            <p class="cta-description">El proceso es sencillo: diagnóstico, co-diseño, ejecución y cuidado compartido. Te acompañamos en cada paso.</p>
+            <a href="/postular" class="btn btn-cta btn-lg">
+                Postular espacio con mi junta
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-map-pin-plus"></use></svg>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-space-md);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+@media (max-width: 900px) {
+    .process-steps {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+}
+.process-step {
+    display: flex;
+    gap: var(--space-space-md);
+    padding: var(--space-space-lg);
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+}
+.step-number {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: var(--font-size-headline-md, 24px);
+}
+.step-content h3 {
+    font-size: var(--font-size-headline-sm, 18px);
+    font-weight: 700;
+    color: var(--color-on-surface);
+    margin: 0 0 var(--space-space-xs);
+}
+.step-content p {
+    margin: 0;
+    font-size: var(--font-size-body-sm, 13px);
+    color: var(--color-on-surface-variant);
+}
+
+.communities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--space-space-md);
+}
+.community-card {
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+    padding: var(--space-space-lg);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+.community-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--color-secondary);
+}
+.community-card header {
+    display: flex;
+    gap: var(--space-space-md);
+    margin-bottom: var(--space-space-md);
+}
+.community-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-lg);
+    background: var(--color-primary-container);
+    color: var(--color-on-primary-container);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: var(--font-size-body-xs, 11px);
+    line-height: 1.2;
+    text-align: center;
+    flex-shrink: 0;
+}
+.community-card h3 {
+    font-size: var(--font-size-headline-sm, 18px);
+    font-weight: 700;
+    color: var(--color-on-surface);
+    margin: 0 0 var(--space-space-xs);
+}
+.community-commune {
+    font-size: var(--font-size-body-sm, 13px);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+.community-card p {
+    font-size: var(--font-size-body-sm, 13px);
+    color: var(--color-on-surface-variant);
+    margin: 0 0 var(--space-space-md);
+    line-height: 1.5;
+}
+.community-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-space-xs);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.community-tags li {
+    font-size: var(--font-size-body-xs, 11px);
+    font-weight: 600;
+    color: var(--color-primary);
+    background: var(--color-primary-container);
+    padding: var(--space-space-xs) var(--space-space-sm);
+    border-radius: var(--radius-full);
+}
+
+.resources-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-space-md);
+}
+@media (max-width: 900px) {
+    .resources-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.resource-card {
+    background: var(--color-surface-container-lowest);
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+    padding: var(--space-space-lg);
+}
+.resource-card header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-space-md);
+    margin-bottom: var(--space-space-md);
+}
+.resource-card header .icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-container);
+    color: var(--color-on-primary-container);
+    border-radius: var(--radius-lg);
+}
+.resource-card h3 {
+    font-size: var(--font-size-headline-sm, 18px);
+    font-weight: 700;
+    color: var(--color-on-surface);
+    margin: 0;
+}
+.resource-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.resource-card li {
+    margin-bottom: var(--space-space-sm);
+}
+.resource-card a {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-size: var(--font-size-body-sm, 13px);
+}
+.resource-card a:hover {
+    text-decoration: underline;
+}
+</style>
+{% endblock %}

@@ -1,0 +1,98 @@
+{# Hero Section #}
+<section id="hero" class="hero section-lg" aria-labelledby="hero-title">
+    <div class="container">
+        <div class="hero-grid">
+            {# Content #}
+            <div class="hero-content">
+                <span class="hero-badge" aria-label="Proyecto de urbanismo táctico">
+                    <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-leaf"></use></svg>
+                    Urbanismo Táctico Participativo
+                </span>
+                <h1 id="hero-title" class="hero-title">
+                    Recuperamos espacios urbanos<br>
+                    <span style="color: var(--color-tertiary);">para la comunidad</span>
+                </h1>
+                <p class="hero-description">
+                    Transformamos lotes baldíos y esquinas residuales en plazas de bolsillo,
+                    corredores verdes y huertos comunitarios. Urbanismo rápido, barato y vivo
+                    para los barrios densos de Santiago.
+                </p>
+                <div class="hero-actions">
+                    <a href="/voluntariado" class="btn btn-cta btn-lg">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-users-plus"></use></svg>
+                        Sumarme como voluntario
+                    </a>
+                    <a href="/postular" class="btn btn-secondary btn-lg">
+                        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-map-pin-plus"></use></svg>
+                        Postular mi espacio
+                    </a>
+                </div>
+            </div>
+
+            {# Visual - Before/After Comparison with Interactive Map #}
+            <div class="hero-visual">
+                <div class="hero-comparison" data-hero-comparison>
+                    {# Before: CSS-generated vacant lot illustration #}
+                    <div class="hero-before-illustration" aria-label="Antes: espacio residual inutilizado">
+                        <div class="illustration-layer illustration-ground"></div>
+                        <div class="illustration-layer illustration-debris">
+                            <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-trash"></use></svg>
+                            <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-trash"></use></svg>
+                            <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-trash"></use></svg>
+                        </div>
+                        <div class="illustration-layer illustration-cracks"></div>
+                        <div class="illustration-label">ANTES: Espacio residual</div>
+                    </div>
+
+                    {# After: Interactive Map replacing hero-after image #}
+                    <div class="hero-after-map" data-hero-map>
+                        <!-- Botón pantalla completa - fuera del mapa para acceso constante -->
+                        <button id="hero-map-fullscreen" class="hero-map-fullscreen-btn" aria-label="Pantalla completa" title="Pantalla completa">
+                            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-maximize"></use></svg>
+                        </button>
+                        <div id="hero-map" class="hero-map"></div>
+
+                        <!-- Controles overlay -->
+                        <div class="hero-map-controls">
+                            <select id="hero-map-filter" class="hero-map-filter" aria-label="Filtrar espacios por categoría">
+                                <option value="">Todas las categorías</option>
+                                <optgroup label="Intervenciones Green Tech">
+                                    <option value="pocket_park">Plazas de Bolsillo</option>
+                                    <option value="green_corridor">Corredores Verdes</option>
+                                    <option value="community_garden">Huertos Comunitarios</option>
+                                    <option value="resting_area">Zonas de Descanso</option>
+                                    <option value="urban_forest">Mini Bosques Urbanos</option>
+                                    <option value="playground">Áreas de Juegos</option>
+                                </optgroup>
+                                <optgroup label="Terrenos problemáticos reportados">
+                                    <option value="abandoned_land">Terrenos Abandonados</option>
+                                    <option value="dumping_ground">Vertederos Ilegales</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        
+                        <!-- Leyenda compacta -->
+                        <div class="hero-map-legend" aria-hidden="true">
+                            <span class="legend-item"><i style="background: var(--color-primary)"></i> Completados</span>
+                            <span class="legend-item"><i style="background: var(--color-tertiary)"></i> En Progreso</span>
+                            <span class="legend-item"><i style="background: var(--color-on-surface-variant)"></i> Identificados</span>
+                            <span class="legend-item"><i style="background: #ef4444"></i> Terrenos Abandonados</span>
+                            <span class="legend-item"><i style="background: #f97316"></i> Vertederos Ilegales</span>
+                        </div>
+                    </div>
+
+                                    </div>
+                {% if hero_space %}
+                <p class="mt-sm text-center text-muted" style="font-size: var(--font-size-body-sm, 13px);">
+                    {{ hero_space.name }}, {{ hero_space.commune }} • {{ hero_space.area_m2|format_area_m2 }} recuperados
+                </p>
+                {% endif %}
+            
+            {# Fallback data for map if API fails #}
+            <script>
+                window.HERO_MAP_SPACES = {{ spaces_for_map | tojson }};
+            </script>
+            </div>
+        </div>
+    </div>
+</section>

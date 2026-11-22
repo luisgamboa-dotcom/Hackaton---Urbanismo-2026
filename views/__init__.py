@@ -1,1 +1,1 @@
-"""Views package for Trama Urbana Verde."""
+"""Views package for Green Tech."""

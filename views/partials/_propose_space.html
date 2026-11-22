@@ -1,0 +1,432 @@
+{# Propose Space Section #}
+<section id="propose-space" class="propose-section section" aria-labelledby="propose-title">
+    <div class="container">
+        <header class="section-header" data-scroll-reveal>
+            <span class="section-badge">Participa</span>
+            <h2 id="propose-title" class="section-title">Postula un espacio baldío</h2>
+            <p class="section-description">
+                ¿Conoces un lote vacío, una esquina residual o un terreno en desuso que podría transformarse en un espacio verde para la comunidad? Postúlalo y lo evaluaremos para una futura intervención.
+            </p>
+        </header>
+
+        {# Help Modal #}
+        <div id="propose-help-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="help-modal-title" hidden>
+            <div class="modal-overlay" tabindex="-1"></div>
+            <div class="modal-container modal-lg">
+                <header class="modal-header">
+                    <h2 id="help-modal-title" class="modal-title">Guía para completar el formulario</h2>
+                    <button type="button" class="modal-close" aria-label="Cerrar">
+                        <svg class="icon icon-md" aria-hidden="true"><use href="#icon-x"></use></svg>
+                    </button>
+                </header>
+                <div class="modal-body">
+                    <div class="help-sections">
+                        <section class="help-section">
+                            <h3><svg class="icon icon-sm" aria-hidden="true"><use href="#icon-map-pin"></use></svg> Ubicación en el mapa</h3>
+                            <ul>
+                                <li>Haz clic directamente en el mapa para marcar la ubicación exacta del espacio.</li>
+                                <li>Las coordenadas (latitud/longitud) se completarán automáticamente.</li>
+                                <li>Usa el zoom (+/-) o rueda del ratón para acercar/alejar.</li>
+                                <li>Verifica que el punto esté en el lugar correcto antes de continuar.</li>
+                            </ul>
+                        </section>
+                        <section class="help-section">
+                            <h3><svg class="icon icon-sm" aria-hidden="true"><use href="#icon-image"></use></svg> Fotografía del lugar</h3>
+                            <ul>
+                                <li>Sube fotos claras del estado actual del terreno (máx. 5).</li>
+                                <li>Formatos permitidos: JPG, PNG, WebP (máx. 5 MB cada una).</li>
+                                <li>Fotografía de día; si es posible, también de noche para mostrar iluminación.</li>
+                                <li>Captura contexto: calles cercanas, accesos, vegetación existente.</li>
+                                <li>Puedes eliminar o reemplazar fotos antes de enviar.</li>
+                            </ul>
+                        </section>
+                        <section class="help-section">
+                            <h3><svg class="icon icon-sm" aria-hidden="true"><use href="#icon-file-text"></use></svg> Descripción del espacio</h3>
+                            <ul>
+                                <li>Describe el estado actual: dimensiones, vegetación, escombros, basura.</li>
+                                <li>Indica accesos: ¿es peatonal? ¿vehicular? ¿tiene vereda?</li>
+                                <li>Menciona servicios cercanos: agua, luz, drenaje.</li>
+                                <li>Uso actual: ¿está vacío? ¿lo usan como estacionamiento? ¿microbasural?</li>
+                                <li>Riesgos visibles: inundaciones, inseguridad, contaminación.</li>
+                            </ul>
+                        </section>
+                        <section class="help-section">
+                            <h3><svg class="icon icon-sm" aria-hidden="true"><use href="#icon-lightbulb"></use></svg> Necesidades del espacio</h3>
+                            <ul>
+                                <li>¿Qué falta para que sea un lugar útil? Ej: vegetación, bancos, sombra, juegos.</li>
+                                <li>¿Necesita limpieza, remoción de escombros, nivelación del terreno?</li>
+                                <li>¿Se requiere cercado, iluminación, señalética, accesibilidad universal?</li>
+                                <li>Piensa en mantenimiento: ¿quién podría cuidarlo? (vecinos, colegio, junta).</li>
+                            </ul>
+                        </section>
+                        <section class="help-section">
+                            <h3><svg class="icon icon-sm" aria-hidden="true"><use href="#icon-users"></use></svg> Datos de contacto</h3>
+                            <ul>
+                                <li>Tu nombre y email son necesarios para contactarte.</li>
+                                <li>El teléfono es opcional pero ayuda a coordinar visitas.</li>
+                                <li>Si representas a una junta de vecinos u organización, indícalo.</li>
+                                <li>Tus datos son privados y solo se usan para esta postulación.</li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+                <footer class="modal-footer">
+                    <button type="button" class="btn btn-primary modal-close-btn">Entendido</button>
+                </footer>
+            </div>
+        </div>
+
+        <div class="propose-content" data-scroll-reveal>
+            <div class="propose-form-container">
+                <form id="propose-form" class="propose-form" action="/api/requests" method="POST" enctype="multipart/form-data">
+                    {# Step 1: Basic Info #}
+                    <fieldset class="form-step" data-step="1">
+                        <legend class="step-title">
+                            <span class="step-number">1</span>
+                            Información básica del espacio
+                            <button type="button" class="btn btn-tertiary btn-sm help-btn" id="help-btn-step1" aria-label="Ayuda para este paso" data-help-section="2">
+                                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                                ¿Qué completar?
+                            </button>
+                        </legend>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="space-name" class="form-label">Nombre o referencia <span class="required" aria-hidden="true">*</span></label>
+                                <input type="text" id="space-name" name="name" class="form-input" placeholder="Ej: Lote esquina Av. Matta con San Diego" required maxlength="200">
+                                <p class="form-hint">Cómo se conoce popularmente el lugar</p>
+                                <button type="button" class="btn btn-tertiary btn-sm help-btn" aria-label="Ayuda para nombre" data-help-section="2">
+                                    <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="space-category" class="form-label">Tipo de intervención sugerida <span class="required" aria-hidden="true">*</span></label>
+                                <select id="space-category" name="category" class="form-select" required>
+                                    <option value="">Selecciona una opción</option>
+                                    <option value="pocket_park">Plaza de Bolsillo</option>
+                                    <option value="green_corridor">Corredor Verde</option>
+                                    <option value="community_garden">Huerto Comunitario</option>
+                                    <option value="playground">Área de Juegos</option>
+                                    <option value="resting_area">Zona de Descanso</option>
+                                    <option value="urban_forest">Mini Bosque Urbano</option>
+                                </select>
+                                <p class="form-hint">Qué tipo de proyecto imaginas para este espacio</p>
+                                <button type="button" class="btn btn-tertiary btn-sm help-btn" id="help-btn-category" aria-label="Ayuda para tipo de intervención" data-help-section="2">
+                                    <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="space-description" class="form-label">Descripción del lugar <span class="required" aria-hidden="true">*</span></label>
+                            <textarea id="space-description" name="description" class="form-textarea" rows="4" placeholder="Describe el estado actual: dimensiones aproximadas, si tiene vegetación, escombros, acceso, iluminación, uso actual, etc." required maxlength="1000"></textarea>
+                            <p class="form-hint">Detalles que ayuden a entender el potencial del espacio</p>
+                            <button type="button" class="btn btn-tertiary btn-sm help-btn" aria-label="Ayuda para descripción" data-help-section="2">
+                                <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="space-needs" class="form-label">¿Qué necesita este espacio? <span class="required" aria-hidden="true">*</span></label>
+                            <textarea id="space-needs" name="needs" class="form-textarea" rows="3" placeholder="Ej: vegetación nativa, bancos, zona de sombra, juegos infantiles, limpieza de escombros, cercado, iluminación, accesibilidad universal..." required maxlength="1000"></textarea>
+                            <p class="form-hint">Detalla qué elementos faltan para transformarlo en un lugar útil para la comunidad</p>
+                            <button type="button" class="btn btn-tertiary btn-sm help-btn" id="help-btn-needs" aria-label="Ayuda para necesidades" data-help-section="3">
+                                <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                            </button>
+                        </div>
+                    </fieldset>
+
+                    {# Step 2: Location #}
+                    <fieldset class="form-step" data-step="2">
+                        <legend class="step-title">
+                            <span class="step-number">2</span>
+                            Ubicación
+                            <button type="button" class="btn btn-tertiary btn-sm help-btn" id="help-btn-step2" aria-label="Ayuda para ubicación" data-help-section="0">
+                                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                                ¿Cómo marcar?
+                            </button>
+                        </legend>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="space-commune" class="form-label">Comuna <span class="required" aria-hidden="true">*</span></label>
+                                <select id="space-commune" name="commune" class="form-select" required>
+                                    <option value="">Selecciona la comuna</option>
+                                    <option value="Santiago">Santiago</option>
+                                    <option value="Providencia">Providencia</option>
+                                    <option value="Ñuñoa">Ñuñoa</option>
+                                    <option value="La Reina">La Reina</option>
+                                    <option value="Las Condes">Las Condes</option>
+                                    <option value="Vitacura">Vitacura</option>
+                                    <option value="Lo Barnechea">Lo Barnechea</option>
+                                    <option value="Independencia">Independencia</option>
+                                    <option value="Recoleta">Recoleta</option>
+                                    <option value="Conchalí">Conchalí</option>
+                                    <option value="Huechuraba">Huechuraba</option>
+                                    <option value="Quilicura">Quilicura</option>
+                                    <option value="Pudahuel">Pudahuel</option>
+                                    <option value="Lo Prado">Lo Prado</option>
+                                    <option value="Cerro Navia">Cerro Navia</option>
+                                    <option value="Quinta Normal">Quinta Normal</option>
+                                    <option value="Renca">Renca</option>
+                                    <option value="Estación Central">Estación Central</option>
+                                    <option value="Cerrillos">Cerrillos</option>
+                                    <option value="Maipú">Maipú</option>
+                                    <option value="San Miguel">San Miguel</option>
+                                    <option value="San Joaquín">San Joaquín</option>
+                                    <option value="La Granja">La Granja</option>
+                                    <option value="La Florida">La Florida</option>
+                                    <option value="La Pintana">La Pintana</option>
+                                    <option value="San Ramón">San Ramón</option>
+                                    <option value="El Bosque">El Bosque</option>
+                                    <option value="Pedro Aguirre Cerda">Pedro Aguirre Cerda</option>
+                                    <option value="Puente Alto">Puente Alto</option>
+                                    <option value="La Cisterna">La Cisterna</option>
+                                    <option value="San Bernardo">San Bernardo</option>
+                                    <option value="Buin">Buin</option>
+                                    <option value="Calera de Tango">Calera de Tango</option>
+                                    <option value="Peñaflor">Peñaflor</option>
+                                    <option value="Talagante">Talagante</option>
+                                    <option value="El Monte">El Monte</option>
+                                    <option value="Isla de Maipo">Isla de Maipo</option>
+                                    <option value="María Pinto">María Pinto</option>
+                                    <option value="Melipilla">Melipilla</option>
+                                    <option value="Alhué">Alhué</option>
+                                    <option value="Curacaví">Curacaví</option>
+                                    <option value="Padre Hurtado">Padre Hurtado</option>
+                                </select>
+                                <button type="button" class="btn btn-tertiary btn-sm help-btn" aria-label="Ayuda para comuna" data-help-section="0">
+                                    <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="space-address" class="form-label">Dirección aproximada <span class="required" aria-hidden="true">*</span></label>
+                                <input type="text" id="space-address" name="address" class="form-input" placeholder="Ej: Av. Matta 1200 (esquina San Diego)" required maxlength="300">
+                                <p class="form-hint">Calle, número aproximado y referencias cercanas</p>
+                                <button type="button" class="btn btn-tertiary btn-sm help-btn" aria-label="Ayuda para dirección" data-help-section="0">
+                                    <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="space-lat" class="form-label">Latitud</label>
+                                <input type="number" id="space-lat" name="latitude" class="form-input" step="any" placeholder="-33.456789" min="-90" max="90" readonly>
+                                <button type="button" class="btn btn-tertiary btn-sm help-btn" aria-label="Ayuda para coordenadas" data-help-section="0">
+                                    <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="space-lng" class="form-label">Longitud</label>
+                                <input type="number" id="space-lng" name="longitude" class="form-input" step="any" placeholder="-70.654321" min="-180" max="180" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="space-reference" class="form-label">Referencia cercana (opcional)</label>
+                            <input type="text" id="space-reference" name="reference" class="form-input" placeholder="Ej: Frente a Metro Matta, junto a farmacia, esquina con Rosas" maxlength="300">
+                            <p class="form-hint">Puntos de referencia que ayuden a ubicar el lugar</p>
+                            <button type="button" class="btn btn-tertiary btn-sm help-btn" aria-label="Ayuda para referencia" data-help-section="0">
+                                <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                            </button>
+                        </div>
+
+                        <div class="map-picker">
+                            <p class="map-picker-label">O ubica el punto en el mapa:</p>
+                            <div id="propose-map" class="propose-map" role="application" aria-label="Mapa para seleccionar ubicación del espacio"></div>
+                            <p class="map-picker-hint">Haz clic en el mapa para marcar la ubicación. Se completarán las coordenadas automáticamente.</p>
+                            <button type="button" class="btn btn-tertiary btn-sm help-btn" aria-label="Ayuda para el mapa" data-help-section="0">
+                                <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                            </button>
+                        </div>
+                    </fieldset>
+
+                    {# Step 3: Contact & Photos #}
+                    <fieldset class="form-step" data-step="3">
+                        <legend class="step-title">
+                            <span class="step-number">3</span>
+                            Contacto y fotos (opcional)
+                            <button type="button" class="btn btn-tertiary btn-sm help-btn" id="help-btn-step3" aria-label="Ayuda para contacto" data-help-section="4">
+                                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                                ¿Qué datos?
+                            </button>
+                        </legend>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="contact-name" class="form-label">Tu nombre</label>
+                                <input type="text" id="contact-name" name="contact_name" class="form-input" placeholder="Juan Pérez" maxlength="100">
+                                <button type="button" class="btn btn-tertiary btn-sm help-btn" aria-label="Ayuda para nombre" data-help-section="4">
+                                    <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                                </button>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact-email" class="form-label">Email <span class="required" aria-hidden="true">*</span></label>
+                                <input type="email" id="contact-email" name="contact_email" class="form-input" placeholder="juan@ejemplo.cl" required maxlength="150">
+                                <p class="form-hint">Te contactaremos para validar la postulación</p>
+                                <button type="button" class="btn btn-tertiary btn-sm help-btn" aria-label="Ayuda para email" data-help-section="4">
+                                    <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-phone" class="form-label">Teléfono</label>
+                            <input type="tel" id="contact-phone" name="contact_phone" class="form-input" placeholder="+56 9 1234 5678" maxlength="20">
+                            <button type="button" class="btn btn-tertiary btn-sm help-btn" aria-label="Ayuda para teléfono" data-help-section="4">
+                                <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-org" class="form-label">Organización / Junta de vecinos (si aplica)</label>
+                            <input type="text" id="contact-org" name="contact_org" class="form-input" placeholder="Junta de Vecinos Villa Los Aromos" maxlength="150">
+                            <button type="button" class="btn btn-tertiary btn-sm help-btn" aria-label="Ayuda para organización" data-help-section="4">
+                                <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                            </button>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Fotos del lugar <span class="optional">(opcional, máx. 5)</span></label>
+                            <div class="file-upload" id="file-upload">
+                                <input type="file" id="space-photos" name="photos" class="file-input" accept="image/*" multiple data-max-files="5" hidden>
+                                <button type="button" class="btn btn-secondary file-upload-btn">
+                                    <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-upload"></use></svg>
+                                    Seleccionar fotos
+                                </button>
+                                <p class="file-upload-hint">Arrastra fotos aquí o haz clic para seleccionar. Formatos: JPG, PNG, WebP. Máx. 5 MB c/u.</p>
+                                <div class="file-previews" id="file-previews" role="list" aria-label="Vista previa de fotos seleccionadas"></div>
+                                <button type="button" class="btn btn-tertiary btn-sm help-btn" aria-label="Ayuda para fotos" data-help-section="1">
+                                    <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group checkbox-group">
+                            <input type="checkbox" id="contact-consent" name="consent" class="checkbox-input" required>
+                            <label for="contact-consent" class="checkbox-label">
+                                Autorizo el tratamiento de mis datos para contactarme sobre esta postulación según la <a href="/privacidad" target="_blank">Política de Privacidad</a> <span class="required" aria-hidden="true">*</span>
+                            </label>
+                            <button type="button" class="btn btn-tertiary btn-sm help-btn" aria-label="Ayuda para consentimiento" data-help-section="4">
+                                <svg class="icon icon-xs" aria-hidden="true"><use href="#icon-help-circle"></use></svg>
+                            </button>
+                        </div>
+                    </fieldset>
+
+                    {# Navigation #}
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-tertiary form-prev" disabled>
+                            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+                            Anterior
+                        </button>
+                        <div class="form-steps-indicator" role="navigation" aria-label="Pasos del formulario">
+                            <span class="step-indicator active" data-step="1" aria-current="step">
+                                <span class="step-indicator-number">1</span>
+                                <span class="step-indicator-label">Básicos</span>
+                            </span>
+                            <span class="step-indicator" data-step="2">
+                                <span class="step-indicator-number">2</span>
+                                <span class="step-indicator-label">Ubicación</span>
+                            </span>
+                            <span class="step-indicator" data-step="3">
+                                <span class="step-indicator-number">3</span>
+                                <span class="step-indicator-label">Contacto</span>
+                            </span>
+                        </div>
+                        <button type="button" class="btn btn-primary form-next">
+                            Siguiente
+                            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+                        </button>
+                    </div>
+
+                    {# Submit (shown on last step) #}
+                    <div class="form-submit" hidden>
+                        <button type="submit" class="btn btn-cta btn-lg btn-block">
+                            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-send"></use></svg>
+                            Enviar postulación
+                        </button>
+                        <p class="form-submit-note">Recibirás un email de confirmación. Nuestro equipo revisará la postulación en un plazo de 10 días hábiles.</p>
+                    </div>
+                </form>
+            </div>
+
+            {# Info sidebar #}
+            <aside class="propose-info" aria-labelledby="propose-info-title">
+                <h3 id="propose-info-title" class="propose-info-title">¿Qué pasa después?</h3>
+                <ul class="propose-process">
+                    <li>
+                        <span class="process-number">1</span>
+                        <div>
+                            <strong>Revisión técnica</strong>
+                            <p>Verificamos factibilidad: propiedad del suelo, normativa, accesibilidad y impacto vecinal.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="process-number">2</span>
+                        <div>
+                            <strong>Visita a terreno</strong>
+                            <p>Coordinamos una visita con vecinos y equipo técnico para validar el diagnóstico.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="process-number">3</span>
+                        <div>
+                            <strong>Diseño participativo</strong>
+                            <p>Talleres con la comunidad para co-diseñar la intervención según necesidades reales.</p>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="process-number">4</span>
+                        <div>
+                            <strong>Ejecución y entrega</strong>
+                            <p>Implementamos con voluntarios y socios. El espacio queda bajo cuidado comunitario.</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="propose-tips">
+                    <h4>Consejos para una buena postulación</h4>
+                    <ul>
+                        <li>Fotos claras del estado actual (día y noche si es posible)</li>
+                        <li>Medidas aproximadas del terreno (frente x fondo)</li>
+                        <li>Indica si hay acceso a agua y luz cercanos</li>
+                        <li>Menciona si la junta de vecinos ya está organizada</li>
+                        <li>Señala riesgos: microbasurales, inseguridad, inundaciones</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+
+{# Success Modal #}
+<div id="propose-success-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+    <div class="modal-overlay" tabindex="-1"></div>
+    <div class="modal-container">
+        <header class="modal-header">
+            <h2 id="modal-title" class="modal-title">¡Postulación enviada!</h2>
+            <button type="button" class="modal-close" aria-label="Cerrar">
+                <svg class="icon icon-md" aria-hidden="true"><use href="#icon-x"></use></svg>
+            </button>
+        </header>
+        <div class="modal-body">
+            <div class="success-icon" aria-hidden="true">
+                <svg class="icon icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <p>Gracias por postular un espacio. Hemos recibido tu información y la revisaremos en los próximos <strong>10 días hábiles</strong>.</p>
+            <p>Te contactaremos al email <strong id="modal-email"></strong> para coordinar la visita a terreno.</p>
+            <p class="modal-reference">Tu número de referencia: <strong id="modal-reference"></strong></p>
+        </div>
+        <footer class="modal-footer">
+            <button type="button" class="btn btn-primary modal-close-btn">Entendido</button>
+        </footer>
+    </div>
+</div>

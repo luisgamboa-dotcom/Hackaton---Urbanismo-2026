@@ -5,20 +5,19 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "trama-urbana-verde"
 version = "0.1.0"
-description = "Landing page para Trama Urbana Verde - Recuperación de espacios urbanos en Santiago"
+description = "Landing page para Green Tech - Recuperación de espacios urbanos en Santiago"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 authors = [{name = "Luis Gamboa", email = "luisgamboaretamal@gmail.com"}]
 requires-python = ">=3.11"
 dependencies = [
     "fastapi==0.115.0",
     "uvicorn[standard]==0.32.0",
     "jinja2==3.1.4",
-    "pydantic==2.9.0",
-    "pydantic-settings==2.5.0",
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.6.0",
     "python-dotenv==1.0.1",
     "sqlalchemy==2.0.34",
-    "asyncpg==0.29.0",
     "alembic==1.13.1",
     "httpx==0.27.2",
     "python-multipart==0.0.12",
@@ -34,6 +33,14 @@ dev = [
     "mypy==1.11.0",
     "pre-commit==3.8.0",
 ]
+postgres = [
+    "psycopg2-binary==2.9.9",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["controllers*", "models*", "config*", "utils*"]
+exclude = ["tests*", "migrations*", "views*", "public*", "sql*"]
 
 [tool.ruff]
 target-version = "py311"
@@ -52,9 +59,7 @@ ignore = [
     "E501",  # line too long (handled by formatter)
     "B008",  # function calls in default arguments
 ]
-per-file-ignores = {
-    "tests/*": ["S101", "S106"],  # allow assert and hardcoded secrets in tests
-}
+per-file-ignores = { "tests" = ["S101", "S106"] }
 format = {quote-style = "double", indent-style = "space"}
 
 [tool.ruff.isort]

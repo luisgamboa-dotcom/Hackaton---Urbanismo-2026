@@ -1,0 +1,40 @@
+{# Header partial #}
+<header class="header" role="banner">
+    <div class="container header-inner">
+        {# Logo #}
+        <a href="/" class="header-logo" aria-label="Green Tech - Inicio">
+            <svg class="header-logo-icon" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <rect width="36" height="36" rx="8" fill="currentColor"/>
+                <path d="M18 8L12 16H24L18 8Z" fill="white"/>
+                <path d="M10 20H26V28H10V20Z" fill="white" rx="2"/>
+                <circle cx="14" cy="24" r="2" fill="currentColor"/>
+                <circle cx="22" cy="24" r="2" fill="currentColor"/>
+            </svg>
+            <span class="header-logo-text">Green Tech</span>
+        </a>
+
+        {# Navigation #}
+        <nav class="header-nav" role="navigation" aria-label="Navegación principal" data-mobile-nav>
+            <a href="/" class="header-nav-link">Inicio</a>
+            <a href="/espacios" class="header-nav-link">Espacios</a>
+            <a href="/socios" class="header-nav-link">Socios</a>
+            <a href="/impacto" class="header-nav-link">Impacto</a>
+            <a href="/postular" class="header-nav-link header-nav-link-cta">Postular</a>
+        </nav>
+
+        {# CTA Buttons #}
+        <div class="header-cta">
+            <a href="/postular" class="btn btn-secondary btn-sm no-print">Postular Espacio</a>
+            <a href="/voluntariado" class="btn btn-primary btn-sm no-print">Sumarse</a>
+        </div>
+
+        {# Mobile menu button #}
+        <button class="header-menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav" data-mobile-menu-btn>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+        </button>
+    </div>
+</header>
