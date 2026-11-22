@@ -65,9 +65,7 @@ services:
       - key: DEBUG
         value: "false"
       - key: SECRET_KEY
-        fromService:
-          name: green-tech-api
-          envVarKey: SECRET_KEY
+        generateValue: true
       - key: STITCH_PROJECT_ID
         value: "17540452302289583695"
       - key: DATABASE_URL
