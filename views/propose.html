@@ -70,18 +70,18 @@ Transforma tu barrio: postula un espacio baldío para que lo recuperemos como pl
 
                         {# Mode Selector #}
                         <div class="mode-selector" role="tablist" aria-label="Modo de ingreso de ubicación">
-                            <button type="button" role="tab" class="mode-btn active" data-mode="manual" aria-selected="true" aria-controls="panel-manual">
+                            <button type="button" role="tab" class="mode-btn" data-mode="manual" aria-selected="false" aria-controls="panel-manual">
                                 <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-edit"></use></svg>
                                 Manual
                             </button>
-                            <button type="button" role="tab" class="mode-btn" data-mode="map" aria-selected="false" aria-controls="panel-map">
+                            <button type="button" role="tab" class="mode-btn active" data-mode="map" aria-selected="true" aria-controls="panel-map">
                                 <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-map-pin"></use></svg>
                                 Marcar en el mapa
                             </button>
                         </div>
 
                         {# Manual Entry Panel #}
-                        <div role="tabpanel" id="panel-manual" class="mode-panel active" aria-labelledby="step1-title">
+                        <div role="tabpanel" id="panel-manual" class="mode-panel" aria-labelledby="step1-title" hidden>
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label for="space-commune" class="form-label">Comuna <span class="required" aria-hidden="true">*</span></label>
@@ -151,7 +151,7 @@ Transforma tu barrio: postula un espacio baldío para que lo recuperemos como pl
                         </div>
 
                         {# Map Panel #}
-                        <div role="tabpanel" id="panel-map" class="mode-panel" aria-labelledby="step1-title" hidden>
+                        <div role="tabpanel" id="panel-map" class="mode-panel active" aria-labelledby="step1-title">
                             <div class="map-wrapper">
                                 <div id="propose-map" class="propose-map" role="application" aria-label="Mapa para seleccionar ubicación del espacio"></div>
                                 <div class="map-overlay-info">
@@ -395,13 +395,16 @@ document.addEventListener('DOMContentLoaded', () => {
         currentStep = step;
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
-        // Initialize map when step 1 (map mode) is shown
+        // Initialize map when step 1 is shown and map mode is active
         if (step === 1 && !proposeMap) {
             setTimeout(() => {
                 if (document.querySelector('.mode-btn[data-mode="map"]').getAttribute('aria-selected') === 'true') {
                     initProposeMap();
                 }
             }, 100);
+        } else if (step === 1 && proposeMap) {
+            // Ensure map size is correct when returning to step 1
+            setTimeout(() => proposeMap.invalidateSize(), 100);
         }
     }
 
@@ -742,6 +745,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         filePreviews.appendChild(preview);
     }
+
+    // =========================================================================
+    // INITIALIZE MAP ON PAGE LOAD (since map mode is default)
+    // =========================================================================
+    // Initialize map after a brief delay to ensure container has dimensions
+    setTimeout(() => {
+        if (document.querySelector('.mode-btn[data-mode="map"]').getAttribute('aria-selected') === 'true') {
+            initProposeMap();
+        }
+    }, 200);
 
     // =========================================================================
     // SIDEBAR TOGGLE (Mobile)
