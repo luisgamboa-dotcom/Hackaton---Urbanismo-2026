@@ -11,4 +11,4 @@ ruff==0.6.0
 mypy==1.11.0
 
 # Pre-commit
-pre-commit==3.8.0
+pre-commit==4.7.0
