@@ -34,7 +34,7 @@ dev = [
     "pre-commit==3.8.0",
 ]
 postgres = [
-    "psycopg2-binary==2.9.9",
+    "psycopg2-binary==2.9.13",
 ]
 
 [tool.setuptools.packages.find]
