@@ -94,6 +94,6 @@ databases:
   - name: green-tech-db
     databaseName: green_tech
     user: green_tech_user
-    plan: starter
+    plan: free
     region: oregon
     postgresMajorVersion: 16
