@@ -1,4 +1,4 @@
-{# Postular Espacio Page #}
+{# Postular Espacio Page - Rediseñado #}
 {% extends "base.html" %}
 
 {% block title %}Postula un espacio baldío - Green Tech{% endblock %}
@@ -27,10 +27,9 @@ Transforma tu barrio: postula un espacio baldío para que lo recuperemos como pl
             <p class="page-hero-description">
                 ¿Conoces un lote vacío, una esquina residual o un terreno en desuso que podría transformarse en un espacio verde para la comunidad? Postúlalo y lo evaluaremos para una futura intervención.
             </p>
-        </div    </div>
+        </div>
+    </div>
 </section>
-
-{% include "partials/_help_modal.html" %}  {# Help Modal #}
 
 {# Main Form Section #}
 <section id="propose-space" class="propose-section section" aria-labelledby="propose-title">
@@ -38,12 +37,155 @@ Transforma tu barrio: postula un espacio baldío para que lo recuperemos como pl
         <div class="propose-content" data-scroll-reveal>
             <div class="propose-form-container">
                 <form id="propose-form" class="propose-form" action="/api/requests" method="POST" enctype="multipart/form-data">
-                    {# Step 1: Basic Info #}
-                    <fieldset class="form-step" data-step="1">
-                        <legend class="step-title">
-                            <span class="step-number">1</span>
-                            Información básica del espacio
+
+                    {# Progress Indicator - Always visible #}
+                    <div class="form-progress" role="navigation" aria-label="Progreso del formulario">
+                        <div class="progress-track">
+                            <div class="progress-fill" id="progress-fill" style="width: 33.33%;"></div>
+                        </div>
+                        <div class="progress-steps">
+                            <button type="button" class="progress-step active" data-step="1" aria-current="step">
+                                <span class="step-circle">1</span>
+                                <span class="step-label">Ubicación</span>
+                            </button>
+                            <button type="button" class="progress-step" data-step="2" disabled>
+                                <span class="step-circle">2</span>
+                                <span class="step-label">Detalles</span>
+                            </button>
+                            <button type="button" class="progress-step" data-step="3" disabled>
+                                <span class="step-circle">3</span>
+                                <span class="step-label">Contacto</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    {# Step 1: Ubicación (Location) #}
+                    <fieldset class="form-step" data-step="1" aria-labelledby="step1-title">
+                        <legend id="step1-title" class="step-title">
+                            <span class="step-number">Paso 1 de 3</span>
+                            ¿Dónde está el espacio?
                         </legend>
+
+                        <p class="step-description">Indica la ubicación exacta. Puedes escribir la dirección o marcar el punto en el mapa.</p>
+
+                        {# Mode Selector #}
+                        <div class="mode-selector" role="tablist" aria-label="Modo de ingreso de ubicación">
+                            <button type="button" role="tab" class="mode-btn active" data-mode="manual" aria-selected="true" aria-controls="panel-manual">
+                                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-edit"></use></svg>
+                                Manual
+                            </button>
+                            <button type="button" role="tab" class="mode-btn" data-mode="map" aria-selected="false" aria-controls="panel-map">
+                                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-map-pin"></use></svg>
+                                Marcar en el mapa
+                            </button>
+                        </div>
+
+                        {# Manual Entry Panel #}
+                        <div role="tabpanel" id="panel-manual" class="mode-panel active" aria-labelledby="step1-title">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="space-commune" class="form-label">Comuna <span class="required" aria-hidden="true">*</span></label>
+                                    <select id="space-commune" name="commune" class="form-select" required>
+                                        <option value="">Selecciona la comuna</option>
+                                        <option value="Santiago">Santiago</option>
+                                        <option value="Providencia">Providencia</option>
+                                        <option value="Ñuñoa">Ñuñoa</option>
+                                        <option value="La Reina">La Reina</option>
+                                        <option value="Las Condes">Las Condes</option>
+                                        <option value="Vitacura">Vitacura</option>
+                                        <option value="Lo Barnechea">Lo Barnechea</option>
+                                        <option value="Independencia">Independencia</option>
+                                        <option value="Recoleta">Recoleta</option>
+                                        <option value="Conchalí">Conchalí</option>
+                                        <option value="Huechuraba">Huechuraba</option>
+                                        <option value="Quilicura">Quilicura</option>
+                                        <option value="Pudahuel">Pudahuel</option>
+                                        <option value="Lo Prado">Lo Prado</option>
+                                        <option value="Cerro Navia">Cerro Navia</option>
+                                        <option value="Quinta Normal">Quinta Normal</option>
+                                        <option value="Renca">Renca</option>
+                                        <option value="Estación Central">Estación Central</option>
+                                        <option value="Cerrillos">Cerrillos</option>
+                                        <option value="Maipú">Maipú</option>
+                                        <option value="San Miguel">San Miguel</option>
+                                        <option value="San Joaquín">San Joaquín</option>
+                                        <option value="La Granja">La Granja</option>
+                                        <option value="La Florida">La Florida</option>
+                                        <option value="La Pintana">La Pintana</option>
+                                        <option value="San Ramón">San Ramón</option>
+                                        <option value="El Bosque">El Bosque</option>
+                                        <option value="Pedro Aguirre Cerda">Pedro Aguirre Cerda</option>
+                                        <option value="Puente Alto">Puente Alto</option>
+                                        <option value="La Cisterna">La Cisterna</option>
+                                        <option value="San Bernardo">San Bernardo</option>
+                                        <option value="Buin">Buin</option>
+                                        <option value="Calera de Tango">Calera de Tango</option>
+                                        <option value="Peñaflor">Peñaflor</option>
+                                        <option value="Talagante">Talagante</option>
+                                        <option value="El Monte">El Monte</option>
+                                        <option value="Isla de Maipo">Isla de Maipo</option>
+                                        <option value="María Pinto">María Pinto</option>
+                                        <option value="Melipilla">Melipilla</option>
+                                        <option value="Alhué">Alhué</option>
+                                        <option value="Curacaví">Curacaví</option>
+                                        <option value="Padre Hurtado">Padre Hurtado</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="space-address" class="form-label">Dirección <span class="required" aria-hidden="true">*</span></label>
+                                    <input type="text" id="space-address" name="address" class="form-input" placeholder="Ej: Av. Matta 1200 (esquina San Diego)" required maxlength="300" autocomplete="street-address">
+                                    <p class="form-hint">Calle, número aproximado y referencias cercanas</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="space-reference" class="form-label">Referencia cercana (opcional)</label>
+                                <input type="text" id="space-reference" name="reference" class="form-input" placeholder="Ej: Frente a Metro Matta, junto a farmacia, esquina con Rosas" maxlength="300">
+                                <p class="form-hint">Puntos de referencia que ayuden a ubicar el lugar</p>
+                            </div>
+
+                            {# Hidden coordinate fields - filled by both modes #}
+                            <input type="hidden" id="space-lat" name="latitude" step="any" min="-90" max="90">
+                            <input type="hidden" id="space-lng" name="longitude" step="any" min="-180" max="180">
+                        </div>
+
+                        {# Map Panel #}
+                        <div role="tabpanel" id="panel-map" class="mode-panel" aria-labelledby="step1-title" hidden>
+                            <div class="map-wrapper">
+                                <div id="propose-map" class="propose-map" role="application" aria-label="Mapa para seleccionar ubicación del espacio"></div>
+                                <div class="map-overlay-info">
+                                    <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-map-pin"></use></svg>
+                                    <p>Haz clic en el mapa para marcar la ubicación exacta</p>
+                                </div>
+                            </div>
+                            <p class="map-picker-hint">La comuna y coordenadas se completarán automáticamente al marcar el punto.</p>
+
+                            <div class="map-coords-display">
+                                <div class="coord-item">
+                                    <span class="coord-label">Latitud</span>
+                                    <span class="coord-value" id="map-lat-display">—</span>
+                                </div>
+                                <div class="coord-item">
+                                    <span class="coord-label">Longitud</span>
+                                    <span class="coord-value" id="map-lng-display">—</span>
+                                </div>
+                                <div class="coord-item">
+                                    <span class="coord-label">Comuna detectada</span>
+                                    <span class="coord-value" id="map-commune-display">—</span>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    {# Step 2: Detalles del espacio #}
+                    <fieldset class="form-step" data-step="2" aria-labelledby="step2-title" hidden>
+                        <legend id="step2-title" class="step-title">
+                            <span class="step-number">Paso 2 de 3</span>
+                            ¿Cómo es el espacio?
+                        </legend>
+
+                        <p class="step-description">Cuéntanos los detalles básicos para entender el potencial del lugar.</p>
 
                         <div class="form-grid">
                             <div class="form-group">
@@ -53,7 +195,7 @@ Transforma tu barrio: postula un espacio baldío para que lo recuperemos como pl
                             </div>
 
                             <div class="form-group">
-                                <label for="space-category" class="form-label">Tipo de intervención sugerida <span class="required" aria-hidden="true">*</span></label>
+                                <label for="space-category" class="form-label">Tipo de intervención <span class="required" aria-hidden="true">*</span></label>
                                 <select id="space-category" name="category" class="form-select" required>
                                     <option value="">Selecciona una opción</option>
                                     <option value="pocket_park">Plaza de Bolsillo</option>
@@ -80,123 +222,38 @@ Transforma tu barrio: postula un espacio baldío para que lo recuperemos como pl
                         </div>
                     </fieldset>
 
-                    {# Step 2: Location #}
-                    <fieldset class="form-step" data-step="2">
-                        <legend class="step-title">
-                            <span class="step-number">2</span>
-                            Ubicación
+                    {# Step 3: Contacto y fotos #}
+                    <fieldset class="form-step" data-step="3" aria-labelledby="step3-title" hidden>
+                        <legend id="step3-title" class="step-title">
+                            <span class="step-number">Paso 3 de 3</span>
+                            Tus datos de contacto
                         </legend>
 
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="space-commune" class="form-label">Comuna <span class="required" aria-hidden="true">*</span></label>
-                                <select id="space-commune" name="commune" class="form-select" required>
-                                    <option value="">Selecciona la comuna</option>
-                                    <option value="Santiago">Santiago</option>
-                                    <option value="Providencia">Providencia</option>
-                                    <option value="Ñuñoa">Ñuñoa</option>
-                                    <option value="La Reina">La Reina</option>
-                                    <option value="Las Condes">Las Condes</option>
-                                    <option value="Vitacura">Vitacura</option>
-                                    <option value="Lo Barnechea">Lo Barnechea</option>
-                                    <option value="Independencia">Independencia</option>
-                                    <option value="Recoleta">Recoleta</option>
-                                    <option value="Conchalí">Conchalí</option>
-                                    <option value="Huechuraba">Huechuraba</option>
-                                    <option value="Quilicura">Quilicura</option>
-                                    <option value="Pudahuel">Pudahuel</option>
-                                    <option value="Lo Prado">Lo Prado</option>
-                                    <option value="Cerro Navia">Cerro Navia</option>
-                                    <option value="Quinta Normal">Quinta Normal</option>
-                                    <option value="Renca">Renca</option>
-                                    <option value="Estación Central">Estación Central</option>
-                                    <option value="Cerrillos">Cerrillos</option>
-                                    <option value="Maipú">Maipú</option>
-                                    <option value="San Miguel">San Miguel</option>
-                                    <option value="San Joaquín">San Joaquín</option>
-                                    <option value="La Granja">La Granja</option>
-                                    <option value="La Florida">La Florida</option>
-                                    <option value="La Pintana">La Pintana</option>
-                                    <option value="San Ramón">San Ramón</option>
-                                    <option value="El Bosque">El Bosque</option>
-                                    <option value="Pedro Aguirre Cerda">Pedro Aguirre Cerda</option>
-                                    <option value="Puente Alto">Puente Alto</option>
-                                    <option value="La Cisterna">La Cisterna</option>
-                                    <option value="San Bernardo">San Bernardo</option>
-                                    <option value="Buin">Buin</option>
-                                    <option value="Calera de Tango">Calera de Tango</option>
-                                    <option value="Peñaflor">Peñaflor</option>
-                                    <option value="Talagante">Talagante</option>
-                                    <option value="El Monte">El Monte</option>
-                                    <option value="Isla de Maipo">Isla de Maipo</option>
-                                    <option value="María Pinto">María Pinto</option>
-                                    <option value="Melipilla">Melipilla</option>
-                                    <option value="Alhué">Alhué</option>
-                                    <option value="Curacaví">Curacaví</option>
-                                    <option value="Padre Hurtado">Padre Hurtado</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="space-address" class="form-label">Dirección aproximada <span class="required" aria-hidden="true">*</span></label>
-                                <input type="text" id="space-address" name="address" class="form-input" placeholder="Ej: Av. Matta 1200 (esquina San Diego)" required maxlength="300">
-                                <p class="form-hint">Calle, número aproximado y referencias cercanas</p>
-                            </div>
-                        </div>
-
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="space-lat" class="form-label">Latitud</label>
-                                <input type="number" id="space-lat" name="latitude" class="form-input" step="any" placeholder="-33.456789" min="-90" max="90" readonly>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="space-lng" class="form-label">Longitud</label>
-                                <input type="number" id="space-lng" name="longitude" class="form-input" step="any" placeholder="-70.654321" min="-180" max="180" readonly>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="space-reference" class="form-label">Referencia cercana (opcional)</label>
-                            <input type="text" id="space-reference" name="reference" class="form-input" placeholder="Ej: Frente a Metro Matta, junto a farmacia, esquina con Rosas" maxlength="300">
-                            <p class="form-hint">Puntos de referencia que ayuden a ubicar el lugar</p>
-                        </div>
-
-                        <div class="map-picker">
-                            <p class="map-picker-label">O ubica el punto en el mapa:</p>
-                            <div id="propose-map" class="propose-map" role="application" aria-label="Mapa para seleccionar ubicación del espacio"></div>
-                            <p class="map-picker-hint">Haz clic en el mapa para marcar la ubicación. Se completarán las coordenadas automáticamente.</p>
-                        </div>
-                    </fieldset>
-
-                    {# Step 3: Contact & Photos #}
-                    <fieldset class="form-step" data-step="3">
-                        <legend class="step-title">
-                            <span class="step-number">3</span>
-                            Contacto y fotos (opcional)
-                        </legend>
+                        <p class="step-description">Solo usaremos esto para contactarte sobre esta postulación.</p>
 
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="contact-name" class="form-label">Tu nombre</label>
-                                <input type="text" id="contact-name" name="contact_name" class="form-input" placeholder="Juan Pérez" maxlength="100">
+                                <input type="text" id="contact-name" name="contact_name" class="form-input" placeholder="Juan Pérez" maxlength="100" autocomplete="name">
                             </div>
 
                             <div class="form-group">
                                 <label for="contact-email" class="form-label">Email <span class="required" aria-hidden="true">*</span></label>
-                                <input type="email" id="contact-email" name="contact_email" class="form-input" placeholder="juan@ejemplo.cl" required maxlength="150">
+                                <input type="email" id="contact-email" name="contact_email" class="form-input" placeholder="juan@ejemplo.cl" required maxlength="150" autocomplete="email">
                                 <p class="form-hint">Te contactaremos para validar la postulación</p>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="contact-phone" class="form-label">Teléfono</label>
-                            <input type="tel" id="contact-phone" name="contact_phone" class="form-input" placeholder="+56 9 1234 5678" maxlength="20">
-                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="contact-phone" class="form-label">Teléfono</label>
+                                <input type="tel" id="contact-phone" name="contact_phone" class="form-input" placeholder="+56 9 1234 5678" maxlength="20" autocomplete="tel">
+                            </div>
 
-                        <div class="form-group">
-                            <label for="contact-org" class="form-label">Organización / Junta de vecinos (si aplica)</label>
-                            <input type="text" id="contact-org" name="contact_org" class="form-input" placeholder="Junta de Vecinos Villa Los Aromos" maxlength="150">
+                            <div class="form-group">
+                                <label for="contact-org" class="form-label">Organización / Junta de vecinos (opcional)</label>
+                                <input type="text" id="contact-org" name="contact_org" class="form-input" placeholder="Junta de Vecinos Villa Los Aromos" maxlength="150">
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -220,30 +277,18 @@ Transforma tu barrio: postula un espacio baldío para que lo recuperemos como pl
                         </div>
                     </fieldset>
 
-                    {# Navigation #}
+                    {# Navigation Buttons - Fixed at bottom #}
                     <div class="form-navigation">
                         <button type="button" class="btn btn-tertiary form-prev" disabled>
                             <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
-                            Anterior
+                            Volver
                         </button>
-                        <div class="form-steps-indicator" role="navigation" aria-label="Pasos del formulario">
-                            <span class="step-indicator active" data-step="1" aria-current="step">
-                                <span class="step-indicator-number">1</span>
-                                <span class="step-indicator-label">Básicos</span>
-                            </span>
-                            <span class="step-indicator" data-step="2">
-                                <span class="step-indicator-number">2</span>
-                                <span class="step-indicator-label">Ubicación</span>
-                            </span>
-                            <span class="step-indicator" data-step="3">
-                                <span class="step-indicator-number">3</span>
-                                <span class="step-indicator-label">Contacto</span>
-                            </span>
+                        <div class="form-next-group">
+                            <button type="button" class="btn btn-primary form-next">
+                                Siguiente
+                                <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+                            </button>
                         </div>
-                        <button type="button" class="btn btn-primary form-next">
-                            Siguiente
-                            <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
-                        </button>
                     </div>
 
                     {# Submit (shown on last step) #}
@@ -257,57 +302,56 @@ Transforma tu barrio: postula un espacio baldío para que lo recuperemos como pl
                 </form>
             </div>
 
-            {# Info sidebar #}
+            {# Info sidebar - collapsible on mobile #}
             <aside class="propose-info" aria-labelledby="propose-info-title">
-                {# Mobile toggle button #}
                 <button type="button" class="propose-info-toggle" aria-expanded="false" aria-controls="propose-info-content" data-propose-info-toggle>
                     <span>¿Qué pasa después?</span>
                     <svg class="icon icon-sm toggle-icon" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
                 </button>
                 <div id="propose-info-content" class="propose-info-content" role="region" aria-labelledby="propose-info-title">
-                    <h3 id="propose-info-title" class="propose-info-title">¿Qué pasa después?</h3>
+                    <h3 id="propose-info-title" class="propose-info-title">Proceso de postulación</h3>
                     <ul class="propose-process">
-                    <li>
-                        <span class="process-number">1</span>
-                        <div>
-                            <strong>Revisión técnica</strong>
-                            <p>Verificamos factibilidad: propiedad del suelo, normativa, accesibilidad y impacto vecinal.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="process-number">2</span>
-                        <div>
-                            <strong>Visita a terreno</strong>
-                            <p>Coordinamos una visita con vecinos y equipo técnico para validar el diagnóstico.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="process-number">3</span>
-                        <div>
-                            <strong>Diseño participativo</strong>
-                            <p>Talleres con la comunidad para co-diseñar la intervención según necesidades reales.</p>
-                        </div>
-                    </li>
-                    <li>
-                        <span class="process-number">4</span>
-                        <div>
-                            <strong>Ejecución y entrega</strong>
-                            <p>Implementamos con voluntarios y socios. El espacio queda bajo cuidado comunitario.</p>
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="propose-tips">
-                    <h4>Consejos para una buena postulación</h4>
-                    <ul>
-                        <li>Fotos claras del estado actual (día y noche si es posible)</li>
-                        <li>Medidas aproximadas del terreno (frente x fondo)</li>
-                        <li>Indica si hay acceso a agua y luz cercanos</li>
-                        <li>Menciona si la junta de vecinos ya está organizada</li>
-                        <li>Señala riesgos: microbasurales, inseguridad, inundaciones</li>
+                        <li>
+                            <span class="process-number">1</span>
+                            <div>
+                                <strong>Revisión técnica</strong>
+                                <p>Verificamos factibilidad: propiedad del suelo, normativa, accesibilidad y impacto vecinal.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="process-number">2</span>
+                            <div>
+                                <strong>Visita a terreno</strong>
+                                <p>Coordinamos una visita con vecinos y equipo técnico para validar el diagnóstico.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="process-number">3</span>
+                            <div>
+                                <strong>Diseño participativo</strong>
+                                <p>Talleres con la comunidad para co-diseñar la intervención según necesidades reales.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="process-number">4</span>
+                            <div>
+                                <strong>Ejecución y entrega</strong>
+                                <p>Implementamos con voluntarios y socios. El espacio queda bajo cuidado comunitario.</p>
+                            </div>
+                        </li>
                     </ul>
+
+                    <div class="propose-tips">
+                        <h4>Consejos para una buena postulación</h4>
+                        <ul>
+                            <li>Fotos claras del estado actual (día y noche si es posible)</li>
+                            <li>Medidas aproximadas del terreno (frente x fondo)</li>
+                            <li>Indica si hay acceso a agua y luz cercanos</li>
+                            <li>Menciona si la junta de vecinos ya está organizada</li>
+                            <li>Señala riesgos: microbasurales, inseguridad, inundaciones</li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
             </aside>
         </div>
     </div>
@@ -328,25 +372,37 @@ document.addEventListener('DOMContentLoaded', () => {
     const steps = form.querySelectorAll('.form-step');
     const prevBtn = form.querySelector('.form-prev');
     const nextBtn = form.querySelector('.form-next');
-    const stepIndicators = form.querySelectorAll('.step-indicator');
     const submitSection = form.querySelector('.form-submit');
+    const progressFill = document.getElementById('progress-fill');
+    const progressSteps = form.querySelectorAll('.progress-step');
     let currentStep = 1;
 
     function showStep(step) {
         steps.forEach(s => {
             s.hidden = parseInt(s.dataset.step) !== step;
         });
-        stepIndicators.forEach(ind => {
-            const indStep = parseInt(ind.dataset.step);
-            ind.classList.toggle('active', indStep === step);
-            ind.classList.toggle('completed', indStep < step);
-            ind.setAttribute('aria-current', indStep === step ? 'step' : 'false');
+        progressSteps.forEach((ps, idx) => {
+            const psStep = idx + 1;
+            ps.classList.toggle('active', psStep === step);
+            ps.classList.toggle('completed', psStep < step);
+            ps.disabled = psStep > step + 1;
+            ps.setAttribute('aria-current', psStep === step ? 'step' : 'false');
         });
         prevBtn.disabled = step === 1;
         nextBtn.hidden = step === steps.length;
         submitSection.hidden = step !== steps.length;
+        progressFill.style.width = `${(step / steps.length) * 100}%`;
         currentStep = step;
         window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // Initialize map when step 1 (map mode) is shown
+        if (step === 1 && !proposeMap) {
+            setTimeout(() => {
+                if (document.querySelector('.mode-btn[data-mode="map"]').getAttribute('aria-selected') === 'true') {
+                    initProposeMap();
+                }
+            }, 100);
+        }
     }
 
     function validateStep(step) {
@@ -364,25 +420,43 @@ document.addEventListener('DOMContentLoaded', () => {
         return valid;
     }
 
+    function clearValidationStyles() {
+        form.querySelectorAll('[required]').forEach(field => {
+            field.style.borderColor = '';
+        });
+    }
+
     nextBtn.addEventListener('click', () => {
+        clearValidationStyles();
         if (validateStep(currentStep)) {
             showStep(currentStep + 1);
         } else {
-            // Focus first invalid field
-            const invalid = form.querySelector('.form-step[data-step="' + currentStep + '"] [required]:invalid');
+            const invalid = form.querySelector(`.form-step[data-step="${currentStep}"] [required]:invalid`);
             if (invalid) invalid.focus();
         }
     });
 
     prevBtn.addEventListener('click', () => {
         if (currentStep > 1) {
+            clearValidationStyles();
             showStep(currentStep - 1);
         }
+    });
+
+    // Allow clicking on progress steps to navigate (only to completed/active)
+    progressSteps.forEach(ps => {
+        ps.addEventListener('click', () => {
+            const targetStep = parseInt(ps.dataset.step);
+            if (targetStep <= currentStep || ps.classList.contains('completed')) {
+                showStep(targetStep);
+            }
+        });
     });
 
     // Form submission
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
+        clearValidationStyles();
         if (!validateStep(currentStep)) return;
 
         const submitBtn = form.querySelector('.form-submit button[type="submit"]');
@@ -402,7 +476,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const result = await response.json();
 
             if (result.success) {
-                // Show success message
                 const reference = 'TUV-' + result.request_id.toString().padStart(6, '0');
                 alert(`¡Postulación enviada!\n\nGracias por postular un espacio. Hemos recibido tu información y la revisaremos en los próximos 10 días hábiles.\n\nTe contactaremos al email ${data.contact_email} para coordinar la visita a terreno.\n\nTu número de referencia: ${reference}`);
                 form.reset();
@@ -420,14 +493,106 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // =========================================================================
+    // MODE SELECTOR (Manual / Map)
+    // =========================================================================
+    const modeBtns = form.querySelectorAll('.mode-btn');
+    const modePanels = form.querySelectorAll('.mode-panel');
+
+    modeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const mode = btn.dataset.mode;
+
+            modeBtns.forEach(b => {
+                b.classList.toggle('active', b.dataset.mode === mode);
+                b.setAttribute('aria-selected', b.dataset.mode === mode);
+            });
+            modePanels.forEach(p => {
+                p.hidden = p.id !== `panel-${mode}`;
+            });
+
+            // Initialize map if switching to map mode
+            if (mode === 'map' && !proposeMap) {
+                setTimeout(initProposeMap, 100);
+            }
+
+            // If in map mode and map already initialized, invalidate size
+            if (mode === 'map' && proposeMap) {
+                setTimeout(() => proposeMap.invalidateSize(), 100);
+            }
+        });
+    });
+
+    // =========================================================================
     // MAP PICKER
     // =========================================================================
     let proposeMap = null;
     let proposeMarker = null;
+    let mapInitialized = false;
+
+    // Commune centers for reverse geocoding
+    const communeCenters = {
+        'Santiago': [-33.4372, -70.6506],
+        'Providencia': [-33.4293, -70.6153],
+        'Ñuñoa': [-33.4569, -70.6031],
+        'La Reina': [-33.4394, -70.5489],
+        'Las Condes': [-33.4089, -70.5575],
+        'Vitacura': [-33.3833, -70.5167],
+        'Lo Barnechea': [-33.3500, -70.4833],
+        'Independencia': [-33.4167, -70.6500],
+        'Recoleta': [-33.4167, -70.6333],
+        'Conchalí': [-33.3833, -70.6833],
+        'Huechuraba': [-33.3667, -70.6333],
+        'Quilicura': [-33.3667, -70.7333],
+        'Pudahuel': [-33.4333, -70.7833],
+        'Lo Prado': [-33.4333, -70.7167],
+        'Cerro Navia': [-33.4167, -70.7333],
+        'Quinta Normal': [-33.4333, -70.6833],
+        'Renca': [-33.4000, -70.7000],
+        'Estación Central': [-33.4500, -70.6833],
+        'Cerrillos': [-33.4833, -70.7167],
+        'Maipú': [-33.5167, -70.7667],
+        'San Miguel': [-33.4833, -70.6500],
+        'San Joaquín': [-33.4833, -70.6167],
+        'La Granja': [-33.5333, -70.6167],
+        'La Florida': [-33.5333, -70.5667],
+        'La Pintana': [-33.5833, -70.6333],
+        'San Ramón': [-33.5333, -70.6500],
+        'El Bosque': [-33.5667, -70.6833],
+        'Pedro Aguirre Cerda': [-33.4833, -70.6667],
+        'Puente Alto': [-33.6167, -70.5667],
+        'La Cisterna': [-33.5333, -70.6667],
+        'San Bernardo': [-33.5833, -70.7000],
+        'Buin': [-33.7333, -70.7333],
+        'Calera de Tango': [-33.6167, -70.7167],
+        'Peñaflor': [-33.6000, -70.8833],
+        'Talagante': [-33.6667, -70.9000],
+        'El Monte': [-33.6833, -70.9833],
+        'Isla de Maipo': [-33.7667, -70.9000],
+        'María Pinto': [-33.6833, -71.0500],
+        'Melipilla': [-33.6833, -71.2167],
+        'Alhué': [-33.9667, -71.0833],
+        'Curacaví': [-33.7000, -71.0167],
+        'Padre Hurtado': [-33.5667, -70.8000]
+    };
+
+    // Reverse mapping: approximate commune detection from coordinates
+    function detectCommuneFromCoords(lat, lng) {
+        let closestCommune = null;
+        let minDistance = Infinity;
+
+        for (const [commune, center] of Object.entries(communeCenters)) {
+            const dist = Math.sqrt(Math.pow(lat - center[0], 2) + Math.pow(lng - center[1], 2));
+            if (dist < minDistance) {
+                minDistance = dist;
+                closestCommune = commune;
+            }
+        }
+        return closestCommune;
+    }
 
     function initProposeMap() {
         const mapContainer = document.getElementById('propose-map');
-        if (!mapContainer || proposeMap) return;
+        if (!mapContainer || mapInitialized) return;
 
         proposeMap = L.map('propose-map', {
             center: [-33.4372, -70.6506],
@@ -445,18 +610,32 @@ document.addEventListener('DOMContentLoaded', () => {
         proposeMap.on('click', (e) => {
             const lat = e.latlng.lat;
             const lng = e.latlng.lng;
-            updateCoordinates(lat, lng);
+            updateCoordinatesFromMap(lat, lng);
             placeMarker(lat, lng);
         });
 
         // Enable scroll wheel zoom on hover
         mapContainer.addEventListener('mouseenter', () => proposeMap.scrollWheelZoom.enable());
         mapContainer.addEventListener('mouseleave', () => proposeMap.scrollWheelZoom.disable());
+
+        mapInitialized = true;
     }
 
-    function updateCoordinates(lat, lng) {
+    function updateCoordinatesFromMap(lat, lng) {
+        // Update hidden form fields
         document.getElementById('space-lat').value = lat.toFixed(6);
         document.getElementById('space-lng').value = lng.toFixed(6);
+
+        // Update display
+        document.getElementById('map-lat-display').textContent = lat.toFixed(6);
+        document.getElementById('map-lng-display').textContent = lng.toFixed(6);
+
+        // Detect and set commune
+        const commune = detectCommuneFromCoords(lat, lng);
+        if (commune) {
+            document.getElementById('space-commune').value = commune;
+            document.getElementById('map-commune-display').textContent = commune;
+        }
     }
 
     function placeMarker(lat, lng) {
@@ -479,63 +658,9 @@ document.addEventListener('DOMContentLoaded', () => {
         proposeMap.setView([lat, lng], 17);
     }
 
-    // Initialize map when step 2 is shown
-    const step2Fieldset = form.querySelector('.form-step[data-step="2"]');
-    const observer = new MutationObserver(() => {
-        if (!step2Fieldset.hidden && !proposeMap) {
-            setTimeout(initProposeMap, 100);
-        }
-    });
-    observer.observe(step2Fieldset, { attributes: true, attributeFilter: ['hidden'] });
-
-    // Commune select -> center map
+    // Commune select in manual mode -> center map if map exists
     document.getElementById('space-commune').addEventListener('change', (e) => {
         if (proposeMap && e.target.value) {
-            // Commune centers (approximate)
-            const communeCenters = {
-                'Santiago': [-33.4372, -70.6506],
-                'Providencia': [-33.4293, -70.6153],
-                'Ñuñoa': [-33.4569, -70.6031],
-                'La Reina': [-33.4394, -70.5489],
-                'Las Condes': [-33.4089, -70.5575],
-                'Vitacura': [-33.3833, -70.5167],
-                'Lo Barnechea': [-33.3500, -70.4833],
-                'Independencia': [-33.4167, -70.6500],
-                'Recoleta': [-33.4167, -70.6333],
-                'Conchalí': [-33.3833, -70.6833],
-                'Huechuraba': [-33.3667, -70.6333],
-                'Quilicura': [-33.3667, -70.7333],
-                'Pudahuel': [-33.4333, -70.7833],
-                'Lo Prado': [-33.4333, -70.7167],
-                'Cerro Navia': [-33.4167, -70.7333],
-                'Quinta Normal': [-33.4333, -70.6833],
-                'Renca': [-33.4000, -70.7000],
-                'Estación Central': [-33.4500, -70.6833],
-                'Cerrillos': [-33.4833, -70.7167],
-                'Maipú': [-33.5167, -70.7667],
-                'San Miguel': [-33.4833, -70.6500],
-                'San Joaquín': [-33.4833, -70.6167],
-                'La Granja': [-33.5333, -70.6167],
-                'La Florida': [-33.5333, -70.5667],
-                'La Pintana': [-33.5833, -70.6333],
-                'San Ramón': [-33.5333, -70.6500],
-                'El Bosque': [-33.5667, -70.6833],
-                'Pedro Aguirre Cerda': [-33.4833, -70.6667],
-                'Puente Alto': [-33.6167, -70.5667],
-                'La Cisterna': [-33.5333, -70.6667],
-                'San Bernardo': [-33.5833, -70.7000],
-                'Buin': [-33.7333, -70.7333],
-                'Calera de Tango': [-33.6167, -70.7167],
-                'Peñaflor': [-33.6000, -70.8833],
-                'Talagante': [-33.6667, -70.9000],
-                'El Monte': [-33.6833, -70.9833],
-                'Isla de Maipo': [-33.7667, -70.9000],
-                'María Pinto': [-33.6833, -71.0500],
-                'Melipilla': [-33.6833, -71.2167],
-                'Alhué': [-33.9667, -71.0833],
-                'Curacaví': [-33.7000, -71.0167],
-                'Padre Hurtado': [-33.5667, -70.8000]
-            };
             const center = communeCenters[e.target.value];
             if (center) {
                 proposeMap.setView(center, 14);
@@ -614,54 +739,9 @@ document.addEventListener('DOMContentLoaded', () => {
         preview.querySelector('.file-preview-remove').addEventListener('click', (e) => {
             e.stopPropagation();
             preview.remove();
-            // Note: Can't easily remove from FileList, would need FormData manipulation
         });
         filePreviews.appendChild(preview);
     }
-
-    // =========================================================================
-    // HELP MODAL
-    // =========================================================================
-    const helpModal = document.getElementById('propose-help-modal');
-    const helpOverlay = helpModal.querySelector('.modal-overlay');
-    const helpButtons = form.querySelectorAll('.help-btn');
-    const modalCloseBtns = helpModal.querySelectorAll('.modal-close, .modal-close-btn');
-
-    function openHelpModal() {
-        helpOverlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        helpModal.querySelector('.modal-close').focus();
-    }
-
-    function closeHelpModal() {
-        helpOverlay.classList.remove('open');
-        document.body.style.overflow = '';
-    }
-
-    helpButtons.forEach(btn => {
-        btn.addEventListener('click', openHelpModal);
-    });
-
-    modalCloseBtns.forEach(btn => {
-        btn.addEventListener('click', closeHelpModal);
-    });
-
-    helpOverlay.addEventListener('click', (e) => {
-        // Only close if clicking the overlay itself, not the modal container
-        if (e.target === helpOverlay) {
-            closeHelpModal();
-        }
-    });
-
-    // Escape key closes modals
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            if (helpOverlay.classList.contains('open')) {
-                closeHelpModal();
-            }
-        }
-    });
-});
 
     // =========================================================================
     // SIDEBAR TOGGLE (Mobile)
@@ -676,6 +756,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sidebarContent.classList.toggle('open', !isExpanded);
         });
     }
+});
 </script>
 
 {# Counter animation #}
