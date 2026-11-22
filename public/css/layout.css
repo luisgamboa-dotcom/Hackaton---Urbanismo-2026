@@ -1,12 +1,6 @@
-/*
- * Layout CSS - Green Tech
- * Grid system, spacing, responsive breakpoints, page structure
- * Uses design tokens from design-tokens.css
- */
 
-/* =============================================================================
- * RESET & BASE
- * ============================================================================= */
+
+
 
 *,
 *::before,
@@ -33,21 +27,19 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Focus visible for keyboard navigation */
+
 :focus-visible {
   outline: none;
   box-shadow: var(--focus-ring);
 }
 
-/* Selection */
+
 ::selection {
   background-color: var(--color-primary-fixed);
   color: var(--color-on-primary-fixed);
 }
 
-/* =============================================================================
- * TYPOGRAPHY
- * ============================================================================= */
+
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family);
@@ -64,7 +56,7 @@ h4 { font-size: var(--font-size-headline-md, 22px); }
 h5 { font-size: var(--font-size-headline-sm, 18px); }
 h6 { font-size: var(--font-size-label-lg, 14px); }
 
-/* Mobile typography adjustments */
+
 @media (max-width: 768px) {
   h1 { font-size: var(--font-size-display-lg-mobile, 36px); }
   h2 { font-size: var(--font-size-headline-xl-mobile, 30px); }
@@ -97,9 +89,7 @@ img {
   display: block;
 }
 
-/* =============================================================================
- * CONTAINER & GRID SYSTEM
- * ============================================================================= */
+
 
 .container {
   width: 100%;
@@ -114,7 +104,7 @@ img {
   }
 }
 
-/* Grid */
+
 .grid {
   display: grid;
   gap: var(--space-gutter);
@@ -126,7 +116,7 @@ img {
   }
 }
 
-/* Grid columns */
+
 .grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
 .grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
 .grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
@@ -135,7 +125,7 @@ img {
 .grid-cols-6 { grid-template-columns: repeat(6, 1fr); }
 .grid-cols-12 { grid-template-columns: repeat(12, 1fr); }
 
-/* Responsive grid columns */
+
 @media (max-width: 1199px) {
   .tablet\:grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
   .tablet\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
@@ -150,16 +140,14 @@ img {
   .mobile\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
 }
 
-/* Gap utilities */
+
 .gap-xs { gap: var(--space-space-xs); }
 .gap-sm { gap: var(--space-space-sm); }
 .gap-md { gap: var(--space-space-md); }
 .gap-lg { gap: var(--space-space-lg); }
 .gap-xl { gap: var(--space-space-xl); }
 
-/* =============================================================================
- * FLEX UTILITIES
- * ============================================================================= */
+
 
 .flex { display: flex; }
 .inline-flex { display: inline-flex; }
@@ -191,9 +179,7 @@ img {
 .flex-initial { flex: 0 1 auto; }
 .flex-none { flex: none; }
 
-/* =============================================================================
- * SPACING UTILITIES
- * ============================================================================= */
+
 
 .m-0 { margin: 0; }
 .m-auto { margin: auto; }
@@ -249,7 +235,7 @@ img {
 .px-lg { padding-left: var(--space-space-lg); padding-right: var(--space-space-lg); }
 .px-xl { padding-left: var(--space-space-xl); padding-right: var(--space-space-xl); }
 
-/* Section spacing - optimized for tighter visual rhythm */
+
 .section {
   padding: var(--space-space-lg) 0;
 }
@@ -270,7 +256,7 @@ img {
   }
 }
 
-/* Section with minimal spacing (for dense content areas) */
+
 .section-sm {
   padding: var(--space-space-md) 0;
 }
@@ -281,9 +267,7 @@ img {
   }
 }
 
-/* =============================================================================
- * PAGE STRUCTURE
- * ============================================================================= */
+
 
 .page {
   min-height: 100vh;
@@ -296,7 +280,7 @@ img {
   width: 100%;
 }
 
-/* Header */
+
 .header {
   position: sticky;
   top: 0;
@@ -423,7 +407,7 @@ img {
   }
 }
 
-/* Footer */
+
 .footer {
   background-color: var(--color-surface-container-highest);
   border-top: 1px solid var(--color-outline-variant);
@@ -560,20 +544,18 @@ img {
   color: var(--color-primary);
 }
 
-/* =============================================================================
- * HERO SECTION
- * ============================================================================= */
+
 
 .hero {
   position: relative;
   overflow: hidden;
   background-color: var(--color-surface);
-  /* Padding handled by .section-lg class */
+  
 }
 
 @media (max-width: 768px) {
   .hero {
-    /* Padding handled by .section-lg mobile override */
+    
   }
 }
 
@@ -659,8 +641,8 @@ img {
   border-radius: var(--radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow-hover);
-  min-height: 380px; /* Ensure space for map */
-  align-self: stretch; /* Fill grid cell height */
+  min-height: 380px; 
+  align-self: stretch; 
 }
 
 @media (max-width: 768px) {
@@ -714,7 +696,7 @@ img {
   opacity: 1;
 }
 
-/* New Hero Comparison with CSS Illustration + Map */
+
 .hero-comparison {
   position: relative;
   width: 100%;
@@ -722,9 +704,9 @@ img {
   min-height: 380px;
   border-radius: var(--radius-xl);
   overflow: hidden;
-  /* Ensure absolute children have reference height */
+  
   contain: layout;
-  /* Force height in grid context */
+  
   display: block;
 }
 
@@ -734,7 +716,7 @@ img {
   }
 }
 
-/* Before: CSS-generated vacant lot illustration */
+
 .hero-before-illustration {
   position: absolute;
   inset: 0;
@@ -823,7 +805,7 @@ img {
   letter-spacing: 0.1em;
 }
 
-/* After: Interactive Map */
+
 .hero-after-map {
   position: absolute;
   inset: 0;
@@ -835,7 +817,7 @@ img {
   z-index: 2;
 }
 
-/* Controles overlay - for hero-comparison context */
+
 .hero-comparison .hero-map-controls {
   position: absolute;
   top: var(--space-space-sm);
@@ -855,7 +837,7 @@ img {
   backdrop-filter: blur(8px);
 }
 
-/* Leyenda compacta */
+
 .hero-comparison .hero-map-legend {
   position: absolute;
   bottom: var(--space-space-sm);
@@ -903,9 +885,7 @@ img {
   z-index: 3;
 }
 
-/* =============================================================================
- * VALUE PROPS SECTION
- * ============================================================================= */
+
 
 .value-props {
   background-color: var(--color-background);
@@ -1009,9 +989,7 @@ img {
   color: var(--color-on-surface-variant);
 }
 
-/* =============================================================================
- * STATS BAR
- * ============================================================================= */
+
 
 .stats-bar {
   background-color: var(--color-primary);
@@ -1065,9 +1043,7 @@ img {
   opacity: 0.7;
 }
 
-/* =============================================================================
- * SPACES GRID SECTION
- * ============================================================================= */
+
 
 .spaces-section {
   background-color: var(--color-background);
@@ -1130,15 +1106,13 @@ img {
   margin-top: var(--space-space-lg);
 }
 
-/* =============================================================================
- * PARTNERS SECTION
- * ============================================================================= */
+
 
 .partners-section {
   background-color: var(--color-surface);
 }
 
-/* Partners grouped by type - horizontal layout */
+
 .partners-by-type {
   display: flex;
   flex-direction: column;
@@ -1190,7 +1164,7 @@ img {
   letter-spacing: 0;
 }
 
-/* Horizontal list of partners */
+
 .partner-type-list {
   display: flex;
   flex-wrap: wrap;
@@ -1249,7 +1223,7 @@ img {
   text-overflow: ellipsis;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .partner-type-group {
     padding: var(--space-space-md);
@@ -1269,9 +1243,7 @@ img {
   }
 }
 
-/* =============================================================================
- * IMPACT METER SECTION
- * ============================================================================= */
+
 
 .impact-section {
   background-color: var(--color-background);
@@ -1372,9 +1344,7 @@ img {
   color: var(--color-on-surface-variant);
 }
 
-/* =============================================================================
- * PAGE HERO (used in /postular, /espacios, etc.)
- * ============================================================================= */
+
 
 .page-hero {
   background-color: var(--color-surface-container-lowest);
@@ -1418,9 +1388,7 @@ img {
   }
 }
 
-/* =============================================================================
- * PROPOSE SPACE SECTION
- * ============================================================================= */
+
 
 .propose-section {
   background-color: var(--color-surface-container-lowest);
@@ -1440,7 +1408,7 @@ img {
   }
 }
 
-/* Sidebar toggle button for mobile */
+
 .propose-info-toggle {
   display: none;
   width: 100%;
@@ -1856,7 +1824,7 @@ img {
   margin-bottom: 0;
 }
 
-/* Form navigation responsive */
+
 @media (max-width: 640px) {
   .form-navigation {
     flex-direction: column;
@@ -1891,18 +1859,18 @@ img {
   }
 }
 
-/* Sidebar / Propose Info */
+
 .propose-info {
   position: sticky;
   top: var(--space-space-xl);
 }
 
-/* Desktop: show sidebar content by default */
+
 .propose-info-content {
   display: block;
 }
 
-/* Mobile: collapse sidebar behind toggle */
+
 @media (max-width: 1024px) {
   .propose-info {
     position: static;
@@ -2033,9 +2001,7 @@ img {
   border-radius: var(--radius-full);
 }
 
-/* =============================================================================
- * MODAL
- * ============================================================================= */
+
 
 .modal {
   position: fixed;
@@ -2145,9 +2111,7 @@ img {
   text-align: center;
 }
 
-/* =============================================================================
- * CTA SECTION
- * ============================================================================= */
+
 
 .cta-section {
   background-color: var(--color-primary);
@@ -2199,9 +2163,7 @@ img {
   border-color: var(--color-tertiary);
 }
 
-/* =============================================================================
- * UTILITIES
- * ============================================================================= */
+
 
 .sr-only {
   position: absolute;
@@ -2265,7 +2227,7 @@ img {
 .transition-fast { transition: all var(--transition-fast); }
 .transition-slow { transition: all var(--transition-slow); }
 
-/* Animations */
+
 @keyframes fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -2303,7 +2265,7 @@ img {
 .animate-slide-down { animation: slide-down var(--transition-slow) ease-out; }
 .animate-pulse { animation: pulse 2s ease-in-out infinite; }
 
-/* Scroll reveal (used with JS) */
+
 .scroll-reveal {
   opacity: 0;
   transform: translateY(30px);
@@ -2315,9 +2277,7 @@ img {
   transform: translateY(0);
 }
 
-/* =============================================================================
- * PRINT
- * ============================================================================= */
+
 
 @media print {
   .header,

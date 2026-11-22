@@ -9,7 +9,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from models.base import Base, TimestampMixin
 
 
-# Status and category constants (as strings for DB)
+
 class SpaceStatus(enum.StrEnum):
     IDENTIFIED = "identified"
     IN_PROGRESS = "in_progress"
@@ -33,23 +33,23 @@ class Space(Base, TimestampMixin):
 
     __tablename__ = "spaces"
 
-    # Primary key
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
 
-    # Basic info
+
     name: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     description: Mapped[str] = mapped_column(Text, nullable=True)
     address: Mapped[str] = mapped_column(String(500), nullable=True)
     commune: Mapped[str] = mapped_column(String(100), nullable=True, index=True)
 
-    # Geolocation
+
     latitude: Mapped[float] = mapped_column(Numeric(10, 8), nullable=True)
     longitude: Mapped[float] = mapped_column(Numeric(11, 8), nullable=True)
 
-    # Metrics
+
     area_m2: Mapped[int] = mapped_column(Integer, nullable=True)
 
-    # Status & Category
+
     status: Mapped[str] = mapped_column(
         String(50),
         default=SpaceStatus.IDENTIFIED,
@@ -62,15 +62,15 @@ class Space(Base, TimestampMixin):
         index=True,
     )
 
-    # Images
+
     image_url: Mapped[str] = mapped_column(String(500), nullable=True)
     before_image_url: Mapped[str] = mapped_column(String(500), nullable=True)
 
-    # Timeline
+
     started_at: Mapped[date] = mapped_column(Date, nullable=True)
     completed_at: Mapped[date] = mapped_column(Date, nullable=True)
 
-    # Table indexes
+
     __table_args__ = (
         Index("ix_spaces_commune_status", "commune", "status"),
         Index("ix_spaces_status_category", "status", "category"),

@@ -28,10 +28,10 @@ class EmailService:
     def _create_connection(self) -> smtplib.SMTP | smtplib.SMTP_SSL:
         """Create SMTP connection."""
         if self.smtp_port == 465:
-            # SSL connection
+
             conn: smtplib.SMTP | smtplib.SMTP_SSL = smtplib.SMTP_SSL(self.smtp_host, self.smtp_port)
         else:
-            # STARTTLS connection
+
             conn = smtplib.SMTP(self.smtp_host, self.smtp_port)
             if self.smtp_use_tls:
                 conn.starttls()
@@ -72,10 +72,10 @@ class EmailService:
             msg["To"] = ", ".join(to)
             msg["Subject"] = subject
 
-            # Add plain text part
+
             msg.attach(MIMEText(body_text, "plain", "utf-8"))
 
-            # Add HTML part if provided
+
             if body_html:
                 msg.attach(MIMEText(body_html, "html", "utf-8"))
 
@@ -140,14 +140,14 @@ https://tramaurbanaverde.cl
 <head>
     <meta charset="utf-8">
     <style>
-        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }}
-        .header {{ background: #2E7D32; color: white; padding: 20px; border-radius: 8px 8px 0 0; }}
-        .content {{ background: #f9f9f9; padding: 20px; border-radius: 0 0 8px 8px; }}
+        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color:
+        .header {{ background:
+        .content {{ background:
         .field {{ margin-bottom: 12px; }}
-        .label {{ font-weight: bold; color: #555; }}
-        .value {{ color: #333; }}
-        .section {{ margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; }}
-        .footer {{ margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #888; }}
+        .label {{ font-weight: bold; color:
+        .value {{ color:
+        .section {{ margin-top: 20px; padding-top: 20px; border-top: 1px solid
+        .footer {{ margin-top: 20px; padding-top: 20px; border-top: 1px solid
     </style>
 </head>
 <body>
@@ -219,10 +219,10 @@ https://tramaurbanaverde.cl
 <head>
     <meta charset="utf-8">
     <style>
-        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }}
-        .header {{ background: #2E7D32; color: white; padding: 20px; border-radius: 8px 8px 0 0; text-align: center; }}
-        .content {{ background: #f9f9f9; padding: 20px; border-radius: 0 0 8px 8px; }}
-        .footer {{ margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #888; text-align: center; }}
+        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color:
+        .header {{ background:
+        .content {{ background:
+        .footer {{ margin-top: 20px; padding-top: 20px; border-top: 1px solid
     </style>
 </head>
 <body>
@@ -284,13 +284,13 @@ https://tramaurbanaverde.cl
 <head>
     <meta charset="utf-8">
     <style>
-        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }}
+        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color:
         .header {{ padding: 20px; border-radius: 8px 8px 0 0; text-align: center; }}
-        .header.approve {{ background: #2E7D32; color: white; }}
-        .header.reject {{ background: #C62828; color: white; }}
-        .header.changes {{ background: #F57F17; color: white; }}
-        .content {{ background: #f9f9f9; padding: 20px; border-radius: 0 0 8px 8px; }}
-        .footer {{ margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #888; text-align: center; }}
+        .header.approve {{ background:
+        .header.reject {{ background:
+        .header.changes {{ background:
+        .content {{ background:
+        .footer {{ margin-top: 20px; padding-top: 20px; border-top: 1px solid
     </style>
 </head>
 <body>
@@ -344,10 +344,10 @@ https://tramaurbanaverde.cl
 <head>
     <meta charset="utf-8">
     <style>
-        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }}
-        .header {{ background: #1565C0; color: white; padding: 20px; border-radius: 8px 8px 0 0; }}
-        .content {{ background: #f9f9f9; padding: 20px; border-radius: 0 0 8px 8px; }}
-        .footer {{ margin-top: 20px; padding-top: 20px; border-top: 1px solid #ddd; font-size: 12px; color: #888; text-align: center; }}
+        body {{ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color:
+        .header {{ background:
+        .content {{ background:
+        .footer {{ margin-top: 20px; padding-top: 20px; border-top: 1px solid
     </style>
 </head>
 <body>
@@ -372,5 +372,4 @@ https://tramaurbanaverde.cl
         return self.send_email(recipient, subject, body_text, body_html)
 
 
-# Global instance
 email_service = EmailService()

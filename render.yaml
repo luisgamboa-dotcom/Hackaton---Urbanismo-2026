@@ -1,11 +1,11 @@
-# Render Blueprint for Green Tech
-# Deploy with: render blueprint launch
-# Or via Render Dashboard: New > Blueprint
+
+
+
 
 services:
-  # =============================================================================
-  # Web Service - FastAPI Application
-  # =============================================================================
+
+
+
   - type: web
     name: green-tech-api
     runtime: docker
@@ -30,7 +30,7 @@ services:
         fromDatabase:
           name: green-tech-db
           property: connectionString
-      # Email settings - set these in Render Dashboard after deploy
+
       - key: SMTP_HOST
         value: smtp.gmail.com
       - key: SMTP_PORT
@@ -46,9 +46,9 @@ services:
       - key: EMAIL_TO
         sync: false
 
-  # =============================================================================
-  # Background Worker - For async tasks (email, routing, etc.)
-  # =============================================================================
+
+
+
   - type: worker
     name: green-tech-worker
     runtime: docker
@@ -88,9 +88,9 @@ services:
         sync: false
 
 databases:
-  # =============================================================================
-  # PostgreSQL Database
-  # =============================================================================
+
+
+
   - name: green-tech-db
     databaseName: green_tech
     user: green_tech_user

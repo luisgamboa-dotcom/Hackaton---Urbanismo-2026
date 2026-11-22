@@ -1,33 +1,33 @@
-// =============================================================================
-// HERO MAP - Leaflet + OpenStreetMap
-// =============================================================================
+
+
+
 
 (function() {
   'use strict';
 
-  // Configuración
+  
   const CONFIG = {
-    // Centro inicial: Santiago
+    
     center: [-33.4372, -70.6506],
     zoom: 12,
     minZoom: 10,
     maxZoom: 18,
     
-    // Tile layer OSM
+    
     tileUrl: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     tileAttribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     
-    // API endpoint
+    
     apiUrl: '/api/map/spaces',
     
-    // Colores por estado (CSS custom properties)
+    
     statusColors: {
-      completed: 'var(--color-primary)',      // Verde
-      in_progress: 'var(--color-tertiary)',   // Terracota
-      identified: 'var(--color-on-surface-variant)' // Gris
+      completed: 'var(--color-primary)',      
+      in_progress: 'var(--color-tertiary)',   
+      identified: 'var(--color-on-surface-variant)' 
     },
     
-    // Iconos por categoría
+    
     categoryIcons: {
       pocket_park: '🌳',
       green_corridor: '🌿',
@@ -39,36 +39,36 @@
       dumping_ground: '🗑️'
     },
 
-    // Colores específicos para terrenos abandonados/vertederos (rojo/naranja)
+    
     problemCategoryColors: {
-      abandoned_land: '#ef4444',    // Rojo
-      dumping_ground: '#f97316'     // Naranja
+      abandoned_land: '#ef4444',    
+      dumping_ground: '#f97316'     
     }
   };
 
   let map = null;
-  let markersLayer = null; // MarkerClusterGroup
-  let allMarkers = [];     // Referencia a todos los marcadores para filtrado
+  let markersLayer = null; 
+  let allMarkers = [];     
   let currentFilter = '';
 
-  // ---------------------------------------------------------------------------
-  // Inicialización
-  // ---------------------------------------------------------------------------
+  
+  
+  
   function initHeroMap() {
     const container = document.getElementById('hero-map');
     const filterSelect = document.getElementById('hero-map-filter');
 
     if (!container) return;
 
-    // Ensure container has dimensions before initializing Leaflet
+    
     if (container.offsetWidth === 0 || container.offsetHeight === 0) {
-      // Container not visible yet, retry after a short delay
+      
       console.warn('Hero map: container has no dimensions, retrying...');
       setTimeout(initHeroMap, 100);
       return;
     }
 
-    // Force container to have explicit dimensions as fallback
+    
     if (!container.style.height) {
       container.style.height = '380px';
     }
@@ -76,25 +76,25 @@
       container.style.width = '100%';
     }
 
-    // Crear mapa
+    
     map = L.map('hero-map', {
       center: CONFIG.center,
       zoom: CONFIG.zoom,
       minZoom: CONFIG.minZoom,
       maxZoom: CONFIG.maxZoom,
       zoomControl: true,
-      scrollWheelZoom: false, // Evita scroll accidental en página
-      tap: true,              // Touch friendly
+      scrollWheelZoom: false, 
+      tap: true,              
       attributionControl: true
     });
     
-    // Tile layer OSM
+    
     L.tileLayer(CONFIG.tileUrl, {
       attribution: CONFIG.tileAttribution,
       maxZoom: 19
     }).addTo(map);
     
-    // Marker Cluster Group
+    
     markersLayer = L.markerClusterGroup({
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: false,
@@ -104,10 +104,10 @@
     });
     map.addLayer(markersLayer);
     
-    // Cargar datos
+    
     loadSpacesData();
     
-    // Evento filtro
+    
     if (filterSelect) {
       filterSelect.addEventListener('change', (e) => {
         currentFilter = e.target.value;
@@ -115,7 +115,7 @@
       });
     }
 
-    // Botón pantalla completa - apunta al contenedor .hero-after-map (data-hero-map)
+    
     const fullscreenBtn = document.getElementById('hero-map-fullscreen');
     const mapWrapper = document.querySelector('[data-hero-map]');
     if (fullscreenBtn && mapWrapper) {
@@ -124,7 +124,7 @@
       });
     }
 
-    // Lazy-load: activar scroll wheel zoom solo al hacer hover
+    
     container.addEventListener('mouseenter', () => {
       map.scrollWheelZoom.enable();
     });
@@ -132,13 +132,13 @@
       map.scrollWheelZoom.disable();
     });
     
-    // Exponer para debug
+    
     window.heroMap = { map, markersLayer, filterMarkers };
   }
 
-  // ---------------------------------------------------------------------------
-  // Cargar datos desde API
-  // ---------------------------------------------------------------------------
+  
+  
+  
   async function loadSpacesData() {
     try {
       const response = await fetch(CONFIG.apiUrl);
@@ -148,14 +148,14 @@
       renderMarkers(data.spaces || data);
     } catch (error) {
       console.warn('Hero map: usando datos de fallback', error);
-      // Fallback: datos embebidos en template
+      
       renderMarkers(window.HERO_MAP_SPACES || []);
     }
   }
 
-  // ---------------------------------------------------------------------------
-  // Renderizar marcadores
-  // ---------------------------------------------------------------------------
+  
+  
+  
   function renderMarkers(spaces) {
     if (!markersLayer || !map) return;
     
@@ -170,18 +170,18 @@
       allMarkers.push({ marker, space, category: space.category, status: space.status });
     });
     
-    // Ajustar vista a marcadores si hay datos
+    
     if (allMarkers.length > 0) {
       const group = new L.featureGroup(allMarkers.map(m => m.marker));
       map.fitBounds(group.getBounds().pad(0.1));
     }
   }
 
-  // ---------------------------------------------------------------------------
-  // Crear marcador individual
-  // ---------------------------------------------------------------------------
+  
+  
+  
   function createMarker(space) {
-    // Usar colores especiales para terrenos problemáticos
+    
     let color = CONFIG.statusColors[space.status] || CONFIG.statusColors.identified;
     if (CONFIG.problemCategoryColors[space.category]) {
       color = CONFIG.problemCategoryColors[space.category];
@@ -189,7 +189,7 @@
 
     const iconHtml = CONFIG.categoryIcons[space.category] || '📍';
 
-    // Custom div icon con tus colores
+    
     const icon = L.divIcon({
       className: 'hero-map-marker',
       html: `
@@ -205,7 +205,7 @@
 
     const marker = L.marker([space.latitude, space.longitude], { icon });
 
-    // Popup personalizado - más compacto
+    
     const popupContent = createPopupContent(space);
     marker.bindPopup(popupContent, {
       className: 'hero-map-popup',
@@ -216,9 +216,9 @@
     return marker;
   }
 
-  // ---------------------------------------------------------------------------
-  // Crear icono de cluster personalizado
-  // ---------------------------------------------------------------------------
+  
+  
+  
   function createClusterIcon(cluster) {
     const count = cluster.getChildCount();
     const color = count > 10 ? 'var(--color-primary)' : 'var(--color-tertiary)';
@@ -231,9 +231,9 @@
     });
   }
 
-  // ---------------------------------------------------------------------------
-  // Contenido del popup
-  // ---------------------------------------------------------------------------
+  
+  
+  
   function createPopupContent(space) {
     const statusLabel = {
       completed: 'Completado',
@@ -278,9 +278,9 @@
     `;
   }
 
-  // ---------------------------------------------------------------------------
-  // Filtrado por categoría
-  // ---------------------------------------------------------------------------
+  
+  
+  
   function filterMarkers(category) {
     allMarkers.forEach(({ marker, space }) => {
       const matches = !category || space.category === category;
@@ -292,12 +292,12 @@
     });
   }
 
-  // ---------------------------------------------------------------------------
-  // Pantalla completa
-  // ---------------------------------------------------------------------------
+  
+  
+  
   function toggleFullscreen(element, button) {
     if (!document.fullscreenElement) {
-      // Entrar en pantalla completa
+      
       element.requestFullscreen().catch(err => {
         console.warn('Error al entrar en pantalla completa:', err);
       });
@@ -305,7 +305,7 @@
       button.setAttribute('aria-label', 'Salir de pantalla completa');
       button.title = 'Salir de pantalla completa';
     } else {
-      // Salir de pantalla completa
+      
       document.exitFullscreen().catch(err => {
         console.warn('Error al salir de pantalla completa:', err);
       });
@@ -315,7 +315,7 @@
     }
   }
 
-  // Escuchar cambios de pantalla completa (por si el usuario usa ESC o F11)
+  
   document.addEventListener('fullscreenchange', () => {
     const button = document.getElementById('hero-map-fullscreen');
     if (button) {
@@ -331,18 +331,18 @@
     }
   });
 
-  // ---------------------------------------------------------------------------
-  // Utilidades
-  // ---------------------------------------------------------------------------
+  
+  
+  
   function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
   }
 
-  // ---------------------------------------------------------------------------
-  // Auto-inicializar cuando el DOM esté listo
-  // ---------------------------------------------------------------------------
+  
+  
+  
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initHeroMap);
   } else {

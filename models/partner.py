@@ -11,12 +11,12 @@ from models.base import Base, TimestampMixin
 class PartnerType(enum.StrEnum):
     """Type of partner organization."""
 
-    MUNICIPALITY = "municipality"       # Municipalidad
-    COMPANY_RSE = "company_rse"         # Empresa con RSE
-    NGO = "ngo"                         # ONG ambiental/urbanista
-    NURSERY = "nursery"                 # Vivero
-    UNIVERSITY = "university"           # Universidad
-    COMMUNITY = "community"             # Junta de vecinos / comunidad
+    MUNICIPALITY = "municipality"
+    COMPANY_RSE = "company_rse"
+    NGO = "ngo"
+    NURSERY = "nursery"
+    UNIVERSITY = "university"
+    COMMUNITY = "community"
 
 
 class Partner(Base, TimestampMixin):
@@ -24,10 +24,10 @@ class Partner(Base, TimestampMixin):
 
     __tablename__ = "partners"
 
-    # Primary key
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
 
-    # Basic info
+
     name: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     type: Mapped[str] = mapped_column(
         String(50),
@@ -36,15 +36,15 @@ class Partner(Base, TimestampMixin):
     )
     description: Mapped[str] = mapped_column(Text, nullable=True)
 
-    # Contact & Links
+
     logo_url: Mapped[str] = mapped_column(String(500), nullable=True)
     website_url: Mapped[str] = mapped_column(String(500), nullable=True)
 
-    # Display
+
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     display_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
 
-    # Table indexes
+
     __table_args__ = (
         Index("ix_partners_type_active", "type", "is_active"),
         Index("ix_partners_display_order", "display_order"),

@@ -1,36 +1,33 @@
-/*
- * Main JavaScript Entry Point - Green Tech
- * Initializes all components and utilities
- */
+
 
 import { ImpactMeter } from "./components/ImpactMeter.js";
 import { SpaceCard } from "./components/SpaceCard.js";
 import { ScrollReveal } from "./components/ScrollReveal.js";
 import { DOM } from "./utils/dom.js";
 
-// =============================================================================
-// GLOBAL INITIALIZATION
-// =============================================================================
+
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize all components
+  
   initializeComponents();
 
-  // Initialize utilities
+  
   initializeUtilities();
 
-  // Mark page as loaded for CSS transitions
+  
   document.body.classList.add("page-loaded");
 
   console.log("🌿 Green Tech - Initialized");
 });
 
-// =============================================================================
-// COMPONENT INITIALIZATION
-// =============================================================================
+
+
+
 
 function initializeComponents() {
-  // Impact Meter
+  
   const impactMeters = document.querySelectorAll("[data-impact-meter]");
   impactMeters.forEach((el) => {
     try {
@@ -40,7 +37,7 @@ function initializeComponents() {
     }
   });
 
-  // Space Cards
+  
   const spaceCards = document.querySelectorAll("[data-space-card]");
   spaceCards.forEach((el) => {
     try {
@@ -50,7 +47,7 @@ function initializeComponents() {
     }
   });
 
-  // Scroll Reveal
+  
   const revealElements = document.querySelectorAll("[data-scroll-reveal]");
   if (revealElements.length > 0) {
     try {
@@ -60,25 +57,25 @@ function initializeComponents() {
     }
   }
 
-  // Smooth scroll for anchor links
+  
   initializeSmoothScroll();
 
-  // Mobile menu toggle
+  
   initializeMobileMenu();
 
-  // Hero image comparison
+  
   initializeHeroComparison();
 
-  // Navbar scroll effect
+  
   initializeNavbarScroll();
 }
 
-// =============================================================================
-// UTILITY INITIALIZATION
-// =============================================================================
+
+
+
 
 function initializeUtilities() {
-  // Add loaded class to images for fade-in
+  
   document.querySelectorAll("img").forEach((img) => {
     if (img.complete) {
       img.classList.add("loaded");
@@ -87,16 +84,16 @@ function initializeUtilities() {
     }
   });
 
-  // Initialize tooltips
+  
   initializeTooltips();
 
-  // Initialize lazy loading for images (fallback for browsers without native support)
+  
   initializeLazyImages();
 }
 
-// =============================================================================
-// SPECIFIC FEATURE INITIALIZERS
-// =============================================================================
+
+
+
 
 function initializeSmoothScroll() {
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -116,10 +113,10 @@ function initializeSmoothScroll() {
           behavior: "smooth",
         });
 
-        // Update URL without scrolling
+        
         history.pushState(null, "", targetId);
 
-        // Focus for accessibility
+        
         target.setAttribute("tabindex", "-1");
         target.focus({ preventScroll: true });
       }
@@ -139,7 +136,7 @@ function initializeMobileMenu() {
       document.body.style.overflow = isOpen ? "hidden" : "";
     });
 
-    // Close on nav link click
+    
     nav.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
         nav.classList.remove("open");
@@ -148,7 +145,7 @@ function initializeMobileMenu() {
       });
     });
 
-    // Close on escape
+    
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && nav.classList.contains("open")) {
         nav.classList.remove("open");
@@ -174,7 +171,7 @@ function initializeHeroComparison() {
     isHovered = false;
   });
 
-  // Touch support for mobile
+  
   comparison.addEventListener("touchstart", () => {
     isHovered = !isHovered;
   }, { passive: true });
@@ -215,8 +212,8 @@ function initializeNavbarScroll() {
 }
 
 function initializeTooltips() {
-  // Simple CSS-based tooltips are handled in CSS
-  // This is for any JS-enhanced tooltips if needed
+  
+  
   document.querySelectorAll("[data-tooltip]").forEach((el) => {
     el.addEventListener("focus", () => el.classList.add("tooltip-visible"));
     el.addEventListener("blur", () => el.classList.remove("tooltip-visible"));
@@ -224,8 +221,8 @@ function initializeTooltips() {
 }
 
 function initializeLazyImages() {
-  // Native lazy loading is preferred (loading="lazy")
-  // This is a fallback for older browsers
+  
+  
   if ("loading" in HTMLImageElement.prototype) return;
 
   const lazyImages = document.querySelectorAll("img[loading='lazy']");
@@ -247,16 +244,16 @@ function initializeLazyImages() {
   lazyImages.forEach((img) => observer.observe(img));
 }
 
-// =============================================================================
-// EXPORTS (for module usage)
-// =============================================================================
+
+
+
 
 export {
   initializeComponents,
   initializeUtilities,
 };
 
-// Make globally available for inline scripts if needed
+
 window.TramaUrbanaVerde = {
   ImpactMeter,
   SpaceCard,

@@ -4,7 +4,7 @@
 
 ---
 
-## 🎯 Propósito del Proyecto
+## Propósito del Proyecto
 
 Green Tech es una plataforma que conecta a la comunidad con municipios, empresas, universidades y ONGs para **recuperar lotes baldíos, terrenos abandonados y vertederos ilegales** convirtiéndolos en plazas de bolsillo, corredores verdes, huertos comunitarios y zonas de descanso.
 
@@ -17,7 +17,7 @@ Green Tech es una plataforma que conecta a la comunidad con municipios, empresas
 
 ---
 
-## 🚀 Inicio Rápido
+## Inicio Rápido
 
 ```bash
 # 1. Clonar
@@ -34,7 +34,7 @@ cp .env.example .env  # Editar con credenciales SMTP y DB
 
 ---
 
-## 🏗️ Stack Tecnológico
+## Stack Tecnológico
 
 | Capa | Tecnología |
 |------|------------|
@@ -47,7 +47,7 @@ cp .env.example .env  # Editar con credenciales SMTP y DB
 
 ---
 
-## 📁 Estructura Clave
+## Estructura Clave
 
 ```
 ├── config/           # Settings, DB, Design Tokens (Stitch)
@@ -65,7 +65,7 @@ cp .env.example .env  # Editar con credenciales SMTP y DB
 
 ---
 
-## 🗺️ Páginas Implementadas
+## Páginas Implementadas
 
 | Ruta | Descripción |
 |------|-------------|
@@ -87,7 +87,7 @@ cp .env.example .env  # Editar con credenciales SMTP y DB
 
 ---
 
-## 🔧 Funcionalidades Backend
+## Funcionalidades Backend
 
 - **Postulación espacios** con mapa picker (Leaflet) y subida de fotos (máx 5)
 - **Registro usuarios** por email (identificación para soporte sin duplicados)
@@ -100,7 +100,7 @@ cp .env.example .env  # Editar con credenciales SMTP y DB
 
 ---
 
-## 📦 Deploy en Render
+## Deploy en Render
 
 1. **Agregar payment info** en Render Dashboard → Billing
 2. **Crear Blueprint** desde repo: `render.yaml`
@@ -117,7 +117,7 @@ Servicios creados:
 
 ---
 
-## 🧪 Calidad
+## Calidad
 
 ```bash
 ruff check .      # Lint
@@ -127,6 +127,6 @@ pytest            # Tests
 
 ---
 
-## 📄 Licencia
+## Licencia
 
-MIT — Desarrollado para Hackatón Urbanismo 2026 por Luis Gamboa.
+MIT — Desarrollado para Hackatón Urbanismo 2026 por Luis Gamboa, Vicente Cea y Benjamín Riquelme.

@@ -1,11 +1,11 @@
--- =============================================================================
--- Seed Data for Trama Urbana Verde (SQLite compatible)
--- Based on Business Model Canvas - Hackatón Urbanismo 2026
--- =============================================================================
 
--- =============================================================================
--- IMPACT METRICS (KPIs)
--- =============================================================================
+
+
+
+
+
+
+
 INSERT OR REPLACE INTO impact_metrics (id, metric_key, value, label, icon, display_order, created_at, updated_at) VALUES
     (1, 'total_m2_recovered', 2450, 'm² de suelo vivo recuperados', 'leaf', 1, datetime('now'), datetime('now')),
     (2, 'total_spaces', 12, 'Espacios intervenidos', 'map-pin', 2, datetime('now'), datetime('now')),
@@ -14,9 +14,9 @@ INSERT OR REPLACE INTO impact_metrics (id, metric_key, value, label, icon, displ
     (5, 'total_partners', 12, 'Socios estratégicos', 'handshake', 5, datetime('now'), datetime('now')),
     (6, 'total_communities', 8, 'Comunidades organizadas', 'users-round', 6, datetime('now'), datetime('now'));
 
--- =============================================================================
--- PARTNERS (Socios Clave del Canvas)
--- =============================================================================
+
+
+
 INSERT OR REPLACE INTO partners (id, name, type, description, logo_url, website_url, is_active, display_order, created_at, updated_at) VALUES
     (1, 'Municipalidad de Santiago', 'municipality', 'Permisos de uso temporario, subvenciones y gestión de espacios residuales en el centro histórico', '/images/partners/municipalidad-santiago.png', 'https://www.munistgo.cl', 1, 1, datetime('now'), datetime('now')),
     (2, 'Municipalidad de Estación Central', 'municipality', 'Gestión de lotes baldíos y veredas anchas para corredores verdes', '/images/partners/municipalidad-estacion-central.png', 'https://www.estacioncentral.cl', 1, 2, datetime('now'), datetime('now')),
@@ -31,9 +31,9 @@ INSERT OR REPLACE INTO partners (id, name, type, description, logo_url, website_
     (11, 'Junta de Vecinos Barrio Yungay', 'community', 'Gestión local, custodia de espacios y organización de actividades comunitarias', '/images/partners/jjvv-yungay.png', NULL, 1, 11, datetime('now'), datetime('now')),
     (12, 'Junta de Vecinos Barrio Brasil', 'community', 'Participación en huerto comunitario y corredor verde Matucana', '/images/partners/jjvv-brasil.png', NULL, 1, 12, datetime('now'), datetime('now'));
 
--- =============================================================================
--- SPACES (Espacios de Intervención - Ejemplos reales)
--- =============================================================================
+
+
+
 INSERT OR REPLACE INTO spaces (id, name, description, address, commune, latitude, longitude, area_m2, status, category, image_url, before_image_url, started_at, completed_at, created_at, updated_at) VALUES
     (1, 'Plaza Pocket Yungay', 'Transformación de esquina residual en plaza de bolsillo con especies nativas (quillay, peumo), mobiliario modular de madera reciclada y señalética inclusiva. Incluye zona de estar para adultos mayores y juegos infantiles de bajo impacto.', 'Compañía 1245, esquina Rosas', 'Santiago', -33.4372, -70.6506, 180, 'completed', 'pocket_park', '/images/spaces/space-1-after-opt.jpg', '/images/spaces/space-1-before-opt.jpg', '2025-03-15', '2025-06-20', datetime('now'), datetime('now')),
     (2, 'Jardín Comunitario Santa Lucía', 'Recuperación de terreno eriazo de 320 m² en falda del cerro Santa Lucía. Huertos elevados con riego por goteo, compostera comunitaria y zona de talleres. Gestionado por junta de vecinos y colegio aledaño.', 'Merced 350', 'Santiago', -33.4389, -70.6421, 320, 'completed', 'community_garden', '/images/spaces/space-2-after-opt.jpg', '/images/spaces/space-2-before-opt.jpg', '2025-01-10', '2025-05-15', datetime('now'), datetime('now')),
@@ -50,9 +50,9 @@ INSERT OR REPLACE INTO spaces (id, name, description, address, commune, latitude
     (13, 'Ex-Fábrica Textil Abandonada', 'Antigua fábrica textil de 2.500 m² cerrada en 2015. Estructura deteriorada, techos colapsados, suelo potencialmente contaminado. Vecinos solicitan demolición y recuperación como parque urbano con memoria histórica.', 'Av. Ecuador 2800', 'San Joaquín', -33.4967, -70.6234, 2500, 'identified', 'abandoned_land', NULL, NULL, NULL, NULL, datetime('now'), datetime('now')),
     (14, 'Microbasural Población La Victoria', 'Esquina de 180 m² usada como punto de acopio informal de basura domiciliaria y poda. Genera focos de insalubridad y malos olores. Junta de vecinos solicita limpieza y transformación en área de juegos infantil.', 'Víctor Jara 0450', 'Pedro Aguirre Cerda', -33.4912, -70.6567, 180, 'identified', 'dumping_ground', NULL, NULL, NULL, NULL, datetime('now'), datetime('now'));
 
--- =============================================================================
--- COMMUNITIES (Comunidades / Juntas de Vecinos)
--- =============================================================================
+
+
+
 INSERT OR REPLACE INTO communities (id, name, commune, contact_email, contact_phone, contact_person, member_count, space_id, created_at, updated_at) VALUES
     (1, 'Junta de Vecinos Barrio Yungay', 'Santiago', 'contacto@jjvvyungay.cl', '+56 2 2698 1234', 'María González', 450, 1, datetime('now'), datetime('now')),
     (2, 'Junta de Vecinos Barrio Brasil', 'Santiago', 'juntavecinosbrasil@gmail.com', '+56 9 8765 4321', 'Carlos Rodríguez', 380, 2, datetime('now'), datetime('now')),
@@ -63,9 +63,9 @@ INSERT OR REPLACE INTO communities (id, name, commune, contact_email, contact_ph
     (7, 'Comité de Vivienda Lo Prado', 'Lo Prado', 'comite.loprado@vivenda.cl', '+56 2 2555 6677', 'Jorge Soto', 410, 10, datetime('now'), datetime('now')),
     (8, 'Red de Huertos Urbanos Santiago', 'Múltiples', 'redhuertos@stgo.cl', '+56 9 9988 7766', 'Coordinación rotativa', 1200, NULL, datetime('now'), datetime('now'));
 
--- =============================================================================
--- UPDATE METRICS BASED ON SEED DATA
--- =============================================================================
+
+
+
 UPDATE impact_metrics SET value = (SELECT COUNT(*) FROM spaces), updated_at = datetime('now') WHERE metric_key = 'total_spaces';
 UPDATE impact_metrics SET value = (SELECT COALESCE(SUM(area_m2), 0) FROM spaces WHERE status = 'completed'), updated_at = datetime('now') WHERE metric_key = 'total_m2_recovered';
 UPDATE impact_metrics SET value = (SELECT COUNT(*) FROM partners WHERE is_active = 1), updated_at = datetime('now') WHERE metric_key = 'total_partners';

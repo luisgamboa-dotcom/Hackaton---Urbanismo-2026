@@ -23,7 +23,7 @@ class BackgroundWorker:
         self.running = True
         print(f"Background worker started (poll interval: {self.poll_interval}s)")
 
-        # Handle graceful shutdown
+
         signal.signal(signal.SIGTERM, self._signal_handler)
         signal.signal(signal.SIGINT, self._signal_handler)
 
@@ -33,7 +33,7 @@ class BackgroundWorker:
             except Exception as e:
                 print(f"Worker error: {e}")
 
-            # Sleep with early exit check
+
             for _ in range(self.poll_interval):
                 if not self.running:
                     break
@@ -51,12 +51,12 @@ class BackgroundWorker:
         with get_db_session() as session:
             controller = RequestsController(session)
 
-            # Process automatic routing for requests past deadline
+
             result = controller.process_routing_all()
             if result.get("processed", 0) > 0:
                 print(f"Processed routing for {result['processed']} requests")
 
-            # Clean up old draft requests (older than 30 days)
+
             self._cleanup_old_drafts(controller)
 
     def _cleanup_old_drafts(self, controller: RequestsController):
@@ -83,7 +83,7 @@ def process_routing_all(controller: RequestsController) -> dict:
 
     from models import Request
 
-    # Get all requests that are sent or waiting and past deadline
+
     stmt = select(Request).where(
         Request.status.in_([RequestStatus.SENT, RequestStatus.WAITING_RESPONSE]),
         Request.deadline_at.is_not(None),
@@ -100,12 +100,12 @@ def process_routing_all(controller: RequestsController) -> dict:
     return {"processed": processed, "total_checked": len(requests)}
 
 
-# Add method to RequestsController for use in worker
+
 RequestsController.process_routing_all = process_routing_all
 
 
 if __name__ == "__main__":
-    # Get poll interval from environment (default 60s)
+
     import os
     poll_interval = int(os.getenv("WORKER_POLL_INTERVAL", "60"))
 

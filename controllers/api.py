@@ -14,9 +14,9 @@ from models.space import SpaceCategory, SpaceStatus
 class APIController(BaseController):
     """Controller for API endpoints (JSON responses)."""
 
-    # =========================================================================
-    # SPACES
-    # =========================================================================
+
+
+
 
     async def list_spaces(
         self,
@@ -55,9 +55,9 @@ class APIController(BaseController):
         """Get a single space by ID."""
         return self.get_one(Space, Space.id == space_id)
 
-    # =========================================================================
-    # PARTNERS
-    # =========================================================================
+
+
+
 
     async def list_partners(
         self,
@@ -67,7 +67,7 @@ class APIController(BaseController):
         """List partners with optional type filter."""
         filters: list[ColumnElement[bool]] = []
         if active_only:
-            filters.append(Partner.is_active == True)  # noqa: E712
+            filters.append(Partner.is_active == True)
         if type_:
             with suppress(ValueError):
                 filters.append(Partner.type == PartnerType(type_).value)
@@ -77,9 +77,9 @@ class APIController(BaseController):
             order_by=Partner.display_order,
         )
 
-    # =========================================================================
-    # IMPACT METRICS
-    # =========================================================================
+
+
+
 
     async def get_metrics(self) -> list[ImpactMetric]:
         """Get all impact metrics."""
@@ -89,9 +89,9 @@ class APIController(BaseController):
         """Get a single metric by key."""
         return self.get_one(ImpactMetric, ImpactMetric.metric_key == metric_key)
 
-    # =========================================================================
-    # COMMUNITIES
-    # =========================================================================
+
+
+
 
     async def list_communities(
         self,
@@ -106,18 +106,18 @@ class APIController(BaseController):
             filters.append(Community.space_id == space_id)
         return self.get_all(Community, *filters, order_by=Community.name)
 
-    # =========================================================================
-    # AGGREGATED DATA
-    # =========================================================================
+
+
+
 
     async def get_dashboard_stats(self) -> dict[str, Any]:
         """Get aggregated statistics for dashboard."""
 
-        # Get all metrics
+
         metrics = await self.get_metrics()
         metrics_dict = {m.metric_key: m.value for m in metrics}
 
-        # Additional computed stats
+
         spaces_by_status = {}
         for status in SpaceStatus:
             count = self.count(Space, Space.status == status.value)
@@ -130,7 +130,7 @@ class APIController(BaseController):
 
         partners_by_type = {}
         for ptype in PartnerType:
-            count = self.count(Partner, Partner.type == ptype.value, Partner.is_active == True)  # noqa: E712
+            count = self.count(Partner, Partner.type == ptype.value, Partner.is_active == True)
             partners_by_type[ptype.value] = count
 
         return {
@@ -141,9 +141,9 @@ class APIController(BaseController):
             "total_communities": self.count(Community),
         }
 
-    # =========================================================================
-    # MAP DATA
-    # =========================================================================
+
+
+
 
     def get_map_spaces(
         self,

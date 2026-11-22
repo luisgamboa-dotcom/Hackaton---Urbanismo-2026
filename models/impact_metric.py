@@ -11,10 +11,10 @@ class ImpactMetric(Base, TimestampMixin):
 
     __tablename__ = "impact_metrics"
 
-    # Primary key
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
 
-    # Metric identifier (unique key)
+
     metric_key: Mapped[str] = mapped_column(
         String(100),
         unique=True,
@@ -22,15 +22,15 @@ class ImpactMetric(Base, TimestampMixin):
         index=True,
     )
 
-    # Value and display
+
     value: Mapped[int] = mapped_column(BigInteger, default=0, nullable=False)
     label: Mapped[str] = mapped_column(String(255), nullable=False)
     icon: Mapped[str] = mapped_column(String(100), nullable=True)
 
-    # Display order
+
     display_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
 
-    # Constraints
+
     __table_args__ = (
         UniqueConstraint("metric_key", name="uq_impact_metrics_key"),
     )
@@ -44,7 +44,7 @@ class ImpactMetric(Base, TimestampMixin):
         return f"{self.value:,}".replace(",", ".")
 
 
-# Predefined metric keys (constants for consistency)
+
 class MetricKeys:
     """Standard metric keys used across the application."""
 
@@ -68,7 +68,7 @@ class MetricKeys:
         ]
 
 
-# Default metric configurations
+
 DEFAULT_METRICS = [
     {
         "metric_key": MetricKeys.TOTAL_M2_RECOVERED,

@@ -11,7 +11,7 @@ from models.base import Base
 
 settings = get_settings()
 
-# Engine and session factory (initialized lazily)
+
 _engine: Engine | None = None
 _session_factory: sessionmaker[Session] | None = None
 
@@ -26,9 +26,9 @@ def get_engine() -> Engine:
             )
         db_url = settings.database_url
 
-        # Handle different database URLs
+
         if db_url.startswith("sqlite://"):
-            # SQLite specific settings
+
             connect_args = {"check_same_thread": False} if db_url.startswith("sqlite:///") else {}
             _engine = create_engine(
                 db_url,
@@ -36,14 +36,14 @@ def get_engine() -> Engine:
                 connect_args=connect_args,
             )
         else:
-            # PostgreSQL specific settings
-            # Render uses postgresql:// format, convert to psycopg2
+
+
             if db_url.startswith("postgresql+asyncpg://"):
                 db_url = db_url.replace("postgresql+asyncpg://", "postgresql+psycopg2://")
             elif db_url.startswith("postgresql://"):
                 db_url = db_url.replace("postgresql://", "postgresql+psycopg2://")
 
-            # Production-ready connection pooling
+
             pool_size = 5
             max_overflow = 10
             if settings.is_production:
@@ -56,7 +56,7 @@ def get_engine() -> Engine:
                 pool_pre_ping=True,
                 pool_size=pool_size,
                 max_overflow=max_overflow,
-                pool_recycle=1800,  # Recycle connections every 30 minutes
+                pool_recycle=1800,
             )
     return _engine
 
@@ -102,8 +102,8 @@ def init_db() -> None:
     In production, use Alembic migrations instead.
     """
     engine = get_engine()
-    # Import all models to register them
-    from models import (  # noqa: F401
+
+    from models import (
         Community,
         ImpactMetric,
         ModerationQueue,
@@ -126,7 +126,7 @@ def seed_db() -> None:
 
     db_url = settings.database_url
 
-    # List of seed files to run in order
+
     seed_files = [
         "seed_sqlite.sql",
         "seed_user_tables.sql",
@@ -142,11 +142,11 @@ def seed_db() -> None:
                 print(f"Seed file not found: {seed_filename}")
                 continue
 
-            # Use raw sqlite3 connection for executescript support
+
             sqlite_conn = sqlite3.connect(db_path)
             try:
                 sql_content = seed_file.read_text(encoding="utf-8")
-                # Remove comments
+
                 lines = sql_content.split('\n')
                 filtered = [line for line in lines if not line.strip().startswith('--')]
                 clean_sql = '\n'.join(filtered)
@@ -158,7 +158,7 @@ def seed_db() -> None:
             finally:
                 sqlite_conn.close()
     else:
-        # PostgreSQL - use SQLAlchemy
+
         engine = get_engine()
 
         for seed_filename in seed_files:
@@ -194,7 +194,7 @@ def close_db() -> None:
         _session_factory = None
 
 
-# Dependency for FastAPI
+
 def get_db_session() -> Generator[Session, None, None]:
     """FastAPI dependency for database session.
 

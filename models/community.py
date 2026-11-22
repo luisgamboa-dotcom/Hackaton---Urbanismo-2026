@@ -14,22 +14,22 @@ class Community(Base, TimestampMixin):
 
     __tablename__ = "communities"
 
-    # Primary key
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
 
-    # Basic info
+
     name: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     commune: Mapped[str] = mapped_column(String(100), nullable=True, index=True)
 
-    # Contact
+
     contact_email: Mapped[str] = mapped_column(String(255), nullable=True)
     contact_phone: Mapped[str] = mapped_column(String(50), nullable=True)
     contact_person: Mapped[str] = mapped_column(String(255), nullable=True)
 
-    # Metrics
+
     member_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
 
-    # Relationship to space (optional - a community can be linked to a space)
+
     space_id: Mapped[int] = mapped_column(
         Integer,
         ForeignKey("spaces.id", ondelete="SET NULL"),
@@ -37,10 +37,10 @@ class Community(Base, TimestampMixin):
         index=True,
     )
 
-    # Relationship
+
     space: Mapped[Space] = relationship("Space", backref="communities")
 
-    # Table indexes
+
     __table_args__ = (
         Index("ix_communities_commune_space", "commune", "space_id"),
     )

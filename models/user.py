@@ -11,34 +11,34 @@ class User(Base, TimestampMixin):
 
     __tablename__ = "users"
 
-    # Primary key
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
 
-    # Basic info
+
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     email: Mapped[str] = mapped_column(String(255), nullable=False, unique=True, index=True)
 
-    # Profile
+
     phone: Mapped[str] = mapped_column(String(50), nullable=True)
     commune: Mapped[str] = mapped_column(String(100), nullable=True, index=True)
     avatar_url: Mapped[str] = mapped_column(String(500), nullable=True)
 
-    # Auth & Security
+
     is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     verification_token: Mapped[str] = mapped_column(String(255), nullable=True)
     last_login_at: Mapped[DateTime] = mapped_column(DateTime(timezone=True), nullable=True)
 
-    # Role (for future municipal panel access)
-    role: Mapped[str] = mapped_column(String(50), default="citizen", nullable=False)  # citizen, municipal, admin
 
-    # Constraints
+    role: Mapped[str] = mapped_column(String(50), default="citizen", nullable=False)
+
+
     __table_args__ = (
         UniqueConstraint("email", name="uq_users_email"),
         Index("ix_users_commune_active", "commune", "is_active"),
     )
 
-    # Relationships
+
     requests: Mapped[list["Request"]] = relationship("Request", back_populates="user")
 
     def __repr__(self) -> str:
@@ -72,10 +72,10 @@ class Request(Base, TimestampMixin):
 
     __tablename__ = "requests"
 
-    # Primary key
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
 
-    # Creator
+
     user_id: Mapped[int] = mapped_column(
         Integer,
         ForeignKey("users.id"),
@@ -83,27 +83,27 @@ class Request(Base, TimestampMixin):
         index=True,
     )
 
-    # Location
+
     address: Mapped[str] = mapped_column(String(500), nullable=False)
     latitude: Mapped[float] = mapped_column(nullable=False, index=True)
     longitude: Mapped[float] = mapped_column(nullable=False, index=True)
     commune: Mapped[str] = mapped_column(String(100), nullable=False, index=True)
-    reference: Mapped[str] = mapped_column(String(500), nullable=True)  # nearby landmarks
+    reference: Mapped[str] = mapped_column(String(500), nullable=True)
 
-    # Media
+
     photo_url: Mapped[str] = mapped_column(String(500), nullable=True)
     photo_thumbnail_url: Mapped[str] = mapped_column(String(500), nullable=True)
 
-    # Content
-    title: Mapped[str] = mapped_column(String(255), nullable=False)
-    description: Mapped[str] = mapped_column(nullable=False)  # Text
-    needs: Mapped[str] = mapped_column(nullable=False)  # Text
 
-    # Classification
+    title: Mapped[str] = mapped_column(String(255), nullable=False)
+    description: Mapped[str] = mapped_column(nullable=False)
+    needs: Mapped[str] = mapped_column(nullable=False)
+
+
     category: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
     estimated_area_m2: Mapped[int] = mapped_column(Integer, nullable=True)
 
-    # Status & Workflow
+
     status: Mapped[str] = mapped_column(
         String(50),
         default=RequestStatus.DRAFT,
@@ -114,34 +114,34 @@ class Request(Base, TimestampMixin):
     moderated_at: Mapped[DateTime] = mapped_column(DateTime(timezone=True), nullable=True)
     moderated_by: Mapped[int] = mapped_column(Integer, nullable=True)
 
-    # Routing
-    current_recipient_type: Mapped[str] = mapped_column(String(50), nullable=True)  # municipality, company, school, university, social_media
+
+    current_recipient_type: Mapped[str] = mapped_column(String(50), nullable=True)
     current_recipient_id: Mapped[int] = mapped_column(Integer, nullable=True)
     current_recipient_name: Mapped[str] = mapped_column(String(255), nullable=True)
     current_recipient_email: Mapped[str] = mapped_column(String(255), nullable=True)
 
-    # Timing
+
     sent_at: Mapped[DateTime] = mapped_column(DateTime(timezone=True), nullable=True)
     deadline_at: Mapped[DateTime] = mapped_column(DateTime(timezone=True), nullable=True, index=True)
     responded_at: Mapped[DateTime] = mapped_column(DateTime(timezone=True), nullable=True)
 
-    # Response
+
     response_content: Mapped[str] = mapped_column(nullable=True)
-    response_status: Mapped[str] = mapped_column(String(50), nullable=True)  # positive, negative, needs_info
+    response_status: Mapped[str] = mapped_column(String(50), nullable=True)
     approved_at: Mapped[DateTime] = mapped_column(DateTime(timezone=True), nullable=True)
 
-    # Counters
+
     support_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     view_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
 
-    # Constraints
+
     __table_args__ = (
         Index("ix_requests_commune_status", "commune", "status"),
         Index("ix_requests_user_status", "user_id", "status"),
         Index("ix_requests_deadline_status", "deadline_at", "status"),
     )
 
-    # Relationships
+
     user: Mapped["User"] = relationship("User", back_populates="requests")
     submissions: Mapped[list["SubmissionHistory"]] = relationship("SubmissionHistory", back_populates="request")
 
@@ -196,10 +196,10 @@ class Support(Base, TimestampMixin):
 
     __tablename__ = "supports"
 
-    # Primary key
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
 
-    # Relations
+
     user_id: Mapped[int] = mapped_column(
         Integer,
         ForeignKey("users.id"),
@@ -213,7 +213,7 @@ class Support(Base, TimestampMixin):
         index=True,
     )
 
-    # Constraints
+
     __table_args__ = (
         UniqueConstraint("user_id", "request_id", name="uq_support_user_request"),
         Index("ix_supports_request_created", "request_id", "created_at"),
@@ -237,39 +237,39 @@ class Organization(Base, TimestampMixin):
 
     __tablename__ = "organizations"
 
-    # Primary key
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
 
-    # Basic info
+
     name: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
     type: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
 
-    # Contact
+
     email: Mapped[str] = mapped_column(String(255), nullable=True)
     phone: Mapped[str] = mapped_column(String(50), nullable=True)
     contact_person: Mapped[str] = mapped_column(String(255), nullable=True)
     website_url: Mapped[str] = mapped_column(String(500), nullable=True)
 
-    # Geographic scope
-    commune: Mapped[str] = mapped_column(String(100), nullable=True, index=True)  # for municipalities
-    region: Mapped[str] = mapped_column(String(100), nullable=True)  # for broader orgs
 
-    # Routing config
-    priority_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)  # within type
+    commune: Mapped[str] = mapped_column(String(100), nullable=True, index=True)
+    region: Mapped[str] = mapped_column(String(100), nullable=True)
+
+
+    priority_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     is_active: Mapped[bool] = mapped_column(default=True, nullable=False)
-    auto_send: Mapped[bool] = mapped_column(default=False, nullable=False)  # whether to auto-send
+    auto_send: Mapped[bool] = mapped_column(default=False, nullable=False)
 
-    # Email template customization
+
     custom_subject: Mapped[str] = mapped_column(String(255), nullable=True)
     custom_message: Mapped[str] = mapped_column(nullable=True)
 
-    # Constraints
+
     __table_args__ = (
         Index("ix_organizations_type_active", "type", "is_active"),
         Index("ix_organizations_type_commune", "type", "commune"),
     )
 
-    # Relationships
+
     submissions: Mapped[list["SubmissionHistory"]] = relationship("SubmissionHistory", back_populates="organization")
 
     def __repr__(self) -> str:
@@ -293,10 +293,10 @@ class SubmissionHistory(Base, TimestampMixin):
 
     __tablename__ = "submission_history"
 
-    # Primary key
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
 
-    # Relations
+
     request_id: Mapped[int] = mapped_column(
         Integer,
         ForeignKey("requests.id"),
@@ -310,30 +310,30 @@ class SubmissionHistory(Base, TimestampMixin):
         index=True,
     )
 
-    # Submission details
+
     sent_at: Mapped[DateTime] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
-    sent_by: Mapped[str] = mapped_column(String(50), default="auto", nullable=False)  # auto, manual
+    sent_by: Mapped[str] = mapped_column(String(50), default="auto", nullable=False)
     message_subject: Mapped[str] = mapped_column(String(255), nullable=True)
     message_body: Mapped[str] = mapped_column(nullable=True)
     message_recipient: Mapped[str] = mapped_column(String(255), nullable=True)
 
-    # Result
-    status: Mapped[str] = mapped_column(String(50), default="sent", nullable=False)  # sent, delivered, failed, bounced
-    external_id: Mapped[str] = mapped_column(String(255), nullable=True)  # email message ID, etc.
+
+    status: Mapped[str] = mapped_column(String(50), default="sent", nullable=False)
+    external_id: Mapped[str] = mapped_column(String(255), nullable=True)
     error_message: Mapped[str] = mapped_column(String(500), nullable=True)
 
-    # Response tracking
+
     responded_at: Mapped[DateTime] = mapped_column(DateTime(timezone=True), nullable=True)
     response_content: Mapped[str] = mapped_column(nullable=True)
-    response_status: Mapped[str] = mapped_column(String(50), nullable=True)  # positive, negative, needs_info
+    response_status: Mapped[str] = mapped_column(String(50), nullable=True)
 
-    # Constraints
+
     __table_args__ = (
         Index("ix_submission_request_org", "request_id", "organization_id"),
         Index("ix_submission_status_date", "status", "sent_at"),
     )
 
-    # Relationships
+
     request: Mapped["Request"] = relationship("Request", back_populates="submissions")
     organization: Mapped["Organization"] = relationship("Organization", back_populates="submissions")
 
@@ -353,10 +353,10 @@ class ModerationQueue(Base, TimestampMixin):
 
     __tablename__ = "moderation_queue"
 
-    # Primary key
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
 
-    # Relations
+
     request_id: Mapped[int] = mapped_column(
         Integer,
         ForeignKey("requests.id"),
@@ -366,15 +366,15 @@ class ModerationQueue(Base, TimestampMixin):
     )
     moderator_id: Mapped[int] = mapped_column(Integer, ForeignKey("users.id"), nullable=True)
 
-    # Status
-    status: Mapped[str] = mapped_column(String(50), default="pending", nullable=False, index=True)  # pending, in_review, resolved
-    action: Mapped[str] = mapped_column(String(50), nullable=True)  # approve, reject, request_changes
+
+    status: Mapped[str] = mapped_column(String(50), default="pending", nullable=False, index=True)
+    action: Mapped[str] = mapped_column(String(50), nullable=True)
     reason: Mapped[str] = mapped_column(String(500), nullable=True)
 
-    # Timing
+
     reviewed_at: Mapped[DateTime] = mapped_column(DateTime(timezone=True), nullable=True)
 
-    # Constraints
+
     __table_args__ = (
         Index("ix_moderation_status_date", "status", "created_at"),
     )

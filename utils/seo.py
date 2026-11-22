@@ -27,7 +27,7 @@ def build_seo_data(
     json_ld: dict | None = None,
 ) -> SEOData:
     """Build SEOData with defaults for the site."""
-    base_url = "https://tramaurbanaverde.cl"  # Update for production
+    base_url = "https://tramaurbanaverde.cl"
     canonical = urljoin(base_url, path)
     og_img = urljoin(base_url, og_image) if og_image else urljoin(base_url, "/images/og-default.jpg")
 
@@ -49,7 +49,7 @@ def render_meta_tags(seo: SEOData) -> str:
         f'<link rel="canonical" href="{seo.canonical_url}">',
     ]
 
-    # Robots
+
     robots = []
     if seo.noindex:
         robots.append("noindex")
@@ -58,7 +58,7 @@ def render_meta_tags(seo: SEOData) -> str:
     if robots:
         tags.append(f'<meta name="robots" content="{", ".join(robots)}">')
 
-    # Open Graph
+
     tags.extend([
         f'<meta property="og:type" content="{seo.og_type}">',
         f'<meta property="og:url" content="{seo.canonical_url}">',
@@ -69,7 +69,7 @@ def render_meta_tags(seo: SEOData) -> str:
     if seo.og_image_alt:
         tags.append(f'<meta property="og:image:alt" content="{seo.og_image_alt}">')
 
-    # Twitter
+
     tags.extend([
         f'<meta name="twitter:card" content="{seo.twitter_card}">',
         f'<meta name="twitter:title" content="{seo.title}">',
@@ -78,7 +78,7 @@ def render_meta_tags(seo: SEOData) -> str:
         f'<meta name="twitter:image:alt" content="{seo.og_image_alt or ""}">',
     ])
 
-    # JSON-LD
+
     if seo.json_ld:
         import json
         tags.append(f'<script type="application/ld+json">{json.dumps(seo.json_ld, ensure_ascii=False)}</script>')
@@ -86,7 +86,7 @@ def render_meta_tags(seo: SEOData) -> str:
     return "\n    ".join(tags)
 
 
-# Predefined JSON-LD schemas
+
 def organization_schema() -> dict:
     """Organization schema for the project."""
     return {

@@ -1,13 +1,7 @@
-/*
- * ScrollReveal Component - Green Tech
- * Reveal animations for elements as they enter viewport
- */
+
 
 export class ScrollReveal {
-  /**
-   * @param {NodeList|HTMLElement[]} elements - Elements to observe
-   * @param {Object} options - Configuration options
-   */
+  
   constructor(elements, options = {}) {
     this.elements = Array.isArray(elements) ? elements : Array.from(elements);
     this.options = {
@@ -26,13 +20,13 @@ export class ScrollReveal {
   }
 
   init() {
-    // Prepare elements
+    
     this.elements.forEach((el, index) => {
       el.classList.add("scroll-reveal");
       el.style.transitionDelay = `${this.options.delay + index * this.options.stagger}ms`;
     });
 
-    // Create IntersectionObserver
+    
     if ("IntersectionObserver" in window) {
       this.observer = new IntersectionObserver(
         (entries) => this.handleIntersection(entries),
@@ -44,7 +38,7 @@ export class ScrollReveal {
 
       this.elements.forEach((el) => this.observer.observe(el));
     } else {
-      // Fallback: show all immediately
+      
       this.elements.forEach((el) => el.classList.add("visible"));
     }
   }
@@ -60,13 +54,13 @@ export class ScrollReveal {
           this.observer.unobserve(el);
         }
       } else if (!this.options.once) {
-        // Remove visible class when leaving viewport (for re-animation)
+        
         entry.target.classList.remove("visible");
       }
     });
   }
 
-  // Add new elements dynamically
+  
   add(elements) {
     const newElements = Array.isArray(elements) ? elements : Array.from(elements);
     newElements.forEach((el, index) => {
@@ -80,7 +74,7 @@ export class ScrollReveal {
     });
   }
 
-  // Remove elements
+  
   remove(elements) {
     const toRemove = Array.isArray(elements) ? elements : Array.from(elements);
     toRemove.forEach((el) => {
@@ -94,7 +88,7 @@ export class ScrollReveal {
     });
   }
 
-  // Refresh observer (useful after DOM changes)
+  
   refresh() {
     if (this.observer) {
       this.observer.disconnect();
@@ -102,7 +96,7 @@ export class ScrollReveal {
     }
   }
 
-  // Destroy
+  
   destroy() {
     if (this.observer) {
       this.observer.disconnect();
@@ -113,7 +107,7 @@ export class ScrollReveal {
   }
 }
 
-// Auto-initialize with default selector
+
 if (typeof window !== "undefined" && !window.TramaUrbanaVerde) {
   document.addEventListener("DOMContentLoaded", () => {
     const elements = document.querySelectorAll("[data-scroll-reveal]");

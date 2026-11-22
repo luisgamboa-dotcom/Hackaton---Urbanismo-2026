@@ -26,9 +26,9 @@ settings = get_settings()
 class RequestsController(BaseController):
     """Controller for citizen requests and related functionality."""
 
-    # =========================================================================
-    # USER MANAGEMENT
-    # =========================================================================
+
+
+
 
     def get_user_by_email(self, email: str) -> User | None:
         """Get user by email."""
@@ -55,7 +55,7 @@ class RequestsController(BaseController):
         """Get existing user or create new one."""
         user = self.get_user_by_email(email)
         if user:
-            # Update last login
+
             user.last_login_at = datetime.now(UTC)
             if phone and not user.phone:
                 user.phone = phone.strip()
@@ -65,9 +65,9 @@ class RequestsController(BaseController):
             return user
         return self.create_user(name, email, phone, commune)
 
-    # =========================================================================
-    # REQUEST MANAGEMENT
-    # =========================================================================
+
+
+
 
     def create_request(
         self,
@@ -103,12 +103,12 @@ class RequestsController(BaseController):
         self.session.add(request)
         self.session.flush()
 
-        # Add to moderation queue
+
         moderation = ModerationQueue(request_id=request.id)
         self.session.add(moderation)
         self.session.flush()
 
-        # Send email notification (non-blocking)
+
         try:
             user = self.get_user_by_id(user_id)
             email_service.send_request_notification({
@@ -157,7 +157,7 @@ class RequestsController(BaseController):
         if category:
             filters.append(Request.category == category)
 
-        # Exclude draft and rejected by default for public lists
+
         if not status:
             filters.append(Request.status.not_in([RequestStatus.DRAFT, RequestStatus.REJECTED]))
 
@@ -206,18 +206,18 @@ class RequestsController(BaseController):
         self.session.flush()
         return request
 
-    # =========================================================================
-    # SUPPORT SYSTEM
-    # =========================================================================
+
+
+
 
     def add_support(self, user_id: int, request_id: int) -> Support | None:
         """Add user support to a request. Returns None if already supported."""
-        # Check if already supported
+
         existing = self.get_one(Support, Support.user_id == user_id, Support.request_id == request_id)
         if existing:
             return None
 
-        # Check request exists and is supportable
+
         request = self.get_request_by_id(request_id)
         if not request or request.status in (RequestStatus.DRAFT, RequestStatus.REJECTED, RequestStatus.CLOSED):
             return None
@@ -225,11 +225,11 @@ class RequestsController(BaseController):
         support = Support(user_id=user_id, request_id=request_id)
         self.session.add(support)
 
-        # Increment counter
+
         request.support_count += 1
         self.session.flush()
 
-        # Send support confirmation email (non-blocking)
+
         try:
             user = self.get_user_by_id(user_id)
             if user and user.email:
@@ -276,9 +276,9 @@ class RequestsController(BaseController):
         total = self.count(Support, Support.user_id == user_id)
         return {"data": supports, "total": total, "limit": limit, "offset": offset}
 
-    # =========================================================================
-    # ORGANIZATION MANAGEMENT
-    # =========================================================================
+
+
+
 
     def get_organizations(
         self,
@@ -289,7 +289,7 @@ class RequestsController(BaseController):
         """Get organizations with filters."""
         filters: list[ColumnElement[bool]] = []
         if active_only:
-            filters.append(Organization.is_active == True)  # noqa: E712
+            filters.append(Organization.is_active == True)
         if type_:
             filters.append(Organization.type == type_)
         if commune:
@@ -302,7 +302,7 @@ class RequestsController(BaseController):
             Organization,
             Organization.type == OrganizationType.MUNICIPALITY,
             Organization.commune == commune,
-            Organization.is_active == True,  # noqa: E712
+            Organization.is_active == True,
         )
 
     def get_next_routing_organizations(
@@ -311,7 +311,7 @@ class RequestsController(BaseController):
         commune: str | None = None,
     ) -> list[Organization]:
         """Get the next organizations in the routing sequence."""
-        # Define routing order
+
         routing_order = [
             OrganizationType.MUNICIPALITY,
             OrganizationType.COMPANY,
@@ -321,12 +321,12 @@ class RequestsController(BaseController):
         ]
 
         if current_type is None:
-            # Start with municipality
+
             if commune:
                 muni = self.get_municipality_for_commune(commune)
                 if muni:
                     return [muni]
-            # Fallback: first active municipality
+
             return self.get_organizations(type_=OrganizationType.MUNICIPALITY, active_only=True)[:1]
 
         try:
@@ -350,15 +350,15 @@ class RequestsController(BaseController):
         """Get organization by ID."""
         return self.get_one(Organization, Organization.id == org_id)
 
-    # =========================================================================
-    # ROUTING / SUBMISSION SYSTEM
-    # =========================================================================
+
+
+
 
     def get_wait_days(self) -> int:
         """Get configured wait days from system config or default."""
-        # In a real implementation, this would come from a config table
-        # For now, use default from settings or a constant
-        return 15  # Default 15 days
+
+
+        return 15
 
     def calculate_deadline(self, sent_at: datetime | None = None) -> datetime:
         """Calculate deadline for response."""
@@ -378,7 +378,7 @@ class RequestsController(BaseController):
         if not request or not organization:
             return None
 
-        # Check for duplicate submission
+
         existing = self.get_one(
             SubmissionHistory,
             SubmissionHistory.request_id == request_id,
@@ -386,9 +386,9 @@ class RequestsController(BaseController):
             SubmissionHistory.status == "sent",
         )
         if existing:
-            return existing  # type: ignore
+            return existing
 
-        # Generate message
+
         subject = organization.custom_subject or f"Solicitud de recuperación urbana: {request.title}"
         body = self.generate_request_message(request, organization)
 
@@ -404,7 +404,7 @@ class RequestsController(BaseController):
         )
         self.session.add(submission)
 
-        # Update request
+
         request.current_recipient_type = organization.type
         request.current_recipient_id = organization.id
         request.current_recipient_name = organization.name
@@ -415,7 +415,7 @@ class RequestsController(BaseController):
 
         self.session.flush()
 
-        # Send routing notification email (non-blocking)
+
         try:
             email_service.send_routing_notification({
                 "title": request.title,
@@ -490,17 +490,17 @@ https://tramaurbanaverde.cl
         if not request:
             return False
 
-        # If already has a current recipient and is waiting, check deadline
+
         if (
             request.current_recipient_id
             and request.status in (RequestStatus.SENT, RequestStatus.WAITING_RESPONSE)
             and request.deadline_at
             and datetime.now(UTC) > request.deadline_at
         ):
-            # Deadline passed, advance to next
+
             return self.advance_routing(request_id)
 
-        # If no current recipient, start routing
+
         if not request.current_recipient_id:
             return self.start_routing(request_id)
 
@@ -527,7 +527,7 @@ https://tramaurbanaverde.cl
 
         next_orgs = self.get_next_routing_organizations(request.current_recipient_type, request.commune)
         if not next_orgs:
-            # No more organizations, mark as closed or final stage
+
             request.status = RequestStatus.CLOSED
             self.session.flush()
             return False
@@ -540,7 +540,7 @@ https://tramaurbanaverde.cl
         request_id: int,
         organization_id: int,
         response_content: str,
-        response_status: str,  # positive, negative, needs_info
+        response_status: str,
     ) -> SubmissionHistory | None:
         """Record a response from an organization."""
         submission = self.get_one(
@@ -570,9 +570,9 @@ https://tramaurbanaverde.cl
         self.session.flush()
         return submission
 
-    # =========================================================================
-    # MODERATION
-    # =========================================================================
+
+
+
 
     def get_moderation_queue(self, status: str = "pending", limit: int = 50, offset: int = 0) -> dict[str, Any]:
         """Get moderation queue."""
@@ -591,7 +591,7 @@ https://tramaurbanaverde.cl
         self,
         request_id: int,
         moderator_id: int,
-        action: str,  # approve, reject, request_changes
+        action: str,
         reason: str | None = None,
     ) -> Request | None:
         """Moderate a request."""
@@ -611,7 +611,7 @@ https://tramaurbanaverde.cl
             request.status = RequestStatus.SENT
             request.moderated_at = datetime.now(UTC)
             request.moderated_by = moderator_id
-            # Start routing
+
             self.start_routing(request_id)
         elif action == "reject":
             request.status = RequestStatus.REJECTED
@@ -626,7 +626,7 @@ https://tramaurbanaverde.cl
 
         self.session.flush()
 
-        # Send moderation notification email (non-blocking)
+
         try:
             user = self.get_user_by_id(request.user_id)
             email_service.send_moderation_notification({
@@ -640,9 +640,9 @@ https://tramaurbanaverde.cl
 
         return request
 
-    # =========================================================================
-    # MUNICIPAL PANEL
-    # =========================================================================
+
+
+
 
     def get_municipal_requests(
         self,
@@ -657,7 +657,7 @@ https://tramaurbanaverde.cl
         if status:
             filters.append(Request.status == status)
         else:
-            # Show active requests by default
+
             filters.append(Request.status.in_([
                 RequestStatus.SENT,
                 RequestStatus.WAITING_RESPONSE,
@@ -676,9 +676,9 @@ https://tramaurbanaverde.cl
 
         return {"data": requests, "total": total, "limit": limit, "offset": offset}
 
-    # =========================================================================
-    # STATISTICS
-    # =========================================================================
+
+
+
 
     def get_request_stats(self) -> dict[str, Any]:
         """Get request statistics."""
@@ -692,14 +692,14 @@ https://tramaurbanaverde.cl
         approved = self.count(Request, Request.status == RequestStatus.APPROVED)
         rejected = self.count(Request, Request.status == RequestStatus.REJECTED)
 
-        # By commune
+
         stmt = select(Request.commune, func.count(Request.id)).where(
             Request.status.not_in([RequestStatus.DRAFT, RequestStatus.REJECTED])
         ).group_by(Request.commune).order_by(desc(func.count(Request.id)))
         result = self.session.execute(stmt)
         by_commune = {row[0]: row[1] for row in result.all()}
 
-        # By category
+
         stmt2 = select(Request.category, func.count(Request.id)).where(
             Request.status.not_in([RequestStatus.DRAFT, RequestStatus.REJECTED])
         ).group_by(Request.category).order_by(desc(func.count(Request.id)))

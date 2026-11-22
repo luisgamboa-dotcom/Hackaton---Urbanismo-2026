@@ -19,23 +19,23 @@ from models.user import (
 )
 
 __all__ = [
-    # Base
+
     "Base",
     "TimestampMixin",
-    # Space
+
     "Space",
     "SpaceStatus",
     "SpaceCategory",
-    # Partner
+
     "Partner",
     "PartnerType",
-    # Impact Metric
+
     "ImpactMetric",
     "MetricKeys",
     "DEFAULT_METRICS",
-    # Community
+
     "Community",
-    # User & Requests
+
     "User",
     "Request",
     "RequestStatus",

@@ -33,15 +33,15 @@ from utils.stitch_sync import sync_tokens
 
 settings = get_settings()
 
-# Paths
+
 BASE_DIR = Path(__file__).parent
 TEMPLATES_DIR = BASE_DIR / "views"
 STATIC_DIR = BASE_DIR / "public"
 
-# Jinja2 templates
+
 templates = Jinja2Templates(directory=str(TEMPLATES_DIR))
 
-# Add custom filters to Jinja2
+
 templates.env.filters["format_number"] = format_number
 templates.env.filters["format_area_m2"] = format_area_m2
 templates.env.filters["format_date"] = format_date
@@ -56,7 +56,7 @@ templates.env.filters["slugify"] = slugify
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     """Application lifespan handler."""
-    # Startup
+
     if settings.database_url:
         try:
             init_and_seed_db()
@@ -66,7 +66,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     else:
         print("DATABASE_URL not set, skipping database initialization")
 
-    # Sync design tokens
+
     try:
         sync_tokens()
         print("Design tokens synced")
@@ -75,7 +75,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
     yield
 
-    # Shutdown
+
     close_db()
     print("Application shutdown complete")
 
@@ -89,14 +89,14 @@ app = FastAPI(
     redoc_url="/redoc" if settings.debug else None,
 )
 
-# Static files
+
 app.mount("/public", StaticFiles(directory=str(STATIC_DIR)), name="public")
 app.mount("/images", StaticFiles(directory=str(STATIC_DIR / "images")), name="images")
 
 
-# =============================================================================
-# WEB ROUTES (HTML)
-# =============================================================================
+
+
+
 
 
 @app.get("/", response_class=HTMLResponse, name="home")
@@ -123,7 +123,7 @@ async def spaces_list(
     """List all spaces with filters."""
     controller = APIController(session)
 
-    # Parse filters
+
     status_filter = None
     if status:
         with suppress(ValueError):
@@ -141,7 +141,7 @@ async def spaces_list(
         limit=50,
     )
 
-    # Get unique communes and categories for filter dropdowns
+
     from sqlalchemy import distinct, select
 
 
@@ -238,7 +238,7 @@ async def impact_page(
     """Impacto y métricas page."""
     controller = LandingController(session)
     data = controller.get_home_data()
-    # Get stats for impact page
+
     stats = controller.get_stats()
     data["stats"] = stats
     return templates.TemplateResponse(
@@ -439,9 +439,9 @@ async def health_check() -> dict[str, str]:
     }
 
 
-# =============================================================================
-# API ROUTES (JSON) - For future use
-# =============================================================================
+
+
+
 
 
 @app.get("/api/spaces", name="api_spaces_list")
@@ -530,9 +530,9 @@ async def api_map_spaces(
     )
 
 
-# =============================================================================
-# REQUESTS API ROUTES
-# =============================================================================
+
+
+
 
 
 @app.post("/api/requests", name="api_create_request")
@@ -543,7 +543,7 @@ async def api_create_request(
     """API: Create a new citizen request."""
     controller = RequestsController(session)
 
-    # Get or create user
+
     user = controller.get_or_create_user(
         name=request_data.get("user_name", ""),
         email=request_data.get("user_email", ""),
@@ -551,7 +551,7 @@ async def api_create_request(
         commune=request_data.get("user_commune"),
     )
 
-    # Create request
+
     request = controller.create_request(
         user_id=user.id,
         address=request_data.get("address", ""),
@@ -624,11 +624,11 @@ async def api_get_request_supports(
     if not request:
         return {"error": "Not found"}
 
-    # For now return count; user-specific check would need auth
+
     return {
         "request_id": request_id,
         "support_count": request.support_count,
-        "has_user_supported": False,  # Would need auth context
+        "has_user_supported": False,
     }
 
 
@@ -649,7 +649,7 @@ async def api_add_support(
     if not user_email:
         return {"success": False, "error": "Email requerido"}
 
-    # Get or create user
+
     user = controller.get_or_create_user(
         name=user_name or "Vecino",
         email=user_email,
@@ -657,16 +657,16 @@ async def api_add_support(
         commune=user_commune,
     )
 
-    # Add support
+
     support = controller.add_support(user.id, request_id)
 
     if support is None:
-        # Check if already supported
+
         if controller.has_user_supported(user.id, request_id):
             return {"success": False, "error": "Ya has apoyado esta solicitud"}
         return {"success": False, "error": "No se pudo agregar el apoyo"}
 
-    # Get updated count
+
     request = controller.get_request_by_id(request_id)
 
     return {
@@ -703,9 +703,9 @@ async def api_remove_support(
     }
 
 
-# =============================================================================
-# ORGANIZATIONS API ROUTES
-# =============================================================================
+
+
+
 
 
 @app.get("/api/organizations", name="api_list_organizations", response_model=None)
@@ -734,9 +734,9 @@ async def api_get_municipality(
     return org
 
 
-# =============================================================================
-# MODERATION API ROUTES
-# =============================================================================
+
+
+
 
 
 @app.get("/api/moderation/queue", name="api_moderation_queue")
@@ -760,8 +760,8 @@ async def api_moderate_request(
     """API: Moderate a request."""
     controller = RequestsController(session)
 
-    moderator_id = moderation_data.get("moderator_id", 1)  # Would come from auth
-    action = moderation_data.get("action")  # approve, reject, request_changes
+    moderator_id = moderation_data.get("moderator_id", 1)
+    action = moderation_data.get("action")
     reason = moderation_data.get("reason")
 
     if action not in ("approve", "reject", "request_changes"):
@@ -780,9 +780,9 @@ async def api_moderate_request(
     }
 
 
-# =============================================================================
-# MUNICIPAL PANEL API ROUTES
-# =============================================================================
+
+
+
 
 
 @app.get("/api/municipal/requests", name="api_municipal_requests")
@@ -796,8 +796,8 @@ async def api_municipal_requests(
     """API: Get requests for a municipality (requires auth in production)."""
     controller = RequestsController(session)
 
-    # In production, commune would come from authenticated municipal user
-    # For now, accept as query param
+
+
     if not commune:
         return {"error": "Comuna requerida"}
 
@@ -820,7 +820,7 @@ async def api_municipal_stats(
     if not commune:
         return {"error": "Comuna requerida"}
 
-    # Get stats filtered by commune
+
     from models import Request
 
     total = controller.count(Request, Request.commune == commune)
@@ -841,9 +841,9 @@ async def api_municipal_stats(
     }
 
 
-# =============================================================================
-# ROUTING/ADMIN API ROUTES
-# =============================================================================
+
+
+
 
 
 @app.post("/api/admin/process-routing", name="api_process_routing")
@@ -853,7 +853,7 @@ async def api_process_routing(
     """API: Process automatic routing for all pending requests (cron job)."""
     controller = RequestsController(session)
 
-    # Get all requests that are sent or waiting and past deadline
+
     from datetime import datetime
 
     from sqlalchemy import select
@@ -891,7 +891,7 @@ async def api_record_response(
 
     org_id = response_data.get("organization_id")
     content = response_data.get("content", "")
-    status = response_data.get("status")  # positive, negative, needs_info
+    status = response_data.get("status")
 
     if not org_id or not status:
         return {"success": False, "error": "organization_id y status requeridos"}
@@ -907,9 +907,9 @@ async def api_record_response(
     }
 
 
-# =============================================================================
-# STATISTICS API
-# =============================================================================
+
+
+
 
 
 @app.get("/api/requests/stats", name="api_request_stats")
@@ -921,9 +921,9 @@ async def api_request_stats(
     return controller.get_request_stats()
 
 
-# =============================================================================
-# ERROR HANDLERS
-# =============================================================================
+
+
+
 
 
 @app.exception_handler(404)

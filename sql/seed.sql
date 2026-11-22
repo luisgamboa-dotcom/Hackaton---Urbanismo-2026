@@ -1,12 +1,12 @@
--- =============================================================================
--- Seed Data for Trama Urbana Verde
--- Based on Business Model Canvas - Hackatón Urbanismo 2026
--- Run after init.sql
--- =============================================================================
 
--- =============================================================================
--- IMPACT METRICS (KPIs)
--- =============================================================================
+
+
+
+
+
+
+
+
 INSERT INTO impact_metrics (metric_key, value, label, icon, display_order) VALUES
     ('total_m2_recovered', 2450, 'm² de suelo vivo recuperados', 'leaf', 1),
     ('total_spaces', 12, 'Espacios intervenidos', 'map-pin', 2),
@@ -21,11 +21,11 @@ ON CONFLICT (metric_key) DO UPDATE SET
     display_order = EXCLUDED.display_order,
     updated_at = NOW();
 
--- =============================================================================
--- PARTNERS (Socios Clave del Canvas)
--- =============================================================================
+
+
+
 INSERT INTO partners (name, type, description, logo_url, website_url, is_active, display_order) VALUES
-    -- Municipalidades
+
     (
         'Municipalidad de Santiago',
         'municipality',
@@ -50,7 +50,7 @@ INSERT INTO partners (name, type, description, logo_url, website_url, is_active,
         'https://www.nunoa.cl',
         TRUE, 3
     ),
-    -- Empresas RSE
+
     (
         'Constructora Andes S.A.',
         'company_rse',
@@ -75,7 +75,7 @@ INSERT INTO partners (name, type, description, logo_url, website_url, is_active,
         'https://www.eem.cl',
         TRUE, 6
     ),
-    -- Gobierno
+
     (
         'Gobierno Regional Metropolitano',
         'municipality',
@@ -84,7 +84,7 @@ INSERT INTO partners (name, type, description, logo_url, website_url, is_active,
         'https://www.gobiernosantiago.cl',
         TRUE, 7
     ),
-    -- ONGs y Academia
+
     (
         'ONG Santiago Verde',
         'ngo',
@@ -101,7 +101,7 @@ INSERT INTO partners (name, type, description, logo_url, website_url, is_active,
         'https://www.fau.uchile.cl',
         TRUE, 9
     ),
-    -- Viveros
+
     (
         'Vivero Nativo Cordillera',
         'nursery',
@@ -110,7 +110,7 @@ INSERT INTO partners (name, type, description, logo_url, website_url, is_active,
         'https://www.viverocordillera.cl',
         TRUE, 10
     ),
-    -- Comunidades
+
     (
         'Junta de Vecinos Barrio Yungay',
         'community',
@@ -129,11 +129,11 @@ INSERT INTO partners (name, type, description, logo_url, website_url, is_active,
     )
 ON CONFLICT DO NOTHING;
 
--- =============================================================================
--- SPACES (Espacios de Intervención - Ejemplos reales)
--- =============================================================================
+
+
+
 INSERT INTO spaces (name, description, address, commune, latitude, longitude, area_m2, status, category, image_url, before_image_url, started_at, completed_at) VALUES
-    -- Completados
+
     (
         'Plaza Pocket Yungay',
         'Transformación de esquina residual en plaza de bolsillo con especies nativas (quillay, peumo), mobiliario modular de madera reciclada y señalética inclusiva. Incluye zona de estar para adultos mayores y juegos infantiles de bajo impacto.',
@@ -179,7 +179,7 @@ INSERT INTO spaces (name, description, address, commune, latitude, longitude, ar
         '2024-11-01',
         '2025-02-28'
     ),
-    -- En Progreso
+
     (
         'Corredor Verde Matucana',
         'Intervención lineal de 320 m² en veredas anchas y bandejones centrales. Jardineras modulares conectadas por senderos peatonales, arbolado nativo (arrayanes, pataguas) y mobiliario de descanso. Conecta Metro Matucana con Parque Quinta Normal.',
@@ -225,7 +225,7 @@ INSERT INTO spaces (name, description, address, commune, latitude, longitude, ar
         '2025-10-01',
         NULL
     ),
-    -- Identificados (Por iniciar)
+
     (
         'Lote Baldío Franklin',
         'Terreno de 800 m² en zona Franklin, actualmente microbasural. Potencial para mini bosque urbano (Miyawaki) con 300 árboles nativos densos. Requiere limpieza, remediación de suelo y permiso municipal.',
@@ -288,9 +288,9 @@ INSERT INTO spaces (name, description, address, commune, latitude, longitude, ar
     )
 ON CONFLICT DO NOTHING;
 
--- =============================================================================
--- COMMUNITIES (Comunidades / Juntas de Vecinos)
--- =============================================================================
+
+
+
 INSERT INTO communities (name, commune, contact_email, contact_phone, contact_person, member_count, space_id) VALUES
     (
         'Junta de Vecinos Barrio Yungay',
@@ -366,10 +366,10 @@ INSERT INTO communities (name, commune, contact_email, contact_phone, contact_pe
     )
 ON CONFLICT DO NOTHING;
 
--- =============================================================================
--- UPDATE METRICS BASED ON SEED DATA
--- =============================================================================
--- Recalculate metrics from actual data
+
+
+
+
 UPDATE impact_metrics SET
     value = (SELECT COUNT(*) FROM spaces),
     updated_at = NOW()
@@ -395,16 +395,15 @@ UPDATE impact_metrics SET
     updated_at = NOW()
 WHERE metric_key = 'total_communities';
 
--- Volunteers: estimate based on communities + spaces
+
 UPDATE impact_metrics SET
     value = (SELECT COALESCE(SUM(member_count), 0) FROM communities) + 100,
     updated_at = NOW()
 WHERE metric_key = 'total_volunteers';
 
--- =============================================================================
--- VERIFICATION QUERIES
--- =============================================================================
--- SELECT * FROM impact_metrics ORDER BY display_order;
--- SELECT * FROM partners ORDER BY display_order;
--- SELECT name, commune, status, category, area_m2 FROM spaces ORDER BY status, name;
--- SELECT * FROM communities ORDER BY name;
+
+
+
+
+
+

@@ -1,12 +1,12 @@
--- =============================================================================
--- Seed Data for User, Request, Organization tables (SQLite compatible)
--- =============================================================================
 
--- =============================================================================
--- ORGANIZATIONS (Contactos para derivación automática)
--- =============================================================================
 
--- Municipalidades (por comuna)
+
+
+
+
+
+
+
 INSERT OR REPLACE INTO organizations (id, name, type, email, phone, contact_person, commune, priority_order, is_active, auto_send, created_at, updated_at) VALUES
     (1, 'Municipalidad de Santiago', 'municipality', 'medioambiente@munistgo.cl', '+56 2 2698 1234', 'Dirección de Medio Ambiente', 'Santiago', 1, 1, 1, datetime('now'), datetime('now')),
     (2, 'Municipalidad de Estación Central', 'municipality', 'medioambiente@estacioncentral.cl', '+56 2 2777 1234', 'Dirección de Aseo y Ornato', 'Estación Central', 1, 1, 1, datetime('now'), datetime('now')),
@@ -49,7 +49,7 @@ INSERT OR REPLACE INTO organizations (id, name, type, email, phone, contact_pers
     (39, 'Municipalidad de Curacaví', 'municipality', 'medioambiente@curacavi.cl', '+56 2 2777 2233', 'Dirección de Medio Ambiente', 'Curacaví', 1, 1, 1, datetime('now'), datetime('now')),
     (40, 'Municipalidad de Padre Hurtado', 'municipality', 'parques@padrehurtado.cl', '+56 2 2777 3344', 'Dirección de Parques', 'Padre Hurtado', 1, 1, 1, datetime('now'), datetime('now'));
 
--- Empresas con RSE
+
 INSERT OR REPLACE INTO organizations (id, name, type, email, phone, contact_person, region, priority_order, is_active, auto_send, created_at, updated_at) VALUES
     (41, 'Constructora Andes S.A.', 'company', 'rse@andes.cl', '+56 2 2666 1111', 'Gerencia RSE', 'Metropolitana', 1, 1, 1, datetime('now'), datetime('now')),
     (42, 'Inmobiliaria Verde Urbana', 'company', 'sostenibilidad@verdeurbana.cl', '+56 2 2666 2222', 'Jefa de Sostenibilidad', 'Metropolitana', 2, 1, 1, datetime('now'), datetime('now')),
@@ -60,7 +60,7 @@ INSERT OR REPLACE INTO organizations (id, name, type, email, phone, contact_pers
     (47, 'CCU', 'company', 'sostenibilidad@ccu.cl', '+56 2 2666 7777', 'Gerencia RSE', 'Metropolitana', 7, 1, 1, datetime('now'), datetime('now')),
     (48, 'Entel', 'company', 'rse@entel.cl', '+56 2 2666 8888', 'Gerencia Sostenibilidad', 'Metropolitana', 8, 1, 1, datetime('now'), datetime('now'));
 
--- Colegios
+
 INSERT OR REPLACE INTO organizations (id, name, type, email, phone, contact_person, commune, region, priority_order, is_active, auto_send, created_at, updated_at) VALUES
     (49, 'Colegio República de México', 'school', 'direccion@republicamexico.cl', '+56 2 2666 1111', 'Director(a)', 'Santiago', 'Metropolitana', 1, 1, 1, datetime('now'), datetime('now')),
     (50, 'Colegio San Ignacio El Bosque', 'school', 'direccion@sanignacio.cl', '+56 2 2666 2222', 'Director(a)', 'Providencia', 'Metropolitana', 2, 1, 1, datetime('now'), datetime('now')),
@@ -71,7 +71,7 @@ INSERT OR REPLACE INTO organizations (id, name, type, email, phone, contact_pers
     (55, 'Colegio Craighouse', 'school', 'direccion@craighouse.cl', '+56 2 2666 7777', 'Director(a)', 'Lo Barnechea', 'Metropolitana', 7, 1, 1, datetime('now'), datetime('now')),
     (56, 'The Grange School', 'school', 'direccion@grange.cl', '+56 2 2666 8888', 'Director(a)', 'La Reina', 'Metropolitana', 8, 1, 1, datetime('now'), datetime('now'));
 
--- Universidades
+
 INSERT OR REPLACE INTO organizations (id, name, type, email, phone, contact_person, commune, region, priority_order, is_active, auto_send, created_at, updated_at) VALUES
     (57, 'Universidad de Chile - FAU', 'university', 'fau@uchile.cl', '+56 2 2978 1111', 'Decanato FAU', 'Santiago', 'Metropolitana', 1, 1, 1, datetime('now'), datetime('now')),
     (58, 'Pontificia Universidad Católica - FADEU', 'university', 'fadeu@uc.cl', '+56 2 2354 2222', 'Decanato FADEU', 'Santiago', 'Metropolitana', 2, 1, 1, datetime('now'), datetime('now')),
@@ -82,18 +82,18 @@ INSERT OR REPLACE INTO organizations (id, name, type, email, phone, contact_pers
     (63, 'Universidad Finis Terrae - Arquitectura', 'university', 'arquitectura@uft.cl', '+56 2 2666 7777', 'Dirección Escuela', 'Providencia', 'Metropolitana', 7, 1, 1, datetime('now'), datetime('now')),
     (64, 'Universidad del Desarrollo - Arquitectura', 'university', 'arquitectura@udd.cl', '+56 2 2666 8888', 'Dirección Escuela', 'Las Condes', 'Metropolitana', 8, 1, 1, datetime('now'), datetime('now'));
 
--- Redes Sociales (para derivación final)
+
 INSERT OR REPLACE INTO organizations (id, name, type, email, phone, contact_person, region, priority_order, is_active, auto_send, custom_subject, created_at, updated_at) VALUES
     (65, 'Trama Urbana Verde - Instagram', 'social_media', 'instagram@tramaurbanaverde.cl', NULL, 'Equipo Comunicaciones', 'Metropolitana', 1, 1, 0, 'Publicación en Instagram: Solicitud ciudadana de recuperación urbana', datetime('now'), datetime('now')),
     (66, 'Trama Urbana Verde - Twitter/X', 'social_media', 'twitter@tramaurbanaverde.cl', NULL, 'Equipo Comunicaciones', 'Metropolitana', 2, 1, 0, 'Hilo en Twitter/X: Solicitud ciudadana de recuperación urbana', datetime('now'), datetime('now')),
     (67, 'Trama Urbana Verde - LinkedIn', 'social_media', 'linkedin@tramaurbanaverde.cl', NULL, 'Equipo Comunicaciones', 'Metropolitana', 3, 1, 0, 'Publicación en LinkedIn: Solicitud ciudadana de recuperación urbana', datetime('now'), datetime('now')),
     (68, 'Trama Urbana Verde - Facebook', 'social_media', 'facebook@tramaurbanaverde.cl', NULL, 'Equipo Comunicaciones', 'Metropolitana', 4, 1, 0, 'Publicación en Facebook: Solicitud ciudadana de recuperación urbana', datetime('now'), datetime('now'));
 
--- =============================================================================
--- CONFIGURATION SETTINGS (stored as a simple key-value approach)
--- =============================================================================
 
--- Tabla de configuración para plazos y parámetros del sistema (SQLite compatible)
+
+
+
+
 CREATE TABLE IF NOT EXISTS system_config (
     key VARCHAR(100) PRIMARY KEY,
     value TEXT NOT NULL,

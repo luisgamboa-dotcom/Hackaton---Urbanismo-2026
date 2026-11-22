@@ -16,23 +16,23 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
-    # Application
+
     app_name: str = Field(default="Green Tech", alias="APP_NAME")
     app_env: str = Field(default="development", alias="APP_ENV")
     debug: bool = Field(default=True, alias="DEBUG")
 
-    # Database
+
     database_url: str = Field(default="", alias="DATABASE_URL")
 
-    # Stitch Design System
+
     stitch_project_id: str = Field(
         default="17540452302289583695", alias="STITCH_PROJECT_ID"
     )
 
-    # Security
+
     secret_key: str = Field(default="", alias="SECRET_KEY")
 
-    # Email (SMTP)
+
     smtp_host: str = Field(default="smtp.gmail.com", alias="SMTP_HOST")
     smtp_port: int = Field(default=587, alias="SMTP_PORT")
     smtp_username: str = Field(default="", alias="SMTP_USERNAME")
@@ -63,5 +63,5 @@ def get_settings() -> Settings:
     return Settings()
 
 
-# Global settings instance
+
 settings = get_settings()

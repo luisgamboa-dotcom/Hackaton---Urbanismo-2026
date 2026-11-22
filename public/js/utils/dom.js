@@ -1,15 +1,6 @@
-/*
- * DOM Utilities - Green Tech
- * Helper functions for DOM manipulation and queries
- */
 
-/**
- * Create element with attributes and children
- * @param {string} tag - HTML tag name
- * @param {Object} attrs - Attributes object
- * @param {...(string|HTMLElement)} children - Child nodes
- * @returns {HTMLElement}
- */
+
+
 export function createElement(tag, attrs = {}, ...children) {
   const el = document.createElement(tag);
 
@@ -40,70 +31,37 @@ export function createElement(tag, attrs = {}, ...children) {
   return el;
 }
 
-/**
- * Query selector with optional context
- * @param {string} selector - CSS selector
- * @param {Element|Document} context - Context element
- * @returns {Element|null}
- */
+
 export function $(selector, context = document) {
   return context.querySelector(selector);
 }
 
-/**
- * Query selector all with optional context
- * @param {string} selector - CSS selector
- * @param {Element|Document} context - Context element
- * @returns {Element[]}
- */
+
 export function $$(selector, context = document) {
   return Array.from(context.querySelectorAll(selector));
 }
 
-/**
- * Add class(es) to element
- * @param {HTMLElement} el - Element
- * @param {...string} classes - Classes to add
- */
+
 export function addClass(el, ...classes) {
   el.classList.add(...classes);
 }
 
-/**
- * Remove class(es) from element
- * @param {HTMLElement} el - Element
- * @param {...string} classes - Classes to remove
- */
+
 export function removeClass(el, ...classes) {
   el.classList.remove(...classes);
 }
 
-/**
- * Toggle class on element
- * @param {HTMLElement} el - Element
- * @param {string} className - Class to toggle
- * @param {boolean} force - Force add/remove
- * @returns {boolean} - New state
- */
+
 export function toggleClass(el, className, force) {
   return el.classList.toggle(className, force);
 }
 
-/**
- * Check if element has class
- * @param {HTMLElement} el - Element
- * @param {string} className - Class to check
- * @returns {boolean}
- */
+
 export function hasClass(el, className) {
   return el.classList.contains(className);
 }
 
-/**
- * Set multiple attributes at once
- * @param {HTMLElement} el - Element
- * @param {Object} attrs - Attributes object
- */
+
 export function setAttrs(el, attrs) {
   Object.entries(attrs).forEach(([key, value]) => {
     if (value === null || value === undefined) {
@@ -114,83 +72,47 @@ export function setAttrs(el, attrs) {
   });
 }
 
-/**
- * Get data attributes as object
- * @param {HTMLElement} el - Element
- * @returns {Object}
- */
+
 export function getData(el) {
   return { ...el.dataset };
 }
 
-/**
- * Set HTML content safely
- * @param {HTMLElement} el - Element
- * @param {string} html - HTML string
- */
+
 export function setHTML(el, html) {
   el.innerHTML = html;
 }
 
-/**
- * Append HTML content safely
- * @param {HTMLElement} el - Element
- * @param {string} html - HTML string
- */
+
 export function appendHTML(el, html) {
   el.insertAdjacentHTML("beforeend", html);
 }
 
-/**
- * Remove element from DOM
- * @param {HTMLElement} el - Element
- */
+
 export function remove(el) {
   el.remove();
 }
 
-/**
- * Empty element content
- * @param {HTMLElement} el - Element
- */
+
 export function empty(el) {
   el.innerHTML = "";
 }
 
-/**
- * Find closest ancestor matching selector
- * @param {HTMLElement} el - Element
- * @param {string} selector - CSS selector
- * @returns {Element|null}
- */
+
 export function closest(el, selector) {
   return el.closest(selector);
 }
 
-/**
- * Get siblings of element
- * @param {HTMLElement} el - Element
- * @returns {Element[]}
- */
+
 export function siblings(el) {
   return Array.from(el.parentNode.children).filter((child) => child !== el);
 }
 
-/**
- * Get index of element among siblings
- * @param {HTMLElement} el - Element
- * @returns {number}
- */
+
 export function index(el) {
   return Array.from(el.parentNode.children).indexOf(el);
 }
 
-/**
- * Debounce function
- * @param {Function} fn - Function to debounce
- * @param {number} wait - Wait time in ms
- * @returns {Function}
- */
+
 export function debounce(fn, wait) {
   let timeout;
   return function (...args) {
@@ -199,12 +121,7 @@ export function debounce(fn, wait) {
   };
 }
 
-/**
- * Throttle function
- * @param {Function} fn - Function to throttle
- * @param {number} limit - Limit time in ms
- * @returns {Function}
- */
+
 export function throttle(fn, limit) {
   let inThrottle;
   return function (...args) {
@@ -216,12 +133,7 @@ export function throttle(fn, limit) {
   };
 }
 
-/**
- * Wait for element to exist in DOM
- * @param {string} selector - CSS selector
- * @param {number} timeout - Timeout in ms
- * @returns {Promise<Element>}
- */
+
 export function waitForElement(selector, timeout = 5000) {
   return new Promise((resolve, reject) => {
     const element = document.querySelector(selector);
@@ -244,17 +156,13 @@ export function waitForElement(selector, timeout = 5000) {
   });
 }
 
-/**
- * Copy text to clipboard
- * @param {string} text - Text to copy
- * @returns {Promise<boolean>}
- */
+
 export async function copyToClipboard(text) {
   try {
     await navigator.clipboard.writeText(text);
     return true;
   } catch {
-    // Fallback for older browsers
+    
     const textarea = document.createElement("textarea");
     textarea.value = text;
     textarea.style.position = "fixed";
@@ -272,21 +180,12 @@ export async function copyToClipboard(text) {
   }
 }
 
-/**
- * Generate unique ID
- * @param {string} prefix - Prefix for ID
- * @returns {string}
- */
+
 export function uniqueId(prefix = "id") {
   return `${prefix}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
-/**
- * Check if element is in viewport
- * @param {HTMLElement} el - Element
- * @param {number} threshold - Threshold (0-1)
- * @returns {boolean}
- */
+
 export function inViewport(el, threshold = 0) {
   const rect = el.getBoundingClientRect();
   const windowHeight = window.innerHeight || document.documentElement.clientHeight;
@@ -298,11 +197,7 @@ export function inViewport(el, threshold = 0) {
   return vertInView && horInView;
 }
 
-/**
- * Smooth scroll to element
- * @param {HTMLElement|string} target - Element or selector
- * @param {Object} options - Scroll options
- */
+
 export function scrollTo(target, options = {}) {
   const el = typeof target === "string" ? document.querySelector(target) : target;
   if (!el) return;
@@ -319,10 +214,7 @@ export function scrollTo(target, options = {}) {
   });
 }
 
-/**
- * Lock/unlock body scroll
- * @param {boolean} lock - Whether to lock
- */
+
 export function lockScroll(lock) {
   if (lock) {
     document.body.style.overflow = "hidden";
@@ -333,7 +225,7 @@ export function lockScroll(lock) {
   }
 }
 
-// Export all as DOM namespace
+
 export const DOM = {
   create: createElement,
   $,

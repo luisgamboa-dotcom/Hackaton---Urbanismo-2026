@@ -79,7 +79,7 @@ class LandingController(BaseController):
 
     def get_value_props(self) -> list[dict]:
         """Get data for value proposition section (3 pillars)."""
-        # These are static content based on the business model canvas
+
         return [
             {
                 "icon": "leaf",
@@ -129,7 +129,7 @@ class LandingController(BaseController):
         """Get active partners ordered by display_order."""
         return self.get_all(
             Partner,
-            Partner.is_active == True,  # noqa: E712
+            Partner.is_active == True,
             order_by=Partner.display_order,
         )
 
@@ -153,14 +153,14 @@ class LandingController(BaseController):
         partners = self.get_active_partners()
         partners_by_type = self.get_partners_by_type()
 
-        # Enrich value props with actual metric values
+
         stats_dict = {s.metric_key: s for s in stats}
         for vp in value_props:
             if vp["metric_key"] in stats_dict:
                 vp["metric_value"] = stats_dict[vp["metric_key"]].formatted_value
                 vp["metric_label"] = stats_dict[vp["metric_key"]].label
 
-        # Spaces with coordinates for map fallback
+
         spaces_with_coords = self.get_all(
             Space,
             Space.latitude.is_not(None),

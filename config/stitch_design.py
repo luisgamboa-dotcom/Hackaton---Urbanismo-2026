@@ -7,17 +7,17 @@ via utils/stitch_sync.py and can be imported directly in Python for server-side 
 
 from dataclasses import dataclass
 
-# =============================================================================
-# COLOR PALETTE
-# =============================================================================
+
+
+
 
 @dataclass(frozen=True)
 class ColorPalette:
     """Complete color palette from Stitch design system."""
 
-    # Primary - Verde Botánico Profundo
+
     primary: str = "#1B4332"
-    primary_container: str = "#1B4332"  # alias
+    primary_container: str = "#1B4332"
     on_primary: str = "#FFFFFF"
     on_primary_container: str = "#86AF99"
     primary_fixed: str = "#C1ECD4"
@@ -25,7 +25,7 @@ class ColorPalette:
     on_primary_fixed: str = "#002114"
     on_primary_fixed_variant: str = "#274E3D"
 
-    # Secondary - Verde Follaje
+
     secondary: str = "#2D6A4F"
     secondary_container: str = "#AEEECB"
     on_secondary: str = "#FFFFFF"
@@ -35,7 +35,7 @@ class ColorPalette:
     on_secondary_fixed: str = "#002114"
     on_secondary_fixed_variant: str = "#0E5138"
 
-    # Tertiary - Terracota Cordillera (CTA)
+
     tertiary: str = "#E07A5F"
     tertiary_container: str = "#6D230F"
     on_tertiary: str = "#FFFFFF"
@@ -45,7 +45,7 @@ class ColorPalette:
     on_tertiary_fixed: str = "#3C0800"
     on_tertiary_fixed_variant: str = "#7C2E19"
 
-    # Surface / Background
+
     surface: str = "#F9FAF7"
     surface_bright: str = "#F9FAF7"
     surface_dim: str = "#D9DAD7"
@@ -57,41 +57,41 @@ class ColorPalette:
     on_surface: str = "#191C1B"
     on_surface_variant: str = "#414844"
 
-    # Background aliases
+
     background: str = "#F9FAF7"
     on_background: str = "#191C1B"
 
-    # Outline / Borders
+
     outline: str = "#717973"
     outline_variant: str = "#C1C8C2"
 
-    # Error
+
     error: str = "#BA1A1A"
     on_error: str = "#FFFFFF"
     error_container: str = "#FFDAD6"
     on_error_container: str = "#93000A"
 
-    # Inverse
+
     inverse_surface: str = "#2E312F"
     inverse_on_surface: str = "#F0F1EE"
     inverse_primary: str = "#A5D0B9"
 
-    # Surface tint
+
     surface_tint: str = "#3F6653"
 
-    # Surface variant
+
     surface_variant: str = "#E2E3E0"
 
-    # Neutrals (aliases for convenience)
-    neutral_base: str = "#F3F4F1"      # Hormigón Mineral Claro
-    neutral_border: str = "#E5E7EB"    # Borde sutil
-    neutral_card: str = "#FFFFFF"      # Tarjetas
-    neutral_secondary_bg: str = "#F8F9FA"  # Fondo secundario
+
+    neutral_base: str = "#F3F4F1"
+    neutral_border: str = "#E5E7EB"
+    neutral_card: str = "#FFFFFF"
+    neutral_secondary_bg: str = "#F8F9FA"
 
 
-# =============================================================================
-# TYPOGRAPHY
-# =============================================================================
+
+
+
 
 @dataclass(frozen=True)
 class TypographyScale:
@@ -100,11 +100,11 @@ class TypographyScale:
     font_family: str = "Plus Jakarta Sans"
     font_family_fallback: str = "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
 
-    # Display
+
     display_lg: dict[str, str] | None = None
     display_lg_mobile: dict[str, str] | None = None
 
-    # Headlines
+
     headline_xl: dict[str, str] | None = None
     headline_xl_mobile: dict[str, str] | None = None
     headline_lg: dict[str, str] | None = None
@@ -112,12 +112,12 @@ class TypographyScale:
     headline_md: dict[str, str] | None = None
     headline_sm: dict[str, str] | None = None
 
-    # Body
+
     body_lg: dict[str, str] | None = None
     body_md: dict[str, str] | None = None
     body_sm: dict[str, str] | None = None
 
-    # Labels
+
     label_lg: dict[str, str] | None = None
     label_md: dict[str, str] | None = None
     label_sm: dict[str, str] | None = None
@@ -181,28 +181,28 @@ class TypographyScale:
         })
 
 
-# =============================================================================
-# SPACING
-# =============================================================================
+
+
+
 
 @dataclass(frozen=True)
 class SpacingScale:
     """Spacing scale from Stitch."""
 
-    # Base units
-    space_xs: str = "0.25rem"   # 4px
-    space_sm: str = "0.5rem"    # 8px
-    space_md: str = "1rem"      # 16px
-    space_lg: str = "1.5rem"    # 24px
-    space_xl: str = "2.5rem"    # 40px
 
-    # Layout
-    gutter: str = "1.5rem"           # 24px - desktop
-    gutter_mobile: str = "1rem"      # 16px - mobile
-    margin: str = "3rem"             # 48px - desktop
-    margin_mobile: str = "1.25rem"   # 20px - mobile
+    space_xs: str = "0.25rem"
+    space_sm: str = "0.5rem"
+    space_md: str = "1rem"
+    space_lg: str = "1.5rem"
+    space_xl: str = "2.5rem"
 
-    # Container
+
+    gutter: str = "1.5rem"
+    gutter_mobile: str = "1rem"
+    margin: str = "3rem"
+    margin_mobile: str = "1.25rem"
+
+
     container_max: str = "1280px"
 
     @property
@@ -217,44 +217,44 @@ class SpacingScale:
         }
 
 
-# =============================================================================
-# BORDER RADIUS
-# =============================================================================
+
+
+
 
 @dataclass(frozen=True)
 class BorderRadius:
     """Border radius scale from Stitch (Roundness level 2)."""
 
     none: str = "0"
-    sm: str = "0.25rem"    # 4px
-    base: str = "0.5rem"   # 8px - componentes base (botones, inputs, chips)
-    md: str = "0.75rem"    # 12px
-    lg: str = "1rem"       # 16px - tarjetas, paneles
-    xl: str = "1.5rem"     # 24px - modales, overlays
-    full: str = "9999px"   # pill / cápsulas
+    sm: str = "0.25rem"
+    base: str = "0.5rem"
+    md: str = "0.75rem"
+    lg: str = "1rem"
+    xl: str = "1.5rem"
+    full: str = "9999px"
 
 
-# =============================================================================
-# SHADOWS
-# =============================================================================
+
+
+
 
 @dataclass(frozen=True)
 class Shadows:
     """Shadow system from Stitch (tinted with primary color)."""
 
-    # Base shadow - atmospheric, subtle
+
     base: str = "0 1px 3px rgba(27, 67, 50, 0.04), 0 1px 2px rgba(27, 67, 50, 0.02)"
 
-    # Hover / elevated state
+
     hover: str = "0 12px 28px -4px rgba(27, 67, 50, 0.08), 0 4px 10px -2px rgba(27, 67, 50, 0.03)"
 
-    # Focus ring (for accessibility)
+
     focus_ring: str = "0 0 0 3px rgba(45, 106, 79, 0.2)"
 
 
-# =============================================================================
-# BREAKPOINTS
-# =============================================================================
+
+
+
 
 @dataclass(frozen=True)
 class Breakpoints:
@@ -273,18 +273,18 @@ class Breakpoints:
         }
 
 
-# =============================================================================
-# COMPONENT VARIANTS
-# =============================================================================
+
+
+
 
 @dataclass(frozen=True)
 class ButtonVariants:
     """Button style variants."""
 
     primary: dict[str, str] | None = None
-    cta: dict[str, str] | None = None          # Call to Action - Tertiary color
-    secondary: dict[str, str] | None = None    # Outlined
-    tertiary: dict[str, str] | None = None     # Ghost
+    cta: dict[str, str] | None = None
+    secondary: dict[str, str] | None = None
+    tertiary: dict[str, str] | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "primary", {
@@ -298,7 +298,7 @@ class ButtonVariants:
             "bg": "var(--color-tertiary)",
             "color": "var(--color-on-tertiary)",
             "border": "none",
-            "hover_bg": "#D46A4F",  # slightly darker
+            "hover_bg": "#D46A4F",
             "transition": "all 200ms ease-out",
         })
         object.__setattr__(self, "secondary", {
@@ -351,11 +351,11 @@ class CardVariants:
         })
 
 
-# =============================================================================
-# EXPORTED INSTANCES
-# =============================================================================
 
-# Single instances for easy importing
+
+
+
+
 colors = ColorPalette()
 typography = TypographyScale()
 spacing = SpacingScale()
@@ -365,7 +365,7 @@ breakpoints = Breakpoints()
 buttons = ButtonVariants()
 cards = CardVariants()
 
-# Convenience dict for CSS variable generation
+
 ALL_TOKENS = {
     "colors": colors.__dict__,
     "typography": {k: v for k, v in typography.__dict__.items() if not k.startswith("_")},
@@ -385,39 +385,39 @@ def get_css_variables() -> str:
     """
     lines = [":root {"]
 
-    # Colors
+
     for key, value in colors.__dict__.items():
         if not key.startswith("_"):
             css_key = key.replace("_", "-")
             lines.append(f"  --color-{css_key}: {value};")
 
-    # Spacing
+
     for key, value in spacing.__dict__.items():
         if not key.startswith("_"):
             css_key = key.replace("_", "-")
             lines.append(f"  --space-{css_key}: {value};")
 
-    # Radius
+
     for key, value in radius.__dict__.items():
         if not key.startswith("_"):
             lines.append(f"  --radius-{key}: {value};")
 
-    # Shadows
+
     for key, value in shadows.__dict__.items():
         if not key.startswith("_"):
             css_key = key.replace("_", "-")
             lines.append(f"  --shadow-{css_key}: {value};")
 
-    # Breakpoints (as CSS variables for reference)
+
     for key, value in breakpoints.__dict__.items():
         if not key.startswith("_") and key != "media_queries":
             lines.append(f"  --bp-{key}: {value};")
 
-    # Typography (font family)
+
     lines.append(f"  --font-family: '{typography.font_family}', {typography.font_family_fallback};")
     lines.append("  --font-family-mono: 'Geist Mono', 'JetBrains Mono', monospace;")
 
-    # Container
+
     lines.append(f"  --container-max: {spacing.container_max};")
 
     lines.append("}")
@@ -425,5 +425,5 @@ def get_css_variables() -> str:
 
 
 if __name__ == "__main__":
-    # Print CSS variables for verification
+
     print(get_css_variables())

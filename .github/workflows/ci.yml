@@ -81,13 +81,13 @@ jobs:
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
-        if: github.repository_owner == 'your-org'  # Only for org repos
+        if: github.repository_owner == 'your-org'
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage.xml
           fail_ci_if_error: false
 
-  # Combined check for branch protection
+
   ci-check:
     name: CI Check (Required for merge)
     runs-on: ubuntu-latest
